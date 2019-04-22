@@ -146,7 +146,7 @@ autocmd initvim FileType cpp setlocal textwidth=80
 autocmd initvim FileType help setlocal textwidth=78
 autocmd initvim FileType gitcommit setlocal textwidth=72
 autocmd initvim FileType html,conkyrc,config,python setlocal textwidth=0
-autocmd BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0
+autocmd initvim BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0
 autocmd initvim BufEnter * setlocal formatoptions-=c formatoptions-=o
   \  formatoptions-=r formatoptions+=t formatoptions+=j
 " formatting. }}}
