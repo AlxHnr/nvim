@@ -378,6 +378,11 @@ call s:localPlug('project-chdir.vim')
 call s:localPlug('ultisnips-snippets')
 call s:localPlug('vim-spell-files')
 
+let s:vim_custom_config = expand('~/.config/nvim/custom/init.vim')
+if filereadable(s:vim_custom_config)
+  execute 'source ' . s:vim_custom_config
+endif
+
 call plug#end()
 " plugins. }}}
 
@@ -437,11 +442,4 @@ function! s:discardUndoHistory() " {{{
 endfunction " }}}
 nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
 " Discard undo history. }}}
-
-" Load extra config. {{{
-let s:vim_extra_config = expand('~/.config/nvim/extra.vim')
-if filereadable(s:vim_extra_config)
-  execute 'source ' . s:vim_extra_config
-endif
-" Load extra config. }}}
 " misc. }}}
