@@ -382,6 +382,8 @@ let s:vim_custom_config = expand('~/.config/nvim/custom/init.vim')
 if filereadable(s:vim_custom_config)
   execute 'source ' . s:vim_custom_config
 endif
+autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim
+  \ source ~/.config/nvim/init.vim
 
 call plug#end()
 " plugins. }}}
