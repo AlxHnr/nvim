@@ -97,7 +97,7 @@ set inccommand=nosplit
 noremap / /\v
 noremap ? ?\v
 noremap # :let @/='\<' . expand('<cword>') . '\>'<cr>N
-noremap <c-n> nzOzz
+noremap <c-n> nzzzO
 nnoremap <silent> <Esc><Esc> :nohlsearch<cr>
 nnoremap <silent> <leader>gg
   \ :grep! -riIE --exclude-dir=build/ '/' .<cr>:copen<cr>
