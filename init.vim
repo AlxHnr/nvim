@@ -431,6 +431,10 @@ set statusline+=%=%-8.(%l,%c%)\ %P
 
 " Discard undo history. {{{
 function! s:discardUndoHistory() " {{{
+  if &modifiable == 0
+    return
+  endif
+
   let l:prev_undolevels = &undolevels
   let l:prev_modified = &modified
 
