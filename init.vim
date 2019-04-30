@@ -10,7 +10,7 @@ set scrolloff=3
 set history=10000
 set nowrap
 set mouse=a
-set shada=!,'1000,<50,s10,h
+set shada=!,'10000,<50,s10,h
 syntax on
 
 set cursorline
