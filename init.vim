@@ -142,7 +142,6 @@ set nojoinspaces
 nnoremap Q mqgqip`q
 nnoremap <a-q> mqgqi{`q
 
-autocmd initvim FileType cpp setlocal textwidth=80
 autocmd initvim FileType help setlocal textwidth=78
 autocmd initvim FileType gitcommit setlocal textwidth=72
 autocmd initvim FileType html,conkyrc,config,python setlocal textwidth=0
@@ -210,6 +209,15 @@ let g:polyglot_disabled = [ 'markdown', 'sh' ]
 
 " vim-autoformat. {{{
 Plug 'Chiel92/vim-autoformat'
+
+" Wraps :Autoformat into a formatexpr.
+function! CustomFormatExpression() " {{{
+  execute v:lnum . ',' . (v:lnum + v:count - 1) . 'Autoformat'
+endfunction " }}}
+
+autocmd initvim FileType c,cpp
+  \ setlocal textwidth=0 formatexpr=CustomFormatExpression()
+autocmd initvim FileType c,cpp noremap <buffer> = gq
 " vim-autoformat. }}}
 
 " vim-table-mode. {{{
