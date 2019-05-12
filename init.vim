@@ -156,7 +156,7 @@ set softtabstop=-1
 set expandtab
 
 set smartindent
-set cinoptions=L2,:2,h0,c0,(0,U0,w1
+set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
 let g:vim_indent_cont = &shiftwidth
 
 " indent after pasting.
