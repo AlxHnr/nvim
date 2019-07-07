@@ -236,7 +236,8 @@ autocmd initvim FileType markdown,text silent TableModeEnable
 Plug 'ntpeters/vim-better-whitespace'
 
 let g:better_whitespace_filetypes_blacklist =
-  \ [ 'qf', 'diff', 'git', 'fugitive', 'vim-plug' ]
+  \ [ 'qf', 'diff', 'git', 'vim-plug' ]
+autocmd initvim FileType fugitive DisableWhitespace
 
 nnoremap <silent> <leader>tw :ToggleWhitespace<cr>
 " vim-better-whitespace. }}}
