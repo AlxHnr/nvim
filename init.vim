@@ -456,4 +456,14 @@ function! s:discardUndoHistory() " {{{
 endfunction " }}}
 nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
 " Discard undo history. }}}
+
+function! s:UpdateIncludeGuards() " {{{
+  python3 from snippet_module_c import get_current_header_string
+  let l:header_string = py3eval('get_current_header_string()')
+  let l:current_cursor = getpos('.')
+  silent execute '%s/\v^(#(ifndef|define)\s+)([^_]+_\w+_h(pp)?\s*$)/\1'
+    \ . l:header_string
+  call setpos('.', l:current_cursor)
+endfunction " }}}
+command! UpdateIncludeGuards call s:UpdateIncludeGuards()
 " misc. }}}
