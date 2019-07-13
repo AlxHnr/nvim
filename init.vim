@@ -463,7 +463,7 @@ function! s:UpdateIncludeGuards() " {{{
   let l:header_string = py3eval('get_current_header_string()')
   let l:current_cursor = getpos('.')
   silent execute '%s/\v^(#(ifndef|define)\s+)([^_]+_\w+_h(pp)?\s*$)/\1'
-    \ . l:header_string
+    \ . l:header_string . '/e'
   call setpos('.', l:current_cursor)
 endfunction " }}}
 command! UpdateIncludeGuards call s:UpdateIncludeGuards()
