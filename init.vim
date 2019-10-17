@@ -189,6 +189,7 @@ Plug 'tpope/vim-fugitive'
 nnoremap <silent> <F10> :Gstatus<cr>
 nnoremap <silent> <F11> :Gcommit<cr>
 nnoremap <silent> <F12> :Git push<cr>
+autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
 " vim-fugitive. }}}
 
