@@ -319,8 +319,6 @@ let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_python_binary_path = '/usr/bin/python2.7'
-let g:ycm_path_to_python_interpreter = '/usr/bin/python2.7'
 let g:ycm_clangd_binary_path = '/usr/bin/clangd'
 let g:ycm_use_clangd = 0
 
