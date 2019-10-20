@@ -331,20 +331,44 @@ endfunction " }}}
 command! RebuildYCM call s:RebuildYCM()
 
 function! s:Remapgd() " {{{
-  if &filetype =~ '\v^c(pp)?$'
-    nnoremap <buffer> gd :YcmCompleter GoToDeclaration<cr>
-  elseif &filetype =~ 'python'
+  if has_key({ 'c': 1, 'cpp': 1, 'python': 1 }, &filetype)
     nnoremap <buffer> gd :YcmCompleter GoToDefinition<cr>
   endif
 endfunction " }}}
 
-autocmd initvim FileType * call <sid>Remapgd()
 autocmd initvim WinEnter *
   \ if &previewwindow
   \| setlocal syntax=cpp wrap
   \| endif
-nnoremap <silent> <leader>gd :YcmCompleter GetDoc<cr>
+autocmd initvim FileType * call <sid>Remapgd()
+nnoremap <silent> <leader>gd :YcmCompleter GetHover<cr>
+nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 " YouCompleteMe. }}}
+
+" ccls. {{{
+Plug 'MaskRay/ccls', { 'do': ':RebuildCCLS' }
+
+let g:ycm_language_server =
+  \ [
+  \   {
+  \     'name': 'ccls',
+  \     'cmdline':
+  \     [
+  \       expand('~/.config/nvim/ccls'),
+  \       '-init={"cache":{"directory":"/tmp/ccls-cache"}}',
+  \     ],
+  \     'project_root_files': [ 'compile_commands.json' ],
+  \     'filetypes': [ 'c', 'cpp' ],
+  \   }
+  \ ]
+
+function! s:RebuildCCLS() " {{{
+  botright new
+  call termopen('~/.config/nvim/rebuild-ccls.sh')
+  startinsert
+endfunction " }}}
+command! RebuildCCLS call s:RebuildCCLS()
+" ccls. }}}
 
 " Wrapper around :Plug, which prefers local plugins in '~/projects'.
 function! s:localPlug(name) " {{{
