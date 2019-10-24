@@ -322,10 +322,10 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_clangd_binary_path = '/usr/bin/clangd'
 let g:ycm_use_clangd = 0
 
-" Custom function to rebuild YouCompleteMe.
+" Rebuild YouCompleteMe in a split terminal window.
 function! s:RebuildYCM() " {{{
   botright new
-  call termopen('~/.config/nvim/rebuild-youcompleteme.sh')
+  call termopen('python3 ~/.config/nvim/plugged/YouCompleteMe/install.py')
   startinsert
 endfunction " }}}
 command! RebuildYCM call s:RebuildYCM()
