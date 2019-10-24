@@ -319,8 +319,6 @@ let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_clangd_binary_path = '/usr/bin/clangd'
-let g:ycm_use_clangd = 0
 
 " Rebuild YouCompleteMe in a split terminal window.
 function! s:RebuildYCM() " {{{
