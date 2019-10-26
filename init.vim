@@ -338,7 +338,7 @@ autocmd initvim WinEnter *
   \ if &previewwindow
   \| setlocal syntax=cpp wrap
   \| endif
-autocmd initvim FileType * call <sid>Remapgd()
+autocmd initvim FileType * call s:Remapgd()
 nnoremap <silent> <leader>gd :YcmCompleter GetHover<cr>
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 " YouCompleteMe. }}}
