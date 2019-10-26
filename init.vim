@@ -204,7 +204,7 @@ Plug 'tpope/vim-eunuch'
 " vim-polyglot. {{{
 Plug 'sheerun/vim-polyglot'
 
-let g:polyglot_disabled = [ 'markdown', 'sh' ]
+let g:polyglot_disabled = [ 'latex', 'markdown', 'sh' ]
 " vim-polyglot. }}}
 
 " vim-autoformat. {{{
@@ -395,11 +395,11 @@ command! -nargs=* CMakeInit execute 'BuildInit'
   \ . ' <args>'
 " build.vim. }}}
 
-" latex_preview. {{{
-call s:localPlug('latex_preview')
+" vimtex. {{{
+Plug 'lervag/vimtex'
 
-let g:latex_preview#compiler_args = '-shell-escape'
-" latex_preview. }}}
+let g:vimtex_quickfix_mode = 0
+" vimtex. }}}
 
 call s:localPlug('clear_colors')
 call s:localPlug('clear_fold_text')
