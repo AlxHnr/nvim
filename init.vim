@@ -381,13 +381,26 @@ endfunction " }}}
 " build.vim. {{{
 call s:localPlug('build.vim')
 
-let s:build_c_flags = '-Wall -Wextra -pedantic -O0 -coverage -ggdb'
+" Passes the current build systems default target to :Build.
+function! s:build_default_target() " {{{
+  let l:build_system = build#get_current_build_system()
+  let l:systems_without_default_target =
+    \ { 'Autotools': 1, 'Make': 1, 'CMake': 1 }
+
+  if !empty(l:build_system) &&
+    \ has_key(l:systems_without_default_target, l:build_system.name)
+    Build
+  else
+    Build build
+  endif
+endfunction " }}}
 
 nnoremap <silent> <F1> :wall<cr>:Build clean<cr>
-nnoremap <silent> <F2> :wall<cr>:Build build<cr>
+nnoremap <silent> <F2> :wall<cr>:call <sid>build_default_target()<cr>
 nnoremap <silent> <F3> :wall<cr>:Build test<cr>
 nnoremap <silent> <F4> :wall<cr>:Build run<cr>
 
+let s:build_c_flags = '-Wall -Wextra -pedantic -O0 -coverage -ggdb'
 command! -nargs=* CMakeInit execute 'BuildInit'
   \ . ' -DCMAKE_C_FLAGS="'   . s:build_c_flags . '"'
   \ . ' -DCMAKE_CXX_FLAGS="' . s:build_c_flags
