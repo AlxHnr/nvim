@@ -56,8 +56,9 @@ and_extract()
   mv ".tmp__$filename" "$filename"
 )
 
-mkdir -p "$HOME/.config/nvim/bin"
-cd "$HOME/.config/nvim/bin"
+cd "$(dirname "$0")"
+mkdir -p bin
+cd bin/
 
 fetch and_rename nvim 58ef252e4b26b5589d0f5024952004557196dcbe0cec1674985e1ad591d8b5aa \
   "https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage"
