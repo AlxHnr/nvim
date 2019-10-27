@@ -59,5 +59,7 @@ and_extract()
 mkdir -p "$HOME/.config/nvim/bin"
 cd "$HOME/.config/nvim/bin"
 
+fetch and_rename nvim 58ef252e4b26b5589d0f5024952004557196dcbe0cec1674985e1ad591d8b5aa \
+  "https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage"
 fetch and_extract fzf 076e7cc001afa08d74ebed9c6edfd98bcbf58b8a107fd640dd72aeb4dba54eef \
   "https://github.com/junegunn/fzf-bin/releases/download/0.18.0/fzf-0.18.0-linux_amd64.tgz"
