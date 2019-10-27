@@ -172,6 +172,22 @@ autocmd initvim FileType markdown,tex,gitcommit setlocal spell
 autocmd initvim FileType git,qf setlocal nospell
 nnoremap <leader>s 1z=
 " spell checking. }}}
+
+" Setup $PATH. {{{
+function! s:setupPathVariable() " {{{
+  let l:paths = split($PATH, ':')
+  let l:path_to_bin = expand('~/.config/nvim/bin')
+
+  for l:path in l:paths
+    if l:path == l:path_to_bin
+      return
+    endif
+  endfor
+
+  let $PATH .= ':' . l:path_to_bin
+endfunction " }}}
+call s:setupPathVariable()
+" Setup $PATH. }}}
 " general settings. }}}
 
 " plugins. {{{
@@ -350,11 +366,7 @@ let g:ycm_language_server =
   \ [
   \   {
   \     'name': 'ccls',
-  \     'cmdline':
-  \     [
-  \       expand('~/.config/nvim/bin/ccls'),
-  \       '-init={"cache":{"directory":"/tmp/ccls-cache"}}',
-  \     ],
+  \     'cmdline': [ 'ccls', '-init={"cache":{"directory":"/tmp/ccls-cache"}}' ],
   \     'project_root_files': [ 'compile_commands.json' ],
   \     'filetypes': [ 'c', 'cpp' ],
   \   }
