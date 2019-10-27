@@ -352,7 +352,7 @@ let g:ycm_language_server =
   \     'name': 'ccls',
   \     'cmdline':
   \     [
-  \       expand('~/.config/nvim/ccls'),
+  \       expand('~/.config/nvim/bin/ccls'),
   \       '-init={"cache":{"directory":"/tmp/ccls-cache"}}',
   \     ],
   \     'project_root_files': [ 'compile_commands.json' ],
