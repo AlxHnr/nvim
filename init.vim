@@ -344,7 +344,7 @@ nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 " YouCompleteMe. }}}
 
 " ccls. {{{
-Plug 'MaskRay/ccls', { 'do': ':RebuildCCLS' }
+Plug 'MaskRay/ccls', { 'do': ':RebuildCCLS', 'frozen': 1 }
 
 let g:ycm_language_server =
   \ [
