@@ -58,3 +58,6 @@ and_extract()
 
 mkdir -p "$HOME/.config/nvim/bin"
 cd "$HOME/.config/nvim/bin"
+
+fetch and_extract fzf 076e7cc001afa08d74ebed9c6edfd98bcbf58b8a107fd640dd72aeb4dba54eef \
+  "https://github.com/junegunn/fzf-bin/releases/download/0.18.0/fzf-0.18.0-linux_amd64.tgz"

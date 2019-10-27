@@ -277,31 +277,15 @@ autocmd! User GoyoEnter nested setlocal nocursorline
 " goyo.vim. }}}
 
 " fuzzy search. {{{
-if executable('fzf')
-  Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
-  let $FZF_DEFAULT_COMMAND =
-    \ 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
-  let g:fzf_command_prefix = 'FZF'
+let $FZF_DEFAULT_COMMAND =
+  \ 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
+let g:fzf_command_prefix = 'FZF'
 
-  nnoremap <c-p> :FZFFiles<cr>
-  nnoremap <c-f> :FZFHistory<cr>
-else
-  Plug 'ctrlpvim/ctrlp.vim'
-
-  let g:ctrlp_show_hidden = 1
-  let g:ctrlp_open_new_file = 'r'
-  let g:ctrlp_open_multiple_files = 'v'
-  let g:ctrlp_working_path_mode = '0'
-  let g:ctrlp_custom_ignore =
-    \ {
-    \   'dir':  '\v[\/](\.(git|hg|svn|cache|thumbnails|icons|themes)|'
-    \           . '.config/nvim/plugged|build)$',
-    \   'file': '\v\.(mp3|pdf|a|o|so|dll|class|pyc|bin)$',
-    \ }
-
-  nnoremap <c-f> :CtrlPMRUFiles<cr>
-endif
+nnoremap <c-p> :FZFFiles<cr>
+nnoremap <c-f> :FZFHistory<cr>
 " fuzzy search. }}}
 
 " ale. {{{
