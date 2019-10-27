@@ -348,17 +348,6 @@ nnoremap <silent> <leader>gd :YcmCompleter GetHover<cr>
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 " YouCompleteMe. }}}
 
-" texlab. }}}
-let g:ycm_language_server +=
-  \ [
-  \   {
-  \     'name': 'texlab',
-  \     'cmdline': [ 'texlab' ],
-  \     'filetypes': [ 'tex' ],
-  \   }
-  \ ]
-" texlab. }}}
-
 " ccls. {{{
 Plug 'MaskRay/ccls', { 'do': ':RebuildCCLS', 'frozen': 1 }
 
@@ -379,6 +368,23 @@ function! s:RebuildCCLS() " {{{
 endfunction " }}}
 command! RebuildCCLS call s:RebuildCCLS()
 " ccls. }}}
+
+" texlab. {{{
+let g:ycm_language_server +=
+  \ [
+  \   {
+  \     'name': 'texlab',
+  \     'cmdline': [ 'texlab' ],
+  \     'filetypes': [ 'tex' ],
+  \   }
+  \ ]
+" texlab. }}}
+
+" vimtex. {{{
+Plug 'lervag/vimtex'
+
+let g:vimtex_quickfix_mode = 0
+" vimtex. }}}
 
 " Wrapper around :Plug, which prefers local plugins in '~/projects'.
 function! s:localPlug(name) " {{{
@@ -419,12 +425,6 @@ command! -nargs=* CMakeInit execute 'BuildInit'
   \ . ' -Wno-missing-field-initializers"'
   \ . ' <args>'
 " build.vim. }}}
-
-" vimtex. {{{
-Plug 'lervag/vimtex'
-
-let g:vimtex_quickfix_mode = 0
-" vimtex. }}}
 
 call s:localPlug('clear_colors')
 call s:localPlug('clear_fold_text')
