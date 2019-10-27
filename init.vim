@@ -289,7 +289,7 @@ nnoremap <c-f> :FZFHistory<cr>
 " fuzzy search. }}}
 
 " ale. {{{
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 let g:ale_linters = {}
 let g:ale_linters['c'] = []
