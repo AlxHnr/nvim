@@ -10,4 +10,5 @@ pip3 install --user neovim --upgrade
 
 ./bin/nvim +PlugUpdate +qall
 
+echo
 echo "SUCCESS!"
