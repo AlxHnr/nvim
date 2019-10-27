@@ -265,7 +265,7 @@ if executable('fzf')
   Plug 'junegunn/fzf.vim'
 
   let $FZF_DEFAULT_COMMAND =
-    \ 'find . -name .git -a -type d -prune -o -type f -print'
+    \ 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
   let g:fzf_command_prefix = 'FZF'
 
   nnoremap <c-p> :FZFFiles<cr>
