@@ -330,8 +330,12 @@ endfunction " }}}
 command! RebuildYCM call s:RebuildYCM()
 
 function! s:Remapgd() " {{{
-  if has_key({ 'c': 1, 'cpp': 1, 'python': 1 }, &filetype)
-    nnoremap <buffer> gd :YcmCompleter GoToDefinition<cr>
+  let l:use_ycm_goto = {
+    \  'c': 1, 'cpp': 1, 'python': 1, 'tex': 1,
+    \ }
+
+  if has_key(l:use_ycm_goto, &filetype)
+    nnoremap <silent><buffer> gd :YcmCompleter GoToDefinition<cr>
   endif
 endfunction " }}}
 
