@@ -29,8 +29,6 @@ fetch()
 
   "$process_download_callback" .tmp_download "$filename" "$sha256"
   chmod +x "$filename"
-
-  printf "SUCCESS: %s\n" "$filename"
 )
 
 and_rename()
