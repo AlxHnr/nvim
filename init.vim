@@ -191,6 +191,29 @@ call s:setupPathVariable()
 " general settings. }}}
 
 " plugins. {{{
+
+" Build the given plugin if required. This function can be passed to
+" vim-plug.
+function! BuildPlugin(info) " {{{
+  if a:info.name == 'YouCompleteMe'
+    let l:cmd = 'python3 ' . expand('~/.config/nvim/plugged/YouCompleteMe/install.py')
+  elseif a:info.name == 'ccls'
+    let l:cmd = expand('~/.config/nvim/rebuild-ccls.sh')
+  else
+    return
+  endif
+
+  " Run build command in split terminal window if this function was not
+  " called by vim-plug.
+  if !has_key(a:info, 'status')
+    botright new
+    call termopen(l:cmd)
+    startinsert
+  elseif a:info.status != 'unchanged'
+    execute '!' . l:cmd
+  endif
+endfunction " }}}
+
 call plug#begin()
 
 " netrw. {{{
@@ -310,7 +333,7 @@ autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
 " ultisnips. }}}
 
 " YouCompleteMe. {{{
-Plug 'Valloric/YouCompleteMe', { 'do': ':RebuildYCM' }
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildPlugin') }
 
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
@@ -320,14 +343,6 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_language_server = []
-
-" Rebuild YouCompleteMe in a split terminal window.
-function! s:RebuildYCM() " {{{
-  botright new
-  call termopen('python3 ~/.config/nvim/plugged/YouCompleteMe/install.py')
-  startinsert
-endfunction " }}}
-command! RebuildYCM call s:RebuildYCM()
 
 function! s:Remapgd() " {{{
   let l:use_ycm_goto = {
@@ -346,10 +361,12 @@ autocmd initvim WinEnter *
 autocmd initvim FileType * call s:Remapgd()
 nnoremap <silent> <leader>gd :YcmCompleter GetHover<cr>
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
+
+command! RebuildYCM call BuildPlugin({'name': 'YouCompleteMe'})
 " YouCompleteMe. }}}
 
 " ccls. {{{
-Plug 'MaskRay/ccls', { 'do': ':RebuildCCLS', 'frozen': 1 }
+Plug 'MaskRay/ccls', { 'do': function('BuildPlugin'), 'frozen': 1 }
 
 let g:ycm_language_server +=
   \ [
@@ -361,12 +378,7 @@ let g:ycm_language_server +=
   \   }
   \ ]
 
-function! s:RebuildCCLS() " {{{
-  botright new
-  call termopen('~/.config/nvim/rebuild-ccls.sh')
-  startinsert
-endfunction " }}}
-command! RebuildCCLS call s:RebuildCCLS()
+command! RebuildCCLS call BuildPlugin({'name': 'ccls'})
 " ccls. }}}
 
 " texlab. {{{
