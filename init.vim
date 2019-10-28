@@ -344,13 +344,27 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_language_server = []
 
-function! s:Remapgd() " {{{
-  let l:use_ycm_goto = {
-    \  'c': 1, 'cpp': 1, 'python': 1, 'tex': 1,
-    \ }
+function! s:getFiletypesWithAssociatedLSPServers() " {{{
+  let l:result = []
+  for l:server in g:ycm_language_server
+    if has_key(l:server, 'filetypes')
+      let l:result += l:server.filetypes
+    endif
+  endfor
 
-  if has_key(l:use_ycm_goto, &filetype)
-    nnoremap <silent><buffer> gd :YcmCompleter GoToDefinition<cr>
+  return l:result
+endfunction " }}}
+
+function! s:map_ycm_commands() " {{{
+  let l:lsp_langs = s:getFiletypesWithAssociatedLSPServers()
+  let l:ycm_native_langs = [ 'python' ]
+
+  if index(l:lsp_langs, &filetype) >= 0
+    nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
+    nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
+  elseif index(l:ycm_native_langs, &filetype) >= 0
+    nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
+    nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
   endif
 endfunction " }}}
 
@@ -358,8 +372,7 @@ autocmd initvim WinEnter *
   \ if &previewwindow
   \| setlocal syntax=cpp wrap
   \| endif
-autocmd initvim FileType * call s:Remapgd()
-nnoremap <silent> <leader>gd :YcmCompleter GetHover<cr>
+autocmd initvim FileType * call s:map_ycm_commands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 
 command! RebuildYCM call BuildPlugin({'name': 'YouCompleteMe'})
