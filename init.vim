@@ -15,6 +15,7 @@ syntax on
 
 set cursorline
 set guicursor=
+set termguicolors
 set laststatus=2
 set completeopt=menuone
 set sessionoptions+=resize
