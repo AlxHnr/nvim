@@ -175,19 +175,9 @@ nnoremap <leader>s 1z=
 " spell checking. }}}
 
 " Setup $PATH. {{{
-function! s:setupPathVariable() " {{{
-  let l:paths = split($PATH, ':')
-  let l:path_to_bin = expand('~/.config/nvim/bin')
-
-  for l:path in l:paths
-    if l:path == l:path_to_bin
-      return
-    endif
-  endfor
-
-  let $PATH .= ':' . l:path_to_bin
-endfunction " }}}
-call s:setupPathVariable()
+if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
+  let $PATH .= ':' . expand('~/.config/nvim/bin')
+endif
 " Setup $PATH. }}}
 " general settings. }}}
 
