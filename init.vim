@@ -411,6 +411,10 @@ Plug 'lervag/vimtex'
 let g:vimtex_quickfix_mode = 0
 " vimtex. }}}
 
+" palenight.vim. {{{
+Plug 'drewtempelmeyer/palenight.vim'
+" palenight.vim. }}}
+
 " Wrapper around :Plug, which prefers local plugins in '~/projects'.
 function! s:localPlug(name) " {{{
   let l:path = expand('~/projects/') . a:name
@@ -470,16 +474,16 @@ call plug#end()
 " misc. {{{
 " Colorscheme related settings. {{{
 if !exists('g:colors_name')
-  colorscheme clear_colors_dark
+  colorscheme palenight
 endif
 
 function! s:toggleColorscheme() " {{{
   if !exists('g:colors_name')
     return
-  elseif g:colors_name == 'clear_colors_dark'
+  elseif g:colors_name == 'palenight'
     colorscheme clear_colors_light
   elseif g:colors_name == 'clear_colors_light'
-    colorscheme clear_colors_dark
+    colorscheme palenight
   elseif &background == 'dark'
     set background=light
   else
