@@ -438,11 +438,11 @@ nnoremap <silent> <F3> :wall<cr>:Build test<cr>
 nnoremap <silent> <F4> :wall<cr>:Build run<cr>
 
 let s:build_c_flags = '-Wall -Wextra -pedantic -O0 -coverage -ggdb'
-command! -nargs=* CMakeInit execute 'BuildInit'
-  \ . ' -DCMAKE_C_FLAGS="'   . s:build_c_flags . '"'
-  \ . ' -DCMAKE_CXX_FLAGS="' . s:build_c_flags
-  \ . ' -Wno-missing-field-initializers"'
-  \ . ' <args>'
+command! -nargs=* CMakeInit call build#init(
+  \ '-DCMAKE_C_FLAGS='   . s:build_c_flags,
+  \ '-DCMAKE_CXX_FLAGS=' . s:build_c_flags,
+  \ '-Wno-missing-field-initializers',
+  \ <f-args>)
 " build.vim. }}}
 
 call s:localPlug('clear_colors')
