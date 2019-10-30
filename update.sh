@@ -9,6 +9,4 @@ pip3 install --user neovim --upgrade
 ./update-bindir.sh
 
 ./bin/nvim +PlugUpdate +qall
-
-echo
-echo "SUCCESS!"
+exec ./bin/nvim +PlugDiff +only
