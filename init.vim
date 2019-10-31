@@ -456,7 +456,6 @@ command! -nargs=* CMakeInit call build#init(
 " build.vim. }}}
 
 call s:localPlug('clear_colors')
-call s:localPlug('clear_fold_text')
 call s:localPlug('project-chdir.vim')
 call s:localPlug('ultisnips-snippets')
 call s:localPlug('vim-spell-files')
