@@ -328,7 +328,7 @@ autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
 " ultisnips. }}}
 
 " YouCompleteMe. {{{
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildPlugin') }
+Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildPlugin') }
 
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
