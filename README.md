@@ -36,7 +36,7 @@ plugins.
 `update.sh`.
 
 Install a recent version of [Neovim](https://neovim.io/) with its python3
-provider. I use Neovim 0.4.2, but older versions _may_ work. Install
+provider. I use Neovim 0.4.3, but older versions _may_ work. Install
 [fzf](https://github.com/junegunn/fzf) and
 [texlab](https://texlab.netlify.com) and make sure they are accessible from
 `$PATH`.
