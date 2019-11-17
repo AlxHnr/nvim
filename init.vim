@@ -527,7 +527,7 @@ function! s:discardUndoHistory() " {{{
   let l:prev_modified = &modified
 
   setlocal undolevels=-1
-  execute "normal! i \<esc>\"_x"
+  execute "noautocmd normal! i \<esc>\"_x"
   let &l:undolevels = l:prev_undolevels
 
   if l:prev_modified == 0
