@@ -138,7 +138,7 @@ execute 'set filetype=' . &filetype
 " folding. }}}
 
 " formatting. {{{
-set textwidth=75
+set textwidth=100
 set nojoinspaces
 nnoremap Q mqgqip`q
 nnoremap <a-q> mqgqi{`q
