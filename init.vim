@@ -166,7 +166,7 @@ nnoremap P ]P
 
 " spell checking. {{{
 set spelllang=en,de
-set spellfile=~/.config/nvim/spell/custom.utf-8.add
+set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
 autocmd initvim BufNewFile,BufRead *.[ch] setlocal spell
 autocmd initvim BufNewFile,BufRead *.[ch]pp setlocal spell
 autocmd initvim FileType markdown,tex,gitcommit setlocal spell
@@ -318,7 +318,6 @@ let g:ale_sign_info = '❕️'
 Plug 'SirVer/ultisnips'
 
 let g:UltiSnipsEditSplit = 'horizontal'
-let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'

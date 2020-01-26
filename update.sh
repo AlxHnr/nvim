@@ -4,6 +4,8 @@
 
 cd "$(dirname "$0")"
 
+mkdir -p custom/UltiSnips
+
 git pull
 pip3 install --user neovim --upgrade
 ./update-bindir.sh
