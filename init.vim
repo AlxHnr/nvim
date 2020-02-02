@@ -552,10 +552,23 @@ function! s:restoreInsertMode() " {{{
 endfunction " }}}
 function! s:setupTerminal() " {{{
   setlocal nonumber
-  let b:restore_insert_mode = 1
+
+  autocmd BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
   nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
   tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
-  autocmd initvim BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
+
+  let l:scroll_mappings = [
+    \ '<ScrollWheelDown>',
+    \ '<S-ScrollWheelDown>',
+    \ '<ScrollWheelUp>',
+    \ '<S-ScrollWheelUp>',
+    \ ]
+  for l:mapping in l:scroll_mappings
+    execute 'tnoremap <buffer><silent>' l:mapping
+      \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
+  endfor
+
+  let b:restore_insert_mode = 1
   normal $A
 endfunction " }}}
 
