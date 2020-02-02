@@ -36,9 +36,6 @@ let g:markdown_fenced_languages =
 augroup initvim
   autocmd!
 
-  autocmd TermOpen * setlocal nonumber | normal $A
-  autocmd BufWinEnter,WinEnter term://* startinsert
-  autocmd BufWinLeave,WinLeave term://* stopinsert
   autocmd CmdwinEnter * setlocal wrap
   autocmd FileType cs,git,qf,python setlocal wrap
   autocmd FileType * setlocal iskeyword-=$
@@ -546,4 +543,22 @@ function! s:UpdateIncludeGuards() " {{{
   call setpos('.', l:current_cursor)
 endfunction " }}}
 command! UpdateIncludeGuards call s:UpdateIncludeGuards()
+
+" Preserve insert mode in terminals. {{{
+function! s:restoreInsertMode() " {{{
+  if exists('b:restore_insert_mode')
+    startinsert
+  endif
+endfunction " }}}
+function! s:setupTerminal() " {{{
+  setlocal nonumber
+  let b:restore_insert_mode = 1
+  nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
+  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
+  autocmd initvim BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
+  normal $A
+endfunction " }}}
+
+autocmd initvim TermOpen * call s:setupTerminal()
+" Preserve insert mode in terminals. }}}
 " misc. }}}
