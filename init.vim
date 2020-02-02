@@ -354,7 +354,7 @@ function! s:getFiletypesWithAssociatedLSPServers() " {{{
   return l:result
 endfunction " }}}
 
-function! s:map_ycm_commands() " {{{
+function! s:mapYCMCommands() " {{{
   let l:lsp_langs = s:getFiletypesWithAssociatedLSPServers()
   let l:ycm_native_langs = [ 'python' ]
 
@@ -371,7 +371,7 @@ autocmd initvim WinEnter *
   \ if &previewwindow
   \| setlocal syntax=cpp wrap
   \| endif
-autocmd initvim FileType * call s:map_ycm_commands()
+autocmd initvim FileType * call s:mapYCMCommands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 autocmd initvim User YcmQuickFixOpened q | copen
 
@@ -429,7 +429,7 @@ endfunction " }}}
 call s:localPlug('build.vim')
 
 " Passes the current build systems default target to :Build.
-function! s:build_default_target() " {{{
+function! s:buildDefaultTarget() " {{{
   let l:build_system = build#get_current_build_system()
   let l:systems_without_default_target =
     \ { 'Autotools': 1, 'Make': 1, 'CMake': 1 }
@@ -443,7 +443,7 @@ function! s:build_default_target() " {{{
 endfunction " }}}
 
 nnoremap <silent> <F1> :wall<cr>:Build clean<cr>
-nnoremap <silent> <F2> :wall<cr>:call <sid>build_default_target()<cr>
+nnoremap <silent> <F2> :wall<cr>:call <sid>buildDefaultTarget()<cr>
 nnoremap <silent> <F3> :wall<cr>:Build test<cr>
 nnoremap <silent> <F4> :wall<cr>:Build run<cr>
 
