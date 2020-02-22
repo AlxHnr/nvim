@@ -557,15 +557,18 @@ function! s:setupTerminal() " {{{
   nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
   tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
 
-  let l:scroll_mappings = [
-    \ '<ScrollWheelDown>',
-    \ '<S-ScrollWheelDown>',
-    \ '<ScrollWheelUp>',
-    \ '<S-ScrollWheelUp>',
+  let l:events = [
+    \ 'LeftMouse', 'LeftDrag', 'LeftRelease', 'MiddleMouse', 'MiddleDrag',
+    \ 'MiddleRelease', 'RightMouse', 'RightDrag', 'RightRelease',
+    \ 'X1Mouse', 'X1Drag', 'X1Release', 'X2Mouse', 'X2Drag', 'X2Release',
+    \ 'ScrollWheelUp', 'ScrollWheelDown',
     \ ]
-  for l:mapping in l:scroll_mappings
-    execute 'tnoremap <buffer><silent>' l:mapping
-      \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
+  for l:event in l:events
+    for l:modifier in [ "", "A-", "C-", "S-" ]
+      let l:mapping = '<' . l:modifier . l:event . '>'
+      execute 'tnoremap <buffer><silent>' l:mapping
+        \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
+    endfor
   endfor
 
   let b:restore_insert_mode = 1
