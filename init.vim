@@ -370,7 +370,7 @@ autocmd initvim WinEnter *
   \| endif
 autocmd initvim FileType * call s:mapYCMCommands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
-autocmd initvim User YcmQuickFixOpened q | copen
+autocmd initvim User YcmQuickFixOpened q | botright copen
 
 command! RebuildYCM call BuildPlugin({'name': 'YouCompleteMe'})
 " YouCompleteMe. }}}
