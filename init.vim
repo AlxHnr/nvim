@@ -321,6 +321,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 nnoremap <leader>u :UltiSnipsEdit<cr>
 
 autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
+autocmd initvim BufWritePost *.snippets call UltiSnips#RefreshSnippets()
 " ultisnips. }}}
 
 " YouCompleteMe. {{{
