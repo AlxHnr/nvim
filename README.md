@@ -14,8 +14,6 @@ colorscheme:
   bindings. This is required to build
   [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) and
   [ccls](https://github.com/MaskRay/ccls) during plugin installation.
-  Python 3.6, libclang 8 and llvm 8 should be sufficient and are available
-  in the repositories of Ubuntu 18.04.
 
 ## Using `update.sh`
 
