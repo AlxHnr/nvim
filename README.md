@@ -10,11 +10,11 @@ colorscheme:
 ## Dependencies
 
 * Terminal with true 24-bit color support, e.g. _GNOME Terminal_.
-* CMake
 * Development files of libpython3, llvm and libclang with its python3
   bindings. This is required to build
   [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) and
   [ccls](https://github.com/MaskRay/ccls) during plugin installation.
+* CMake
 
 ## Using `update.sh`
 
@@ -40,7 +40,7 @@ provider. I use Neovim 0.4.3, but older versions _may_ work. Install
 [texlab](https://texlab.netlify.com) and make sure they are accessible from
 `$PATH`.
 
-Clone this repository to `~/.config/` and run `nvim +PlugInstall` to
+Clone this repository to `~/.config/nvim/` and run `nvim +PlugInstall` to
 install all required plugins.
 
 ## Troubleshooting
