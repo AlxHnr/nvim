@@ -43,7 +43,6 @@ augroup initvim
   autocmd BufNewFile,BufRead ~/.config/i3/config setfiletype conf
 
   autocmd BufWritePost ~/.config/nvim/init.vim source %
-  autocmd BufWritePost ~/.Xresources silent !xrdb -merge %
   autocmd BufWritePost ~/.config/i3/config
     \ silent !i3-msg reload >/dev/null 2>&1
 augroup END
@@ -142,7 +141,7 @@ nnoremap <a-q> mqgqi{`q
 
 autocmd initvim FileType help setlocal textwidth=78
 autocmd initvim FileType gitcommit setlocal textwidth=72
-autocmd initvim FileType html,conkyrc,config,python setlocal textwidth=0
+autocmd initvim FileType html,config,python setlocal textwidth=0
 autocmd initvim BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0
 autocmd initvim BufEnter * setlocal formatoptions+=t
 " formatting. }}}
