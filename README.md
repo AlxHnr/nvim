@@ -10,6 +10,7 @@ colorscheme:
 ## Dependencies
 
 * Terminal with true 24-bit color support, e.g. _GNOME Terminal_.
+* CMake
 * Development files of libpython3, llvm and libclang with its python3
   bindings. This is required to build
   [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) and
@@ -21,12 +22,12 @@ colorscheme:
 distribution because it will fetch some binaries. It requires _wget_ and
 _pip3_ to be installed.
 
-Clone this repository to `~/.config/` and run `./update.sh` from inside
-`~/.config/nvim/`. This will create the `./bin/` directory and populate it
-with [Neovim](https://neovim.io/), [fzf](https://github.com/junegunn/fzf)
-and [texlab](https://texlab.netlify.com). A python provider will be
-installed using _pip3_, followed by the installation of all required vim
-plugins.
+Clone this repository to `~/.config/nvim/` and run
+`~/.config/nvim/update.sh`. This will download
+[Neovim](https://neovim.io/), [fzf](https://github.com/junegunn/fzf) and
+[texlab](https://texlab.netlify.com) to `~/.config/nvim/bin/`. A python
+provider will be installed using _pip3_, followed by the installation of
+all required vim plugins.
 
 ## Manual installation
 
