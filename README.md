@@ -10,10 +10,9 @@ colorscheme:
 ## Dependencies
 
 * Terminal with true 24-bit color support, e.g. _GNOME Terminal_.
-* Development files of libpython3, llvm and libclang with its python3
-  bindings. This is required to build
-  [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) and
-  [ccls](https://github.com/MaskRay/ccls) during plugin installation.
+* Development files of libpython (3.5 or higher). This is required to build
+  [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe).
+* Clangd (10 or higher)
 * CMake
 
 ## Using `update.sh`
@@ -45,14 +44,12 @@ install all required plugins.
 
 ## Troubleshooting
 
-If building [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) or
-[ccls](https://github.com/MaskRay/ccls) fails due to missing dependencies,
-install those and run one of the following commands from inside Neovim to
-try again:
+If building [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe)
+fails due to missing dependencies, install those and run the following
+command from inside Neovim to try again:
 
 ```vim
 :RebuildYCM
-:RebuildCCLS
 ```
 
 # License

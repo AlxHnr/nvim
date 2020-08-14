@@ -184,8 +184,6 @@ endif
 function! BuildPlugin(info) " {{{
   if a:info.name == 'YouCompleteMe'
     let l:cmd = 'python3 ' . expand('~/.config/nvim/plugged/YouCompleteMe/install.py')
-  elseif a:info.name == 'ccls'
-    let l:cmd = expand('~/.config/nvim/rebuild-ccls.sh')
   else
     return
   endif
@@ -336,9 +334,16 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_error_symbol = g:ale_sign_error
 let g:ycm_warning_symbol = g:ale_sign_warning
 let g:ycm_extra_conf_globlist = [ '!*' ]
-let g:ycm_language_server = []
 let g:ycm_filetype_blacklist =
   \ { 'netrw': 1, 'unite': 1, 'tagbar': 1, 'infolog': 1 }
+let g:ycm_language_server = [
+  \   {
+  \     'name': 'clangd',
+  \     'cmdline': [ 'clangd', '-cross-file-rename' ],
+  \     'project_root_files': [ 'compile_commands.json' ],
+  \     'filetypes': [ 'c', 'cpp' ],
+  \   }
+  \ ]
 
 function! s:getFiletypesWithAssociatedLSPServers() " {{{
   let l:result = []
@@ -374,22 +379,6 @@ autocmd initvim User YcmQuickFixOpened q | botright copen
 
 command! RebuildYCM call BuildPlugin({'name': 'YouCompleteMe'})
 " YouCompleteMe. }}}
-
-" ccls. {{{
-Plug 'MaskRay/ccls', { 'do': function('BuildPlugin'), 'frozen': 1 }
-
-let g:ycm_language_server +=
-  \ [
-  \   {
-  \     'name': 'ccls',
-  \     'cmdline': [ 'ccls', '-init={"cache":{"directory":"/tmp/ccls-cache"}}' ],
-  \     'project_root_files': [ 'compile_commands.json' ],
-  \     'filetypes': [ 'c', 'cpp' ],
-  \   }
-  \ ]
-
-command! RebuildCCLS call BuildPlugin({'name': 'ccls'})
-" ccls. }}}
 
 " texlab. {{{
 let g:ycm_language_server +=
