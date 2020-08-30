@@ -24,12 +24,6 @@ let mapleader = ','
 let g:tex_flavor = 'latex'
 let g:is_chicken = 1
 let g:c_syntax_for_h = 1
-let g:markdown_fenced_languages =
-  \ [
-  \   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
-  \   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
-  \   'python', 'ruby', 'html', 'vim', 'desktop', 'diff',
-  \ ]
 " fundamentals. }}}
 
 " general autocommands. {{{
@@ -227,8 +221,6 @@ Plug 'tpope/vim-eunuch'
 
 " vim-polyglot. {{{
 Plug 'sheerun/vim-polyglot'
-
-let g:polyglot_disabled = [ 'latex', 'markdown', 'sh' ]
 " vim-polyglot. }}}
 
 " vim-autoformat. {{{
