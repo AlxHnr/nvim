@@ -339,7 +339,7 @@ let g:ycm_filetype_blacklist =
 let g:ycm_language_server = [
   \   {
   \     'name': 'clangd',
-  \     'cmdline': [ 'clangd', '-cross-file-rename' ],
+  \     'cmdline': [ 'clangd', '-cross-file-rename', '--header-insertion=never' ],
   \     'project_root_files': [ 'compile_commands.json' ],
   \     'filetypes': [ 'c', 'cpp' ],
   \   }
