@@ -278,12 +278,6 @@ Plug 'junegunn/gv.vim'
 nnoremap <F9> :GV --all<cr>
 " gv.vim. }}}
 
-" goyo.vim. {{{
-Plug 'junegunn/goyo.vim'
-
-autocmd! User GoyoEnter nested setlocal nocursorline
-" goyo.vim. }}}
-
 " fuzzy search. {{{
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
