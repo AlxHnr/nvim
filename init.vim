@@ -1,28 +1,18 @@
 " general settings. {{{
 " fundamentals. {{{
-set nobackup
 set nowritebackup
 set nomodeline
-set modelines=0
 set number
 set numberwidth=1
 set scrolloff=3
-set history=10000
 set nowrap
 set mouse=a
 set shada=!,'10000,<50,s10,h
-syntax on
-
 set cursorline
 set guicursor=
 set termguicolors
-set laststatus=2
-set completeopt=menuone
-set sessionoptions+=resize
 
 let mapleader = ','
-let g:tex_flavor = 'latex'
-let g:is_chicken = 1
 let g:c_syntax_for_h = 1
 let g:markdown_fenced_languages =
   \ [
@@ -38,7 +28,6 @@ augroup initvim
 
   autocmd CmdwinEnter * setlocal wrap
   autocmd FileType cs,git,qf,python setlocal wrap
-  autocmd FileType * setlocal iskeyword-=$
   autocmd BufNewFile,BufRead *.lco setfiletype tex
   autocmd BufNewFile,BufRead ~/.config/i3/config setfiletype conf
 
@@ -84,11 +73,8 @@ nnoremap <silent> <leader>ce :let @/='\<' . expand('<cword>') . '\>'<cr>ciw
 " general mappings. }}}
 
 " searching. {{{
-set magic
 set ignorecase
 set smartcase
-set incsearch
-set hlsearch
 set inccommand=nosplit
 
 noremap / /\v
