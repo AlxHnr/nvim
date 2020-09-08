@@ -154,6 +154,7 @@ function! s:discardUndoHistory()
     setlocal nomodified
   endif
 endfunction
+
 nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
 " Command to discard undo history. }}}
 
@@ -163,6 +164,7 @@ function! s:restoreInsertMode()
     startinsert
   endif
 endfunction
+
 function! s:setupTerminal()
   setlocal nonumber
 
@@ -243,10 +245,9 @@ let g:polyglot_disabled = [ 'markdown' ]
 " vim-autoformat. {{{
 Plug 'Chiel92/vim-autoformat'
 
-" Wraps :Autoformat into a formatexpr.
-function! CustomFormatExpression() " {{{
+function! CustomFormatExpression()
   execute v:lnum . ',' . (v:lnum + v:count - 1) . 'Autoformat'
-endfunction " }}}
+endfunction
 
 autocmd initvim FileType c,cpp setlocal textwidth=0 formatexpr=CustomFormatExpression()
 autocmd initvim FileType c,cpp noremap <buffer> = gq
@@ -290,8 +291,7 @@ nnoremap <F9> :GV --all<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-let $FZF_DEFAULT_COMMAND =
-  \ 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
+let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
 let g:fzf_command_prefix = 'FZF'
 
 nnoremap <c-p> :FZFFiles<cr>
@@ -372,7 +372,12 @@ let g:ycm_language_server = [
   \     'cmdline': [ 'clangd', '-cross-file-rename', '--header-insertion=never' ],
   \     'project_root_files': [ 'compile_commands.json' ],
   \     'filetypes': [ 'c', 'cpp' ],
-  \   }
+  \   },
+  \   {
+  \     'name': 'texlab',
+  \     'cmdline': [ 'texlab' ],
+  \     'filetypes': [ 'tex' ],
+  \   },
   \ ]
 
 function! s:getFiletypesWithAssociatedLSPServers() " {{{
@@ -410,17 +415,6 @@ autocmd initvim User YcmQuickFixOpened q | botright copen
 command! RebuildYCM call BuildPlugin({'name': 'YouCompleteMe'})
 " YouCompleteMe. }}}
 
-" texlab. {{{
-let g:ycm_language_server +=
-  \ [
-  \   {
-  \     'name': 'texlab',
-  \     'cmdline': [ 'texlab' ],
-  \     'filetypes': [ 'tex' ],
-  \   }
-  \ ]
-" texlab. }}}
-
 " vimtex. {{{
 Plug 'lervag/vimtex'
 
@@ -435,18 +429,17 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'AlxHnr/build.vim'
 
 " Passes the current build systems default target to :Build.
-function! s:buildDefaultTarget() " {{{
+function! s:buildDefaultTarget()
   let l:build_system = build#get_current_build_system()
   let l:systems_without_default_target =
     \ { 'Autotools': 1, 'Make': 1, 'CMake': 1 }
 
-  if !empty(l:build_system) &&
-    \ has_key(l:systems_without_default_target, l:build_system.name)
+  if !empty(l:build_system) && has_key(l:systems_without_default_target, l:build_system.name)
     Build
   else
     Build build
   endif
-endfunction " }}}
+endfunction
 
 nnoremap <silent> <F1> :wall<cr>:Build clean<cr>
 nnoremap <silent> <F2> :wall<cr>:call <sid>buildDefaultTarget()<cr>
