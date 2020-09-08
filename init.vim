@@ -374,6 +374,7 @@ let g:ycm_language_server +=
 " vimtex. {{{
 Plug 'lervag/vimtex'
 
+let g:tex_flavor = 'latex'
 let g:vimtex_quickfix_mode = 0
 " vimtex. }}}
 
