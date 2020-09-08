@@ -225,6 +225,7 @@ nnoremap <silent> <F11> :Gcommit<cr>
 nnoremap <silent> <F12> :Git push<cr>
 autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
+set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
 " vim-fugitive. }}}
 
 " vim-commentary. {{{
@@ -478,24 +479,6 @@ endfunction " }}}
 
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
 " Colorscheme related settings. }}}
-
-" Statusline. {{{
-function! GetGitHead() " {{{
-  if !exists('*fugitive#head()')
-    return ''
-  endif
-
-  let l:string = fugitive#head()
-  if !empty(l:string)
-    return '[' . l:string . ']'
-  else
-    return ''
-  endif
-endfunction " }}}
-
-set statusline=%<%f\ %h%m%r%{GetGitHead()}
-set statusline+=%=%-8.(%l,%c%)\ %P
-" Statusline. }}}
 
 " Discard undo history. {{{
 function! s:discardUndoHistory() " {{{
