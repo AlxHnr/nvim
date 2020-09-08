@@ -1,5 +1,4 @@
-" general settings. {{{
-" fundamentals. {{{
+" General settings. {{{
 set cursorline
 set expandtab
 set guicursor=
@@ -24,7 +23,7 @@ set termguicolors
 set textwidth=100
 
 let mapleader = ','
-" fundamentals. }}}
+" General settings. }}}
 
 " autocommands. {{{
 augroup initvim
@@ -91,7 +90,7 @@ endif
 " Pre-folds the current buffer.
 function! s:refold() " {{{
   if expand('%:t') == 'init.vim'
-    normal! zMzr
+    normal! zM
   elseif &filetype == 'snippets'
     normal! zM
   else
@@ -170,97 +169,61 @@ endfunction
 
 autocmd initvim TermOpen * call s:setupTerminal()
 " Preserve insert mode in terminals. }}}
-" general settings. }}}
 
 " Language specific settings. {{{
-" Bash and sh. {{{
+" Bash and sh.
 let sh_fold_enabled = 1
-" Bash and sh. }}}
 
-" C and C++. {{{
+" C and C++.
 let g:c_syntax_for_h = 1
 set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
 autocmd initvim BufNewFile,BufRead *.[ch] setlocal spell
 autocmd initvim BufNewFile,BufRead *.[ch]pp setlocal spell
-" C and C++. }}}
 
-" Config. {{{
+" Config.
 autocmd initvim FileType config setlocal textwidth=0
-" Config. }}}
 
-" Git. {{{
+" Git.
 autocmd initvim FileType git setlocal nospell wrap foldmethod=manual
 autocmd initvim FileType gitcommit setlocal spell textwidth=72
-" Git. }}}
 
-" Help. {{{
+" Help.
 autocmd initvim FileType help setlocal textwidth=78
-" Help. }}}
 
-" Html. {{{
+" Html.
 autocmd initvim FileType html setlocal textwidth=0
-" Html. }}}
 
-" i3 config. {{{
+" i3 config.
 autocmd initvim BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0 filetype=conf
 autocmd initvim BufWritePost ~/.config/i3/config silent !i3-msg reload >/dev/null 2>&1
-" i3 config. }}}
 
-" Markdown. {{{
+" Markdown.
 let g:markdown_fenced_languages = [
   \   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
   \   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
   \   'python', 'ruby', 'html', 'vim', 'desktop', 'diff',
   \ ]
 autocmd initvim FileType markdown setlocal spell
-" Markdown. }}}
 
-" Python. {{{
+" Python.
 autocmd initvim FileType python setlocal wrap textwidth=0
-" Python. }}}
 
-" Qf. {{{
+" Qf.
 autocmd FileType qf setlocal wrap nospell
-" Qf. }}}
 
-" Scheme. {{{
+" Scheme.
 let g:is_chicken = 1
 autocmd initvim FileType scheme setlocal foldnestmax=2
-" Scheme. }}}
 
-" Tex. {{{
+" Tex.
 let g:tex_flavor = 'latex'
 autocmd initvim BufNewFile,BufRead *.lco setfiletype tex
 autocmd initvim FileType tex setlocal spell foldmethod=marker
-" Tex. }}}
 
-" Vim. {{{
+" Vim.
 let g:vim_indent_cont = &shiftwidth
 autocmd initvim FileType vim setlocal foldmethod=marker
-" Vim. }}}
 " Language specific settings. }}}
-
-" plugins. {{{
-
-" Build the given plugin if required. This function can be passed to
-" vim-plug.
-function! BuildPlugin(info) " {{{
-  if a:info.name == 'YouCompleteMe'
-    let l:cmd = 'python3 ' . expand('~/.config/nvim/plugged/YouCompleteMe/install.py')
-  else
-    return
-  endif
-
-  " Run build command in split terminal window if this function was not
-  " called by vim-plug.
-  if !has_key(a:info, 'status')
-    botright new
-    call termopen(l:cmd)
-    startinsert
-  elseif a:info.status != 'unchanged'
-    execute '!' . l:cmd
-  endif
-endfunction " }}}
 
 call plug#begin()
 
@@ -395,7 +358,21 @@ command! UpdateIncludeGuards call s:UpdateIncludeGuards()
 " ultisnips-snippets. }}}
 
 " YouCompleteMe. {{{
-Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildPlugin') }
+function! BuildYouCompleteMe(info) " {{{
+  let l:cmd = 'python3 ' . expand('~/.config/nvim/plugged/YouCompleteMe/install.py')
+
+  " Run build command in split terminal window if this function was not
+  " called by vim-plug.
+  if !has_key(a:info, 'status')
+    botright new
+    call termopen(l:cmd)
+    startinsert
+  elseif a:info.status != 'unchanged'
+    execute '!' . l:cmd
+  endif
+endfunction " }}}
+
+Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYouCompleteMe') }
 
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
@@ -510,11 +487,19 @@ command! -nargs=* CMakeInitClang call build#init(
   \ <f-args>)
 " build.vim. }}}
 
+" clear_colors. {{{
 Plug 'AlxHnr/clear_colors'
+" clear_colors. }}}
+
+" project-chdir.vim. {{{
 Plug 'AlxHnr/project-chdir.vim'
+" project-chdir.vim. }}}
 
+" vim-spell-files. {{{
 Plug 'AlxHnr/vim-spell-files'
+" vim-spell-files. }}}
 
+" Source 'custom/init.vim' if available.
 let s:vim_custom_config = expand('~/.config/nvim/custom/init.vim')
 if filereadable(s:vim_custom_config)
   execute 'source ' . s:vim_custom_config
@@ -522,14 +507,12 @@ endif
 autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
 
 call plug#end()
-" plugins. }}}
 
-" Colorscheme related settings. {{{
 if !exists('g:colors_name')
   colorscheme palenight
 endif
 
-function! s:toggleColorscheme() " {{{
+function! s:toggleColorscheme()
   if !exists('g:colors_name')
     return
   elseif g:colors_name == 'palenight'
@@ -541,7 +524,5 @@ function! s:toggleColorscheme() " {{{
   else
     set background=dark
   endif
-endfunction " }}}
-
+endfunction
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
-" Colorscheme related settings. }}}
