@@ -405,18 +405,8 @@ let g:vimtex_quickfix_mode = 0
 Plug 'drewtempelmeyer/palenight.vim'
 " palenight.vim. }}}
 
-" Wrapper around :Plug, which prefers local plugins in '~/projects'.
-function! s:localPlug(name) " {{{
-  let l:path = expand('~/projects/') . a:name
-  if isdirectory(l:path)
-    Plug l:path
-  else
-    Plug 'AlxHnr/' . a:name
-  endif
-endfunction " }}}
-
 " build.vim. {{{
-call s:localPlug('build.vim')
+Plug 'AlxHnr/build.vim'
 
 " Passes the current build systems default target to :Build.
 function! s:buildDefaultTarget() " {{{
@@ -451,10 +441,10 @@ command! -nargs=* CMakeInitClang call build#init(
   \ <f-args>)
 " build.vim. }}}
 
-call s:localPlug('clear_colors')
-call s:localPlug('project-chdir.vim')
-call s:localPlug('ultisnips-snippets')
-call s:localPlug('vim-spell-files')
+Plug 'AlxHnr/clear_colors'
+Plug 'AlxHnr/project-chdir.vim'
+Plug 'AlxHnr/ultisnips-snippets'
+Plug 'AlxHnr/vim-spell-files'
 
 let s:vim_custom_config = expand('~/.config/nvim/custom/init.vim')
 if filereadable(s:vim_custom_config)
