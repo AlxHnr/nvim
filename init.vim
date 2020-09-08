@@ -1,15 +1,15 @@
 " general settings. {{{
 " fundamentals. {{{
-set nowritebackup
+set cursorline
+set guicursor=
+set mouse=a
 set nomodeline
+set nowrap
+set nowritebackup
 set number
 set numberwidth=1
 set scrolloff=3
-set nowrap
-set mouse=a
 set shada=!,'10000,<50,s10,h
-set cursorline
-set guicursor=
 set termguicolors
 
 let mapleader = ','
@@ -32,8 +32,7 @@ augroup initvim
   autocmd BufNewFile,BufRead ~/.config/i3/config setfiletype conf
 
   autocmd BufWritePost ~/.config/nvim/init.vim source %
-  autocmd BufWritePost ~/.config/i3/config
-    \ silent !i3-msg reload >/dev/null 2>&1
+  autocmd BufWritePost ~/.config/i3/config silent !i3-msg reload >/dev/null 2>&1
 augroup END
 " general autocommands. }}}
 
