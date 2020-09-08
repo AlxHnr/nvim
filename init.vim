@@ -487,10 +487,6 @@ command! -nargs=* CMakeInitClang call build#init(
   \ <f-args>)
 " build.vim. }}}
 
-" clear_colors. {{{
-Plug 'AlxHnr/clear_colors'
-" clear_colors. }}}
-
 " project-chdir.vim. {{{
 Plug 'AlxHnr/project-chdir.vim'
 " project-chdir.vim. }}}
@@ -511,18 +507,3 @@ call plug#end()
 if !exists('g:colors_name')
   colorscheme palenight
 endif
-
-function! s:toggleColorscheme()
-  if !exists('g:colors_name')
-    return
-  elseif g:colors_name == 'palenight'
-    colorscheme clear_colors_light
-  elseif g:colors_name == 'clear_colors_light'
-    colorscheme palenight
-  elseif &background == 'dark'
-    set background=light
-  else
-    set background=dark
-  endif
-endfunction
-nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
