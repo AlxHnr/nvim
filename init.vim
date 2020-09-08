@@ -116,6 +116,60 @@ if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
   let $PATH .= ':' . expand('~/.config/nvim/bin')
 endif
 " Setup $PATH. }}}
+
+" Command to discard undo history. {{{
+function! s:discardUndoHistory()
+  if &modifiable == 0
+    return
+  endif
+
+  let l:prev_undolevels = &undolevels
+  let l:prev_modified = &modified
+
+  setlocal undolevels=-1
+  execute "noautocmd normal! i \<esc>\"_x"
+  let &l:undolevels = l:prev_undolevels
+
+  if l:prev_modified == 0
+    setlocal nomodified
+  endif
+endfunction
+nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
+" Command to discard undo history. }}}
+
+" Preserve insert mode in terminals. {{{
+function! s:restoreInsertMode()
+  if exists('b:restore_insert_mode')
+    startinsert
+  endif
+endfunction
+function! s:setupTerminal()
+  setlocal nonumber
+
+  autocmd BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
+  nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
+  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
+
+  let l:events = [
+    \ 'LeftMouse', 'LeftDrag', 'LeftRelease', 'MiddleMouse', 'MiddleDrag',
+    \ 'MiddleRelease', 'RightMouse', 'RightDrag', 'RightRelease',
+    \ 'X1Mouse', 'X1Drag', 'X1Release', 'X2Mouse', 'X2Drag', 'X2Release',
+    \ 'ScrollWheelUp', 'ScrollWheelDown',
+    \ ]
+  for l:event in l:events
+    for l:modifier in [ "", "A-", "C-", "S-" ]
+      let l:mapping = '<' . l:modifier . l:event . '>'
+      execute 'tnoremap <buffer><silent>' l:mapping
+        \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
+    endfor
+  endfor
+
+  let b:restore_insert_mode = 1
+  normal $A
+endfunction
+
+autocmd initvim TermOpen * call s:setupTerminal()
+" Preserve insert mode in terminals. }}}
 " general settings. }}}
 
 " Language specific settings. {{{
@@ -326,6 +380,20 @@ autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
 autocmd initvim BufWritePost *.snippets call UltiSnips#RefreshSnippets()
 " ultisnips. }}}
 
+" ultisnips-snippets. {{{
+Plug 'AlxHnr/ultisnips-snippets'
+
+function! s:UpdateIncludeGuards()
+  python3 from snippet_module_c import get_current_header_string
+  let l:header_string = py3eval('get_current_header_string()')
+  let l:current_cursor = getpos('.')
+  silent execute '%s/\v^(#(ifndef|define)\s+)([^_]+_\w+_h(pp)?\s*$)/\1'
+    \ . l:header_string . '/e'
+  call setpos('.', l:current_cursor)
+endfunction
+command! UpdateIncludeGuards call s:UpdateIncludeGuards()
+" ultisnips-snippets. }}}
+
 " YouCompleteMe. {{{
 Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildPlugin') }
 
@@ -444,20 +512,18 @@ command! -nargs=* CMakeInitClang call build#init(
 
 Plug 'AlxHnr/clear_colors'
 Plug 'AlxHnr/project-chdir.vim'
-Plug 'AlxHnr/ultisnips-snippets'
+
 Plug 'AlxHnr/vim-spell-files'
 
 let s:vim_custom_config = expand('~/.config/nvim/custom/init.vim')
 if filereadable(s:vim_custom_config)
   execute 'source ' . s:vim_custom_config
 endif
-autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim
-  \ source ~/.config/nvim/init.vim
+autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
 
 call plug#end()
 " plugins. }}}
 
-" misc. {{{
 " Colorscheme related settings. {{{
 if !exists('g:colors_name')
   colorscheme palenight
@@ -479,68 +545,3 @@ endfunction " }}}
 
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
 " Colorscheme related settings. }}}
-
-" Discard undo history. {{{
-function! s:discardUndoHistory() " {{{
-  if &modifiable == 0
-    return
-  endif
-
-  let l:prev_undolevels = &undolevels
-  let l:prev_modified = &modified
-
-  setlocal undolevels=-1
-  execute "noautocmd normal! i \<esc>\"_x"
-  let &l:undolevels = l:prev_undolevels
-
-  if l:prev_modified == 0
-    setlocal nomodified
-  endif
-endfunction " }}}
-nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
-" Discard undo history. }}}
-
-function! s:UpdateIncludeGuards() " {{{
-  python3 from snippet_module_c import get_current_header_string
-  let l:header_string = py3eval('get_current_header_string()')
-  let l:current_cursor = getpos('.')
-  silent execute '%s/\v^(#(ifndef|define)\s+)([^_]+_\w+_h(pp)?\s*$)/\1'
-    \ . l:header_string . '/e'
-  call setpos('.', l:current_cursor)
-endfunction " }}}
-command! UpdateIncludeGuards call s:UpdateIncludeGuards()
-
-" Preserve insert mode in terminals. {{{
-function! s:restoreInsertMode() " {{{
-  if exists('b:restore_insert_mode')
-    startinsert
-  endif
-endfunction " }}}
-function! s:setupTerminal() " {{{
-  setlocal nonumber
-
-  autocmd BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
-  nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
-  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
-
-  let l:events = [
-    \ 'LeftMouse', 'LeftDrag', 'LeftRelease', 'MiddleMouse', 'MiddleDrag',
-    \ 'MiddleRelease', 'RightMouse', 'RightDrag', 'RightRelease',
-    \ 'X1Mouse', 'X1Drag', 'X1Release', 'X2Mouse', 'X2Drag', 'X2Release',
-    \ 'ScrollWheelUp', 'ScrollWheelDown',
-    \ ]
-  for l:event in l:events
-    for l:modifier in [ "", "A-", "C-", "S-" ]
-      let l:mapping = '<' . l:modifier . l:event . '>'
-      execute 'tnoremap <buffer><silent>' l:mapping
-        \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
-    endfor
-  endfor
-
-  let b:restore_insert_mode = 1
-  normal $A
-endfunction " }}}
-
-autocmd initvim TermOpen * call s:setupTerminal()
-" Preserve insert mode in terminals. }}}
-" misc. }}}
