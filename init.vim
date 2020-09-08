@@ -30,16 +30,30 @@ let mapleader = ','
 augroup initvim
   autocmd!
 
-  autocmd CmdwinEnter * setlocal wrap
   autocmd BufWritePost ~/.config/nvim/init.vim source %
+
+  autocmd BufEnter * setlocal formatoptions+=t
+  autocmd CmdwinEnter * setlocal wrap
 augroup END
 " autocommands. }}}
 
-" mappings. {{{
-cnoremap <c-k> <Up>
-cnoremap <c-j> <Down>
+" Mappings. {{{
 noremap j gj
 noremap k gk
+nnoremap Y y$
+nnoremap p ]p
+nnoremap P ]P
+nnoremap S :w<cr>
+nnoremap Q mqgqip`q
+nnoremap <a-q> mqgqi{`q
+nnoremap <leader>s 1z=
+nnoremap <a-n> @='n.'<cr>
+nnoremap <silent> <leader>ce :let @/='\<' . expand('<cword>') . '\>'<cr>ciw
+cnoremap <c-k> <Up>
+cnoremap <c-j> <Down>
+
+" Use enter to select completion suggestions.
+inoremap <expr><cr> pumvisible() ? '<c-n>' : '<cr>'
 
 " Window navigation.
 nnoremap <a-h> <c-w><c-h>
@@ -59,26 +73,14 @@ tnoremap <c-w>_ <c-\><c-n><c-w>_i
 tnoremap <c-w>v <c-\><c-n><c-w>v
 tnoremap <c-w>s <c-\><c-n><c-w>s
 
-" Use enter to select completion suggestions.
-inoremap <expr><cr> pumvisible() ? '<c-n>' : '<cr>'
-
-" other mappings.
-nnoremap Y y$
-nnoremap S :w<cr>
-nnoremap <a-s> :Gw<cr><Esc>
-nnoremap <a-n> @='n.'<cr>
-nnoremap <silent> <leader>ce :let @/='\<' . expand('<cword>') . '\>'<cr>ciw
-" mappings. }}}
-
-" searching. {{{
+" Searching.
 noremap / /\v
 noremap ? ?\v
 noremap # :let @/='\<' . expand('<cword>') . '\>'<cr>N
 noremap <c-n> nzzzO
 nnoremap <silent> <Esc><Esc> :nohlsearch<cr>
-nnoremap <silent> <leader>gg
-  \ :silent grep! -riIE --exclude-dir=build/ '/' .<cr>:copen<cr>
-" searching. }}}
+nnoremap <silent> <leader>gg :silent grep! -riIE --exclude-dir=build/ '/' .<cr>:copen<cr>
+" Mappings. }}}
 
 " folding. {{{
 " Preserve foldmethod when sourcing this file.
@@ -108,23 +110,6 @@ autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
 " re-apply fold settings after sourcing this file.
 execute 'set filetype=' . &filetype
 " folding. }}}
-
-" formatting. {{{
-nnoremap Q mqgqip`q
-nnoremap <a-q> mqgqi{`q
-
-autocmd initvim BufEnter * setlocal formatoptions+=t
-" formatting. }}}
-
-" indenting. {{{
-nnoremap p ]p
-nnoremap P ]P
-" indenting. }}}
-
-" spell checking. {{{
-
-nnoremap <leader>s 1z=
-" spell checking. }}}
 
 " Setup $PATH. {{{
 if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
@@ -234,6 +219,7 @@ let g:netrw_localrmdir = 'rm -rf'
 " vim-fugitive. {{{
 Plug 'tpope/vim-fugitive'
 
+nnoremap <a-s> :Gw<cr><Esc>
 nnoremap <silent> <F10> :Gstatus<cr>
 nnoremap <silent> <F11> :Gcommit<cr>
 nnoremap <silent> <F12> :Git push<cr>
