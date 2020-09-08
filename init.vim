@@ -116,60 +116,6 @@ if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
 endif
 " Setup $PATH. }}}
 
-" Command to discard undo history. {{{
-function! s:discardUndoHistory()
-  if &modifiable == 0
-    return
-  endif
-
-  let l:prev_undolevels = &undolevels
-  let l:prev_modified = &modified
-
-  setlocal undolevels=-1
-  execute "noautocmd normal! i \<esc>\"_x"
-  let &l:undolevels = l:prev_undolevels
-
-  if l:prev_modified == 0
-    setlocal nomodified
-  endif
-endfunction
-nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
-" Command to discard undo history. }}}
-
-" Preserve insert mode in terminals. {{{
-function! s:restoreInsertMode()
-  if exists('b:restore_insert_mode')
-    startinsert
-  endif
-endfunction
-function! s:setupTerminal()
-  setlocal nonumber
-
-  autocmd BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
-  nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
-  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
-
-  let l:events = [
-    \ 'LeftMouse', 'LeftDrag', 'LeftRelease', 'MiddleMouse', 'MiddleDrag',
-    \ 'MiddleRelease', 'RightMouse', 'RightDrag', 'RightRelease',
-    \ 'X1Mouse', 'X1Drag', 'X1Release', 'X2Mouse', 'X2Drag', 'X2Release',
-    \ 'ScrollWheelUp', 'ScrollWheelDown',
-    \ ]
-  for l:event in l:events
-    for l:modifier in [ "", "A-", "C-", "S-" ]
-      let l:mapping = '<' . l:modifier . l:event . '>'
-      execute 'tnoremap <buffer><silent>' l:mapping
-        \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
-    endfor
-  endfor
-
-  let b:restore_insert_mode = 1
-  normal $A
-endfunction
-
-autocmd initvim TermOpen * call s:setupTerminal()
-" Preserve insert mode in terminals. }}}
-
 " Language specific settings. {{{
 " Bash and sh.
 let sh_fold_enabled = 1
@@ -224,6 +170,60 @@ autocmd initvim FileType tex setlocal spell foldmethod=marker
 let g:vim_indent_cont = &shiftwidth
 autocmd initvim FileType vim setlocal foldmethod=marker
 " Language specific settings. }}}
+
+" Command to discard undo history. {{{
+function! s:discardUndoHistory()
+  if &modifiable == 0
+    return
+  endif
+
+  let l:prev_undolevels = &undolevels
+  let l:prev_modified = &modified
+
+  setlocal undolevels=-1
+  execute "noautocmd normal! i \<esc>\"_x"
+  let &l:undolevels = l:prev_undolevels
+
+  if l:prev_modified == 0
+    setlocal nomodified
+  endif
+endfunction
+nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
+" Command to discard undo history. }}}
+
+" Preserve insert mode in terminals. {{{
+function! s:restoreInsertMode()
+  if exists('b:restore_insert_mode')
+    startinsert
+  endif
+endfunction
+function! s:setupTerminal()
+  setlocal nonumber
+
+  autocmd BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
+  nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
+  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
+
+  let l:events = [
+    \ 'LeftMouse', 'LeftDrag', 'LeftRelease', 'MiddleMouse', 'MiddleDrag',
+    \ 'MiddleRelease', 'RightMouse', 'RightDrag', 'RightRelease',
+    \ 'X1Mouse', 'X1Drag', 'X1Release', 'X2Mouse', 'X2Drag', 'X2Release',
+    \ 'ScrollWheelUp', 'ScrollWheelDown',
+    \ ]
+  for l:event in l:events
+    for l:modifier in [ "", "A-", "C-", "S-" ]
+      let l:mapping = '<' . l:modifier . l:event . '>'
+      execute 'tnoremap <buffer><silent>' l:mapping
+        \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
+    endfor
+  endfor
+
+  let b:restore_insert_mode = 1
+  normal $A
+endfunction
+
+autocmd initvim TermOpen * call s:setupTerminal()
+" Preserve insert mode in terminals. }}}
 
 call plug#begin()
 
