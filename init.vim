@@ -21,20 +21,20 @@ set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
 set spelllang=en,de
 set termguicolors
 set textwidth=100
-
 let mapleader = ','
-" General settings. }}}
 
-" autocommands. {{{
+if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
+  let $PATH .= ':' . expand('~/.config/nvim/bin')
+endif
+
 augroup initvim
   autocmd!
-
   autocmd BufWritePost ~/.config/nvim/init.vim source %
-
+  autocmd BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
   autocmd BufEnter * setlocal formatoptions+=t
   autocmd CmdwinEnter * setlocal wrap
 augroup END
-" autocommands. }}}
+" General settings. }}}
 
 " Mappings. {{{
 noremap j gj
@@ -43,6 +43,7 @@ nnoremap Y y$
 nnoremap p ]p
 nnoremap P ]P
 nnoremap S :w<cr>
+nnoremap zV zMzv
 nnoremap Q mqgqip`q
 nnoremap <a-q> mqgqi{`q
 nnoremap <leader>s 1z=
@@ -80,41 +81,6 @@ noremap <c-n> nzzzO
 nnoremap <silent> <Esc><Esc> :nohlsearch<cr>
 nnoremap <silent> <leader>gg :silent grep! -riIE --exclude-dir=build/ '/' .<cr>:copen<cr>
 " Mappings. }}}
-
-" folding. {{{
-" Preserve foldmethod when sourcing this file.
-if expand('%:t') != 'init.vim'
-  set foldmethod=syntax
-endif
-
-" Pre-folds the current buffer.
-function! s:refold() " {{{
-  if expand('%:t') == 'init.vim'
-    normal! zM
-  elseif &filetype == 'snippets'
-    normal! zM
-  else
-    normal! zR
-  endif
-endfunction " }}}
-
-autocmd initvim BufWinEnter * call s:refold()
-nnoremap zV zMzv
-
-" Prevent vim from (un)folding text while typing.
-autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod
-  \ | setlocal foldmethod=manual
-autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
-
-" re-apply fold settings after sourcing this file.
-execute 'set filetype=' . &filetype
-" folding. }}}
-
-" Setup $PATH. {{{
-if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
-  let $PATH .= ':' . expand('~/.config/nvim/bin')
-endif
-" Setup $PATH. }}}
 
 " Language specific settings. {{{
 " Bash and sh.
@@ -155,7 +121,7 @@ autocmd initvim FileType markdown setlocal spell
 autocmd initvim FileType python setlocal wrap textwidth=0
 
 " Qf.
-autocmd FileType qf setlocal wrap nospell
+autocmd initvim FileType qf setlocal wrap nospell
 
 " Scheme.
 let g:is_chicken = 1
@@ -225,6 +191,21 @@ endfunction
 autocmd initvim TermOpen * call s:setupTerminal()
 " Preserve insert mode in terminals. }}}
 
+" Open/close folds when opening files. {{{
+function! s:refold()
+  if expand('%:t') == 'init.vim' || &filetype == 'snippets'
+    normal! zM
+  else
+    normal! zR
+  endif
+endfunction
+autocmd initvim BufWinEnter * call s:refold()
+
+" Prevent text from being (un)folded while typing.
+autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod | setlocal foldmethod=manual
+autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
+" Open/close folds when opening files. }}}
+
 call plug#begin()
 
 " netrw. {{{
@@ -267,8 +248,7 @@ function! CustomFormatExpression() " {{{
   execute v:lnum . ',' . (v:lnum + v:count - 1) . 'Autoformat'
 endfunction " }}}
 
-autocmd initvim FileType c,cpp
-  \ setlocal textwidth=0 formatexpr=CustomFormatExpression()
+autocmd initvim FileType c,cpp setlocal textwidth=0 formatexpr=CustomFormatExpression()
 autocmd initvim FileType c,cpp noremap <buffer> = gq
 " vim-autoformat. }}}
 
@@ -495,12 +475,9 @@ Plug 'AlxHnr/project-chdir.vim'
 Plug 'AlxHnr/vim-spell-files'
 " vim-spell-files. }}}
 
-" Source 'custom/init.vim' if available.
-let s:vim_custom_config = expand('~/.config/nvim/custom/init.vim')
-if filereadable(s:vim_custom_config)
-  execute 'source ' . s:vim_custom_config
+if filereadable(expand('~/.config/nvim/custom/init.vim'))
+  execute 'source ' . expand('~/.config/nvim/custom/init.vim')
 endif
-autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
 
 call plug#end()
 
