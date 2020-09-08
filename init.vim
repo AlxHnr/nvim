@@ -26,6 +26,7 @@ set textwidth=100
 
 let mapleader = ','
 let g:c_syntax_for_h = 1
+let g:vim_indent_cont = &shiftwidth
 let g:markdown_fenced_languages =
   \ [
   \   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
@@ -34,7 +35,7 @@ let g:markdown_fenced_languages =
   \ ]
 " fundamentals. }}}
 
-" general autocommands. {{{
+" autocommands. {{{
 augroup initvim
   autocmd!
 
@@ -46,9 +47,9 @@ augroup initvim
   autocmd BufWritePost ~/.config/nvim/init.vim source %
   autocmd BufWritePost ~/.config/i3/config silent !i3-msg reload >/dev/null 2>&1
 augroup END
-" general autocommands. }}}
+" autocommands. }}}
 
-" general mappings. {{{
+" mappings. {{{
 cnoremap <c-k> <Up>
 cnoremap <c-j> <Down>
 noremap j gj
@@ -81,7 +82,7 @@ nnoremap S :w<cr>
 nnoremap <a-s> :Gw<cr><Esc>
 nnoremap <a-n> @='n.'<cr>
 nnoremap <silent> <leader>ce :let @/='\<' . expand('<cword>') . '\>'<cr>ciw
-" general mappings. }}}
+" mappings. }}}
 
 " searching. {{{
 noremap / /\v
@@ -138,9 +139,6 @@ autocmd initvim BufEnter * setlocal formatoptions+=t
 " formatting. }}}
 
 " indenting. {{{
-let g:vim_indent_cont = &shiftwidth
-
-" indent after pasting.
 nnoremap p ]p
 nnoremap P ]P
 " indenting. }}}
@@ -261,7 +259,7 @@ Plug 'junegunn/gv.vim'
 nnoremap <F9> :GV --all<cr>
 " gv.vim. }}}
 
-" fuzzy search. {{{
+" fzf. {{{
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -271,7 +269,7 @@ let g:fzf_command_prefix = 'FZF'
 
 nnoremap <c-p> :FZFFiles<cr>
 nnoremap <c-f> :FZFHistory<cr>
-" fuzzy search. }}}
+" fzf. }}}
 
 " ale. {{{
 Plug 'dense-analysis/ale'
