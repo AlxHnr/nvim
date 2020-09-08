@@ -1,6 +1,5 @@
 " general settings. {{{
 " fundamentals. {{{
-set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
 set cursorline
 set expandtab
 set guicursor=
@@ -25,14 +24,6 @@ set termguicolors
 set textwidth=100
 
 let mapleader = ','
-let g:c_syntax_for_h = 1
-let g:vim_indent_cont = &shiftwidth
-let g:markdown_fenced_languages =
-  \ [
-  \   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
-  \   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
-  \   'python', 'ruby', 'html', 'vim', 'desktop', 'diff',
-  \ ]
 " fundamentals. }}}
 
 " autocommands. {{{
@@ -40,12 +31,7 @@ augroup initvim
   autocmd!
 
   autocmd CmdwinEnter * setlocal wrap
-  autocmd FileType cs,git,qf,python setlocal wrap
-  autocmd BufNewFile,BufRead *.lco setfiletype tex
-  autocmd BufNewFile,BufRead ~/.config/i3/config setfiletype conf
-
   autocmd BufWritePost ~/.config/nvim/init.vim source %
-  autocmd BufWritePost ~/.config/i3/config silent !i3-msg reload >/dev/null 2>&1
 augroup END
 " autocommands. }}}
 
@@ -111,10 +97,6 @@ function! s:refold() " {{{
   endif
 endfunction " }}}
 
-let sh_fold_enabled = 1
-autocmd initvim FileType git setlocal foldmethod=manual
-autocmd initvim FileType vim,tex setlocal foldmethod=marker
-autocmd initvim FileType scheme setlocal foldnestmax=2
 autocmd initvim BufWinEnter * call s:refold()
 nnoremap zV zMzv
 
@@ -131,10 +113,6 @@ execute 'set filetype=' . &filetype
 nnoremap Q mqgqip`q
 nnoremap <a-q> mqgqi{`q
 
-autocmd initvim FileType help setlocal textwidth=78
-autocmd initvim FileType gitcommit setlocal textwidth=72
-autocmd initvim FileType html,config,python setlocal textwidth=0
-autocmd initvim BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0
 autocmd initvim BufEnter * setlocal formatoptions+=t
 " formatting. }}}
 
@@ -144,10 +122,7 @@ nnoremap P ]P
 " indenting. }}}
 
 " spell checking. {{{
-autocmd initvim BufNewFile,BufRead *.[ch] setlocal spell
-autocmd initvim BufNewFile,BufRead *.[ch]pp setlocal spell
-autocmd initvim FileType markdown,tex,gitcommit setlocal spell
-autocmd initvim FileType git,qf setlocal nospell
+
 nnoremap <leader>s 1z=
 " spell checking. }}}
 
@@ -157,6 +132,74 @@ if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
 endif
 " Setup $PATH. }}}
 " general settings. }}}
+
+" Language specific settings. {{{
+" Bash and sh. {{{
+let sh_fold_enabled = 1
+" Bash and sh. }}}
+
+" C and C++. {{{
+let g:c_syntax_for_h = 1
+set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
+autocmd initvim BufNewFile,BufRead *.[ch] setlocal spell
+autocmd initvim BufNewFile,BufRead *.[ch]pp setlocal spell
+" C and C++. }}}
+
+" Config. {{{
+autocmd initvim FileType config setlocal textwidth=0
+" Config. }}}
+
+" Git. {{{
+autocmd initvim FileType git setlocal nospell wrap foldmethod=manual
+autocmd initvim FileType gitcommit setlocal spell textwidth=72
+" Git. }}}
+
+" Help. {{{
+autocmd initvim FileType help setlocal textwidth=78
+" Help. }}}
+
+" Html. {{{
+autocmd initvim FileType html setlocal textwidth=0
+" Html. }}}
+
+" i3 config. {{{
+autocmd initvim BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0 filetype=conf
+autocmd initvim BufWritePost ~/.config/i3/config silent !i3-msg reload >/dev/null 2>&1
+" i3 config. }}}
+
+" Markdown. {{{
+let g:markdown_fenced_languages = [
+  \   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
+  \   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
+  \   'python', 'ruby', 'html', 'vim', 'desktop', 'diff',
+  \ ]
+autocmd initvim FileType markdown setlocal spell
+" Markdown. }}}
+
+" Python. {{{
+autocmd initvim FileType python setlocal wrap textwidth=0
+" Python. }}}
+
+" Qf. {{{
+autocmd FileType qf setlocal wrap nospell
+" Qf. }}}
+
+" Scheme. {{{
+let g:is_chicken = 1
+autocmd initvim FileType scheme setlocal foldnestmax=2
+" Scheme. }}}
+
+" Tex. {{{
+let g:tex_flavor = 'latex'
+autocmd initvim BufNewFile,BufRead *.lco setfiletype tex
+autocmd initvim FileType tex setlocal spell foldmethod=marker
+" Tex. }}}
+
+" Vim. {{{
+let g:vim_indent_cont = &shiftwidth
+autocmd initvim FileType vim setlocal foldmethod=marker
+" Vim. }}}
+" Language specific settings. }}}
 
 " plugins. {{{
 
@@ -369,7 +412,6 @@ let g:ycm_language_server +=
 " vimtex. {{{
 Plug 'lervag/vimtex'
 
-let g:tex_flavor = 'latex'
 let g:vimtex_quickfix_mode = 0
 " vimtex. }}}
 
