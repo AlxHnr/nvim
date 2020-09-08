@@ -1,8 +1,13 @@
 " general settings. {{{
 " fundamentals. {{{
+set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
 set cursorline
+set expandtab
 set guicursor=
+set ignorecase
+set inccommand=nosplit
 set mouse=a
+set nojoinspaces
 set nomodeline
 set nowrap
 set nowritebackup
@@ -10,7 +15,14 @@ set number
 set numberwidth=1
 set scrolloff=3
 set shada=!,'10000,<50,s10,h
+set shiftwidth=2
+set smartcase
+set smartindent
+set softtabstop=-1
+set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
+set spelllang=en,de
 set termguicolors
+set textwidth=100
 
 let mapleader = ','
 let g:c_syntax_for_h = 1
@@ -72,10 +84,6 @@ nnoremap <silent> <leader>ce :let @/='\<' . expand('<cword>') . '\>'<cr>ciw
 " general mappings. }}}
 
 " searching. {{{
-set ignorecase
-set smartcase
-set inccommand=nosplit
-
 noremap / /\v
 noremap ? ?\v
 noremap # :let @/='\<' . expand('<cword>') . '\>'<cr>N
@@ -119,8 +127,6 @@ execute 'set filetype=' . &filetype
 " folding. }}}
 
 " formatting. {{{
-set textwidth=100
-set nojoinspaces
 nnoremap Q mqgqip`q
 nnoremap <a-q> mqgqi{`q
 
@@ -132,12 +138,6 @@ autocmd initvim BufEnter * setlocal formatoptions+=t
 " formatting. }}}
 
 " indenting. {{{
-set shiftwidth=2
-set softtabstop=-1
-set expandtab
-
-set smartindent
-set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
 let g:vim_indent_cont = &shiftwidth
 
 " indent after pasting.
@@ -146,8 +146,6 @@ nnoremap P ]P
 " indenting. }}}
 
 " spell checking. {{{
-set spelllang=en,de
-set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
 autocmd initvim BufNewFile,BufRead *.[ch] setlocal spell
 autocmd initvim BufNewFile,BufRead *.[ch]pp setlocal spell
 autocmd initvim FileType markdown,tex,gitcommit setlocal spell
