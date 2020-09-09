@@ -412,7 +412,7 @@ autocmd initvim FileType * call s:mapYCMCommands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 autocmd initvim User YcmQuickFixOpened q | botright copen
 
-command! RebuildYCM call BuildPlugin({'name': 'YouCompleteMe'})
+command! RebuildYCM call BuildYouCompleteMe({})
 " YouCompleteMe. }}}
 
 " vimtex. {{{
