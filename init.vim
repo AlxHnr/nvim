@@ -1,3 +1,16 @@
+" Make this file reloadable at runtime. {{{
+augroup initvim | autocmd! | augroup END
+
+" Reload this file every time it gets saved.
+autocmd initvim BufWritePost ~/.config/nvim/init.vim source %
+autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
+
+" Prevent this file from being refolded after reload.
+if expand('%:t') != 'init.vim'
+  set foldmethod=syntax
+endif
+" Make this file reloadable at runtime. }}}
+
 " General settings. {{{
 set cursorline
 set expandtab
@@ -27,13 +40,16 @@ if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
   let $PATH .= ':' . expand('~/.config/nvim/bin')
 endif
 
-augroup initvim
-  autocmd!
-  autocmd BufWritePost ~/.config/nvim/init.vim source %
-  autocmd BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
-  autocmd BufEnter * setlocal formatoptions+=t
-  autocmd CmdwinEnter * setlocal wrap
-augroup END
+" Force auto wrapping long lines while typing.
+autocmd initvim BufEnter * setlocal formatoptions+=t
+
+" Setup folds when opening files.
+autocmd initvim BufWinEnter * normal! zR
+autocmd initvim BufWinEnter init.vim normal! zM
+
+" Prevent text from being (un)folded while typing.
+autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod | setlocal foldmethod=manual
+autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
 " General settings. }}}
 
 " Mappings. {{{
@@ -89,8 +105,7 @@ let sh_fold_enabled = 1
 " C and C++.
 let g:c_syntax_for_h = 1
 set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
-autocmd initvim BufNewFile,BufRead *.[ch] setlocal spell
-autocmd initvim BufNewFile,BufRead *.[ch]pp setlocal spell
+autocmd initvim BufNewFile,BufRead *.[ch],*.[ch]pp setlocal spell
 
 " Config.
 autocmd initvim FileType config setlocal textwidth=0
@@ -192,21 +207,6 @@ endfunction
 
 autocmd initvim TermOpen * call s:setupTerminal()
 " Preserve insert mode in terminals. }}}
-
-" Open/close folds when opening files. {{{
-function! s:refold()
-  if expand('%:t') == 'init.vim' || &filetype == 'snippets'
-    normal! zM
-  else
-    normal! zR
-  endif
-endfunction
-autocmd initvim BufWinEnter * call s:refold()
-
-" Prevent text from being (un)folded while typing.
-autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod | setlocal foldmethod=manual
-autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
-" Open/close folds when opening files. }}}
 
 call plug#begin()
 
@@ -321,6 +321,7 @@ nnoremap <leader>u :UltiSnipsEdit<cr>
 
 autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
 autocmd initvim BufWritePost *.snippets call UltiSnips#RefreshSnippets()
+autocmd initvim BufWinEnter *.snippets normal! zM
 " ultisnips. }}}
 
 " ultisnips-snippets. {{{
