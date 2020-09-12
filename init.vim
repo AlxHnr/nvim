@@ -429,21 +429,8 @@ Plug 'drewtempelmeyer/palenight.vim'
 " build.vim. {{{
 Plug 'AlxHnr/build.vim'
 
-" Passes the current build systems default target to :Build.
-function! s:buildDefaultTarget()
-  let l:build_system = build#get_current_build_system()
-  let l:systems_without_default_target =
-    \ { 'Autotools': 1, 'Make': 1, 'CMake': 1 }
-
-  if !empty(l:build_system) && has_key(l:systems_without_default_target, l:build_system.name)
-    Build
-  else
-    Build build
-  endif
-endfunction
-
 nnoremap <silent> <F1> :wall<cr>:Build clean<cr>
-nnoremap <silent> <F2> :wall<cr>:call <sid>buildDefaultTarget()<cr>
+nnoremap <silent> <F2> :wall<cr>:Build<cr>
 nnoremap <silent> <F3> :wall<cr>:Build test<cr>
 nnoremap <silent> <F4> :wall<cr>:Build run<cr>
 
