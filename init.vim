@@ -365,33 +365,12 @@ let g:ycm_language_server = [
   \   },
   \ ]
 
-function! s:getFiletypesWithAssociatedLSPServers() " {{{
-  let l:result = []
-  for l:server in g:ycm_language_server
-    if has_key(l:server, 'filetypes')
-      let l:result += l:server.filetypes
-    endif
-  endfor
-
-  return l:result
-endfunction " }}}
-
-function! s:mapYCMCommands() " {{{
-  let l:lsp_langs = s:getFiletypesWithAssociatedLSPServers()
-  let l:ycm_native_langs = [ 'python' ]
-
-  if index(l:lsp_langs, &filetype) >= 0
-    nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
-    nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
-  elseif index(l:ycm_native_langs, &filetype) >= 0
-    nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
-    nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
-  endif
-endfunction " }}}
-
-autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
-autocmd initvim FileType * call s:mapYCMCommands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
+autocmd initvim FileType c,cpp,tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
+autocmd initvim FileType c,cpp,tex nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
+autocmd initvim FileType python nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
+autocmd initvim FileType python nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
+autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
 autocmd initvim User YcmQuickFixOpened q | botright copen
 " YouCompleteMe. }}}
 
