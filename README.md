@@ -42,16 +42,6 @@ provider. I use Neovim 0.4.4, but older versions _may_ work. Install
 Clone this repository to `~/.config/nvim/` and run `nvim +PlugInstall` to
 install all required plugins.
 
-## Troubleshooting
-
-If building [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe)
-fails due to missing dependencies, install those and run the following
-command from inside Neovim to try again:
-
-```vim
-:RebuildYCM
-```
-
 # License
 
 This repository contains a copy of

@@ -339,21 +339,7 @@ command! UpdateIncludeGuards call s:UpdateIncludeGuards()
 " ultisnips-snippets. }}}
 
 " YouCompleteMe. {{{
-function! BuildYouCompleteMe(info) " {{{
-  let l:cmd = 'python3 ' . expand('~/.config/nvim/plugged/YouCompleteMe/install.py')
-
-  " Run build command in split terminal window if this function was not
-  " called by vim-plug.
-  if !has_key(a:info, 'status')
-    botright new
-    call termopen(l:cmd)
-    startinsert
-  elseif a:info.status != 'unchanged'
-    execute '!' . l:cmd
-  endif
-endfunction " }}}
-
-Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYouCompleteMe') }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
@@ -410,8 +396,6 @@ autocmd initvim WinEnter *
 autocmd initvim FileType * call s:mapYCMCommands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 autocmd initvim User YcmQuickFixOpened q | botright copen
-
-command! RebuildYCM call BuildYouCompleteMe({})
 " YouCompleteMe. }}}
 
 " vimtex. {{{
