@@ -236,12 +236,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 " vim-eunuch. }}}
 
-" vim-polyglot. {{{
-Plug 'sheerun/vim-polyglot'
-
-let g:polyglot_disabled = [ 'markdown' ]
-" vim-polyglot. }}}
-
 " vim-autoformat. {{{
 Plug 'Chiel92/vim-autoformat'
 
