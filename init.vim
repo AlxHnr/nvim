@@ -389,10 +389,7 @@ function! s:mapYCMCommands() " {{{
   endif
 endfunction " }}}
 
-autocmd initvim WinEnter *
-  \ if &previewwindow
-  \| setlocal syntax=cpp wrap
-  \| endif
+autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
 autocmd initvim FileType * call s:mapYCMCommands()
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 autocmd initvim User YcmQuickFixOpened q | botright copen
