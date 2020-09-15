@@ -365,8 +365,6 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_error_symbol = g:ale_sign_error
 let g:ycm_warning_symbol = g:ale_sign_warning
 let g:ycm_extra_conf_globlist = [ '!*' ]
-let g:ycm_filetype_blacklist =
-  \ { 'netrw': 1, 'unite': 1, 'tagbar': 1, 'infolog': 1 }
 let g:ycm_language_server = [
   \   {
   \     'name': 'clangd',
