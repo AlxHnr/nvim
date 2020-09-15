@@ -295,10 +295,8 @@ nnoremap <c-f> :FZFHistory<cr>
 " ale. {{{
 Plug 'dense-analysis/ale'
 
-let g:ale_linters = {}
-let g:ale_linters['c'] = []
-let g:ale_linters['cpp'] = []
-
+let g:ale_linters_explicit = 1
+let g:ale_linters = { 'sh': [ 'shellcheck' ] }
 let g:ale_sign_error = '❌️'
 let g:ale_sign_warning = '⚠️ '
 let g:ale_sign_info = '❕️'
