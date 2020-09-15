@@ -10,7 +10,7 @@ colorscheme:
 ## Dependencies
 
 * Terminal with true 24-bit color support, e.g. _GNOME Terminal_.
-* Development files of libpython (3.5 or higher). This is required to build
+* Development files of libpython (3.6 or higher). This is required to build
   [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe).
 * Clangd (10 or higher)
 * CMake
