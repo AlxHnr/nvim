@@ -219,9 +219,9 @@ let g:netrw_localrmdir = 'rm -rf'
 " vim-fugitive. {{{
 Plug 'tpope/vim-fugitive'
 
-nnoremap <a-s> :Gw<cr><Esc>
-nnoremap <silent> <F10> :Gstatus<cr>
-nnoremap <silent> <F11> :Gcommit<cr>
+nnoremap <a-s> :Gwrite<cr><Esc>
+nnoremap <silent> <F10> :Git<cr>
+nnoremap <silent> <F11> :Git commit<cr>
 nnoremap <silent> <F12> :Git push<cr>
 autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
