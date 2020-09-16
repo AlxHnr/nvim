@@ -331,7 +331,7 @@ command! UpdateIncludeGuards call s:UpdateIncludeGuards()
 " ultisnips-snippets. }}}
 
 " YouCompleteMe. {{{
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
@@ -343,25 +343,13 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_error_symbol = '❌️'
 let g:ycm_warning_symbol = '⚠️ '
 let g:ycm_extra_conf_globlist = [ '!*' ]
-let g:ycm_language_server = [
-  \   {
-  \     'name': 'clangd',
-  \     'cmdline': [ 'clangd', '-cross-file-rename', '--header-insertion=never' ],
-  \     'project_root_files': [ 'compile_commands.json' ],
-  \     'filetypes': [ 'c', 'cpp' ],
-  \   },
-  \   {
-  \     'name': 'texlab',
-  \     'cmdline': [ 'texlab' ],
-  \     'filetypes': [ 'tex' ],
-  \   },
-  \ ]
+let g:ycm_clangd_args = [ '-cross-file-rename', '--header-insertion=never' ]
+let g:ycm_language_server = [{ 'name': 'texlab', 'cmdline': ['texlab'], 'filetypes': ['tex']}]
 
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
-autocmd initvim FileType c,cpp,tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
-autocmd initvim FileType c,cpp,tex nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
-autocmd initvim FileType python nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
-autocmd initvim FileType python nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
+autocmd initvim FileType tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
+autocmd initvim FileType c,cpp,python nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
+autocmd initvim FileType c,cpp,tex,python nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
 autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
 autocmd initvim User YcmQuickFixOpened q | botright copen
 " YouCompleteMe. }}}
