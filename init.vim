@@ -208,13 +208,76 @@ endfunction
 autocmd initvim TermOpen * call s:setupTerminal()
 " Preserve insert mode in terminals. }}}
 
-call plug#begin()
-
 " netrw. {{{
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_localrmdir = 'rm -rf'
 " netrw. }}}
+
+call plug#begin()
+
+" YouCompleteMe. {{{
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
+
+let g:ycm_key_list_select_completion = []
+let g:ycm_key_list_previous_completion = []
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_always_populate_location_list = 1
+let g:ycm_error_symbol = '❌️'
+let g:ycm_warning_symbol = '⚠️ '
+let g:ycm_extra_conf_globlist = [ '!*' ]
+let g:ycm_clangd_args = [ '-cross-file-rename', '--header-insertion=never' ]
+let g:ycm_language_server = [{ 'name': 'texlab', 'cmdline': ['texlab'], 'filetypes': ['tex']}]
+
+nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
+autocmd initvim FileType tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
+autocmd initvim FileType c,cpp,python nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
+autocmd initvim FileType c,cpp,tex,python nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
+autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
+autocmd initvim User YcmQuickFixOpened q | botright copen
+" YouCompleteMe. }}}
+
+" fzf. {{{
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
+let g:fzf_command_prefix = 'FZF'
+
+nnoremap <c-p> :FZFFiles<cr>
+nnoremap <c-f> :FZFHistory<cr>
+" fzf. }}}
+
+" ultisnips. {{{
+Plug 'SirVer/ultisnips'
+
+let g:UltiSnipsEditSplit = 'horizontal'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+nnoremap <leader>u :UltiSnipsEdit<cr>
+
+autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
+autocmd initvim BufWritePost *.snippets call UltiSnips#RefreshSnippets()
+autocmd initvim BufWinEnter *.snippets normal! zM
+" ultisnips. }}}
+
+" ultisnips-snippets. {{{
+Plug 'AlxHnr/ultisnips-snippets'
+
+function! s:UpdateIncludeGuards()
+  python3 from snippet_module_c import get_current_header_string
+  let l:header_string = py3eval('get_current_header_string()')
+  let l:current_cursor = getpos('.')
+  silent execute '%s/\v^(#(ifndef|define)\s+)([^_]+_\w+_h(pp)?\s*$)/\1'
+    \ . l:header_string . '/e'
+  call setpos('.', l:current_cursor)
+endfunction
+command! UpdateIncludeGuards call s:UpdateIncludeGuards()
+" ultisnips-snippets. }}}
 
 " vim-fugitive. {{{
 Plug 'tpope/vim-fugitive'
@@ -227,6 +290,12 @@ autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
 set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
 " vim-fugitive. }}}
+
+" gv.vim. {{{
+Plug 'junegunn/gv.vim'
+
+nnoremap <F9> :GV --all<cr>
+" gv.vim. }}}
 
 " vim-commentary. {{{
 Plug 'tpope/vim-commentary'
@@ -275,23 +344,6 @@ Plug 'junegunn/vim-easy-align'
 vmap <cr> <Plug>(EasyAlign)*
 " vim-easy-align. }}}
 
-" gv.vim. {{{
-Plug 'junegunn/gv.vim'
-
-nnoremap <F9> :GV --all<cr>
-" gv.vim. }}}
-
-" fzf. {{{
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-
-let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
-let g:fzf_command_prefix = 'FZF'
-
-nnoremap <c-p> :FZFFiles<cr>
-nnoremap <c-f> :FZFHistory<cr>
-" fzf. }}}
-
 " ale. {{{
 Plug 'dense-analysis/ale'
 
@@ -301,58 +353,6 @@ let g:ale_sign_error = '❌️'
 let g:ale_sign_warning = '⚠️ '
 let g:ale_sign_info = '❕️'
 " ale. }}}
-
-" ultisnips. {{{
-Plug 'SirVer/ultisnips'
-
-let g:UltiSnipsEditSplit = 'horizontal'
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-nnoremap <leader>u :UltiSnipsEdit<cr>
-
-autocmd initvim FileType snippets setlocal noexpandtab tabstop=2 textwidth=0
-autocmd initvim BufWritePost *.snippets call UltiSnips#RefreshSnippets()
-autocmd initvim BufWinEnter *.snippets normal! zM
-" ultisnips. }}}
-
-" ultisnips-snippets. {{{
-Plug 'AlxHnr/ultisnips-snippets'
-
-function! s:UpdateIncludeGuards()
-  python3 from snippet_module_c import get_current_header_string
-  let l:header_string = py3eval('get_current_header_string()')
-  let l:current_cursor = getpos('.')
-  silent execute '%s/\v^(#(ifndef|define)\s+)([^_]+_\w+_h(pp)?\s*$)/\1'
-    \ . l:header_string . '/e'
-  call setpos('.', l:current_cursor)
-endfunction
-command! UpdateIncludeGuards call s:UpdateIncludeGuards()
-" ultisnips-snippets. }}}
-
-" YouCompleteMe. {{{
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
-
-let g:ycm_key_list_select_completion = []
-let g:ycm_key_list_previous_completion = []
-let g:ycm_always_populate_location_list = 1
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_complete_in_comments = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_error_symbol = '❌️'
-let g:ycm_warning_symbol = '⚠️ '
-let g:ycm_extra_conf_globlist = [ '!*' ]
-let g:ycm_clangd_args = [ '-cross-file-rename', '--header-insertion=never' ]
-let g:ycm_language_server = [{ 'name': 'texlab', 'cmdline': ['texlab'], 'filetypes': ['tex']}]
-
-nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
-autocmd initvim FileType tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
-autocmd initvim FileType c,cpp,python nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
-autocmd initvim FileType c,cpp,tex,python nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
-autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
-autocmd initvim User YcmQuickFixOpened q | botright copen
-" YouCompleteMe. }}}
 
 " vimtex. {{{
 Plug 'lervag/vimtex'
