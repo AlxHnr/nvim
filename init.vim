@@ -375,7 +375,7 @@ nnoremap <silent> <F4> :wall<cr>:Build run<cr>
 let s:build_c_flags = '-Wall -Wextra -pedantic -O0 -coverage -ggdb -fsanitize=address'
 command! -nargs=? CMakeInit execute 'BuildInit'
   \ '-DCMAKE_C_FLAGS="' . s:build_c_flags . '"'
-  \ '-DCMAKE_CXX_FLAGS="' . s:build_c_flags . '"'
+  \ '-DCMAKE_CXX_FLAGS="' . s:build_c_flags . ' -Wno-missing-field-initializers"'
   \ <q-args>
 
 let s:build_clang_flags = s:build_c_flags . ' -Wdocumentation'
