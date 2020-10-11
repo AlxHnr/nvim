@@ -60,7 +60,7 @@ cd bin/
 
 fetch and_rename nvim 1eea3d44f55bab0856d08737c0c50ead7645ae3afd6352a252bc403b9843ec95 \
   "https://github.com/neovim/neovim/releases/download/v0.4.4/nvim.appimage"
-fetch and_extract fzf 477b52457d185e4c7e9b225e62bd11a7fcff5a8105a13408742b953724e98885 \
-  "https://github.com/junegunn/fzf-bin/releases/download/0.23.0/fzf-0.23.0-linux_amd64.tgz"
+fetch and_extract fzf 7cdf3fd893d5aa0df808c50adcf7bb173ce75ddf11f9d76516ed02d0d6df5ecd \
+  "https://github.com/junegunn/fzf-bin/releases/download/0.23.1/fzf-0.23.1-linux_amd64.tgz"
 fetch and_extract texlab e9ecf0a07e42180f77aa85a87fcc6690a34af8b631c6bb22101986df87043658 \
   "https://github.com/latex-lsp/texlab/releases/download/v2.2.0/texlab-x86_64-linux.tar.gz"
