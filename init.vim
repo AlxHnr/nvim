@@ -383,8 +383,8 @@ command! -nargs=? CMakeInit execute 'Build init -DCMAKE_BUILD_TYPE=Debug'
 let s:build_clang_flags = s:build_c_flags . ' -Wdocumentation'
 command! -nargs=? CMakeInitClang execute 'Build init -DCMAKE_BUILD_TYPE=Debug'
   \ '-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++'
-  \ '-DCMAKE_C_FLAGS='   . s:build_clang_flags
-  \ '-DCMAKE_CXX_FLAGS=' . s:build_clang_flags . ' -stdlib=libstdc++'
+  \ '-DCMAKE_C_FLAGS="'   . s:build_clang_flags . '"'
+  \ '-DCMAKE_CXX_FLAGS="' . s:build_clang_flags . ' -stdlib=libstdc++"'
   \ <q-args>
 " build.vim. }}}
 
