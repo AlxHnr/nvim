@@ -375,13 +375,13 @@ nnoremap <silent> <F3> :wall<cr>:Build test<cr>
 nnoremap <silent> <F4> :wall<cr>:Build run<cr>
 
 let s:build_c_flags = '-Wall -Wextra -pedantic -O0 -coverage -ggdb -fsanitize=address'
-command! -nargs=? CMakeInit execute 'Build init'
+command! -nargs=? CMakeInit execute 'Build init -DCMAKE_BUILD_TYPE=Debug'
   \ '-DCMAKE_C_FLAGS="' . s:build_c_flags . '"'
   \ '-DCMAKE_CXX_FLAGS="' . s:build_c_flags . ' -Wno-missing-field-initializers"'
   \ <q-args>
 
 let s:build_clang_flags = s:build_c_flags . ' -Wdocumentation'
-command! -nargs=? CMakeInitClang execute 'Build init'
+command! -nargs=? CMakeInitClang execute 'Build init -DCMAKE_BUILD_TYPE=Debug'
   \ '-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++'
   \ '-DCMAKE_C_FLAGS='   . s:build_clang_flags
   \ '-DCMAKE_CXX_FLAGS=' . s:build_clang_flags . ' -stdlib=libstdc++'
