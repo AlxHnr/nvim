@@ -4,7 +4,7 @@
 
 cd "$(dirname "$0")"
 
-mkdir -p custom/UltiSnips
+mkdir -p custom/UltiSnips custom/spell
 
 git pull
 pip3 install --user neovim --upgrade
