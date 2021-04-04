@@ -407,3 +407,12 @@ call plug#end()
 if !exists('g:colors_name')
   colorscheme gruvbox
 endif
+
+function! s:toggleColorscheme()
+  if &background == 'dark'
+    set background=light
+  else
+    set background=dark
+  endif
+endfunction
+nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
