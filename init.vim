@@ -362,9 +362,11 @@ Plug 'lervag/vimtex'
 let g:vimtex_quickfix_mode = 0
 " vimtex. }}}
 
-" palenight.vim. {{{
-Plug 'drewtempelmeyer/palenight.vim'
-" palenight.vim. }}}
+" gruvbox. {{{
+Plug 'gruvbox-community/gruvbox'
+
+let g:gruvbox_invert_selection = 0
+" gruvbox. }}}
 
 " build.vim. {{{
 Plug 'AlxHnr/build.vim'
@@ -403,5 +405,5 @@ endif
 call plug#end()
 
 if !exists('g:colors_name')
-  colorscheme palenight
+  colorscheme gruvbox
 endif

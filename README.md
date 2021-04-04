@@ -1,9 +1,8 @@
 This repository contains my personal [Neovim](https://neovim.io/)
 configuration. I use _GNOME Terminal_ with _DejaVu Sans Mono_ (font) and
-[palenight.vim](https://github.com/drewtempelmeyer/palenight.vim) as
-colorscheme:
+[gruvbox](https://github.com/gruvbox-community/gruvbox) as colorscheme:
 
-![screenshot](https://user-images.githubusercontent.com/8235638/68037890-0b511500-fcc9-11e9-98b1-e31aa40b06f2.png)
+![screenshot](https://user-images.githubusercontent.com/8235638/113520650-d53a5380-9594-11eb-941f-6e8eb4206531.png)
 
 # Installation
 
