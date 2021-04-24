@@ -239,8 +239,10 @@ let g:ycm_language_server = [{ 'name': 'texlab', 'cmdline': ['texlab'], 'filetyp
 
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 autocmd initvim FileType tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
-autocmd initvim FileType c,cpp,python nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
-autocmd initvim FileType c,cpp,tex,python nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
+autocmd initvim FileType c,cpp,python,typescript
+  \ nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
+autocmd initvim FileType c,cpp,tex,python,typescript
+  \ nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
 autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
 autocmd initvim User YcmQuickFixOpened q | botright copen
 " YouCompleteMe. }}}
