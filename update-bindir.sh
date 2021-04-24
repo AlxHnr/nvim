@@ -48,7 +48,10 @@ and_extract()
   sha256="$3"
 
   trap 'rm -f ".tmp__$filename"' EXIT
-  tar xaf "$archive" "$filename" -O > ".tmp__$filename"
+  tar tf "$archive" |
+    grep -E "(^|/)$filename\$" |
+    sed -r 's,^/,,' |
+    xargs -d '\n' tar xaf "$archive" -O > ".tmp__$filename"
   check_hash ".tmp__$filename" "$sha256"
 
   mv ".tmp__$filename" "$filename"
