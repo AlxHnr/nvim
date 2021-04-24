@@ -147,6 +147,9 @@ let g:tex_flavor = 'latex'
 autocmd initvim BufNewFile,BufRead *.lco setfiletype tex
 autocmd initvim FileType tex setlocal spell foldmethod=marker
 
+" Typescript.
+autocmd initvim BufNewFile,BufRead *.tsx setfiletype typescript
+
 " Vim.
 let g:vim_indent_cont = &shiftwidth
 autocmd initvim FileType vim setlocal foldmethod=marker
