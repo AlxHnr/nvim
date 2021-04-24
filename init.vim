@@ -111,7 +111,7 @@ autocmd initvim BufNewFile,BufRead *.[ch],*.[ch]pp setlocal spell
 autocmd initvim FileType config setlocal textwidth=0
 
 " Git.
-autocmd initvim FileType git setlocal nospell wrap foldmethod=manual
+autocmd initvim FileType git setlocal nospell wrap
 autocmd initvim FileType gitcommit setlocal spell textwidth=72
 
 " Help.
