@@ -217,6 +217,22 @@ let g:netrw_liststyle = 3
 let g:netrw_localrmdir = 'rm -rf'
 " netrw. }}}
 
+" termdebug. {{{
+packadd termdebug
+
+let g:termdebug_wide = 1
+
+function! s:startDebugSession(arguments)
+  nnoremap <silent> <F5> :Step<cr>
+  nnoremap <silent> <F6> :Over<cr>
+  nnoremap <silent> <F7> :Finish<cr>
+  nnoremap <silent> <F8> :Evaluate<cr>
+  vnoremap <silent> <F8> :Evaluate<cr>
+  execute 'Termdebug' a:arguments
+endfunction
+command! -nargs=? -complete=file Debug call s:startDebugSession(<q-args>)
+" termdebug. }}}
+
 call plug#begin()
 
 " YouCompleteMe. {{{
