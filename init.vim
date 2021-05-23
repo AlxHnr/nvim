@@ -135,8 +135,8 @@ autocmd initvim FileType markdown setlocal spell
 " Python.
 autocmd initvim FileType python setlocal wrap textwidth=0
 
-" Qf.
-autocmd initvim FileType qf setlocal wrap nospell
+" Qf (QuickFix).
+autocmd initvim FileType qf setlocal nospell
 
 " Scheme.
 let g:is_chicken = 1
