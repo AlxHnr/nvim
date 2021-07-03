@@ -8,7 +8,13 @@ check_hash()
   filename="$1"
   expected_sha256="$2"
 
-  printf "%s %s\n" "$expected_sha256" "$filename" | sha256sum -c -
+  sha256sum=$(sha256sum "$filename" | grep -oE '^\S+')
+  test "$sha256sum" = "$expected_sha256" || {
+    printf "error: sha256 mismatch\n"
+    printf "  expected: %s\n" "$expected_sha256"
+    printf "  got:      %s\n" "$sha256sum"
+    return 1
+  } >&2
 )
 
 fetch()
