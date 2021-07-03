@@ -67,8 +67,8 @@ cd "$(dirname "$0")"
 mkdir -p bin
 cd bin/
 
-fetch and_rename nvim 1eea3d44f55bab0856d08737c0c50ead7645ae3afd6352a252bc403b9843ec95 \
-  "https://github.com/neovim/neovim/releases/download/v0.4.4/nvim.appimage"
+fetch and_rename nvim 6305a1cab22433bf7871cbfcdb76f0013314f4a6c04e56e1547a6925df17240b \
+  "https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage"
 fetch and_extract fzf 4b81707da732736266b37006fc5200dda1a05a5ad7216a869e34130160f3b822 \
   "https://github.com/junegunn/fzf/releases/download/0.27.2/fzf-0.27.2-linux_amd64.tar.gz"
 fetch and_extract texlab bdff13d2aa34f46cf9291d1697c906ccb4a7de1effd0b37d34b3d8928b5ccbc0 \

@@ -31,7 +31,7 @@ all required vim plugins.
 **Note**: This is only required if you can't or don't want to use
 `update.sh`.
 
-Install [Neovim](https://neovim.io/) 0.4.4 (or higher) with its python3
+Install [Neovim](https://neovim.io/) 0.5.0 (or higher) with its python3
 provider. Install [fzf](https://github.com/junegunn/fzf) and optionally
 [texlab](https://texlab.netlify.com) and make sure they are accessible from
 `$PATH`.
