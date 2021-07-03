@@ -6,19 +6,19 @@
 check_hash()
 (
   filename="$1"
-  sha256="$2"
+  expected_sha256="$2"
 
-  printf "%s %s\n" "$sha256" "$filename" | sha256sum -c -
+  printf "%s %s\n" "$expected_sha256" "$filename" | sha256sum -c -
 )
 
 fetch()
 (
   process_download_callback="$1"
   filename="$2"
-  sha256="$3"
+  expected_sha256="$3"
   url="$4"
 
-  if check_hash "$filename" "$sha256" >/dev/null 2>&1; then
+  if check_hash "$filename" "$expected_sha256" >/dev/null 2>&1; then
     printf "Already up-to-date: %s\n" "$filename"
     return
   fi
@@ -27,7 +27,7 @@ fetch()
   trap 'rm -f .tmp_download' EXIT
   wget --show-progress --quiet "$url" -O .tmp_download
 
-  "$process_download_callback" .tmp_download "$filename" "$sha256"
+  "$process_download_callback" .tmp_download "$filename" "$expected_sha256"
   chmod +x "$filename"
 )
 
@@ -35,9 +35,9 @@ and_rename()
 (
   download="$1"
   filename="$2"
-  sha256="$3"
+  expected_sha256="$3"
 
-  check_hash "$download" "$sha256"
+  check_hash "$download" "$expected_sha256"
   mv "$download" "$filename"
 )
 
@@ -45,14 +45,14 @@ and_extract()
 (
   archive="$1"
   filename="$2"
-  sha256="$3"
+  expected_sha256="$3"
 
   trap 'rm -f ".tmp__$filename"' EXIT
   tar tf "$archive" |
     grep -E "(^|/)$filename\$" |
     sed -r 's,^/,,' |
     xargs -d '\n' tar xaf "$archive" -O > ".tmp__$filename"
-  check_hash ".tmp__$filename" "$sha256"
+  check_hash ".tmp__$filename" "$expected_sha256"
 
   mv ".tmp__$filename" "$filename"
 )
