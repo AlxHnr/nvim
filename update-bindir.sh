@@ -63,6 +63,12 @@ and_extract()
   mv ".tmp__$filename" "$filename"
 )
 
+uname -o -m 2>&1 | grep -qx 'x86_64 GNU/Linux' || {
+  printf "Not on a 64-bit linux system, skipping download step...\n"
+  printf "Make sure to install the required binaries manually as described in the README\n"
+  exit
+} >&2
+
 cd "$(dirname "$0")"
 mkdir -p bin
 cd bin/
