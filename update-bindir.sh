@@ -77,5 +77,5 @@ fetch and_rename nvim 1cfbc587ea5598545ac045ee776965a005b1f0c26d5daf5479b859b092
   "https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage"
 fetch and_extract fzf 4b81707da732736266b37006fc5200dda1a05a5ad7216a869e34130160f3b822 \
   "https://github.com/junegunn/fzf/releases/download/0.27.2/fzf-0.27.2-linux_amd64.tar.gz"
-fetch and_extract texlab bdff13d2aa34f46cf9291d1697c906ccb4a7de1effd0b37d34b3d8928b5ccbc0 \
-  "https://github.com/latex-lsp/texlab/releases/download/v3.2.0/texlab-x86_64-linux.tar.gz"
+fetch and_extract texlab 64768e464133fd80ef81a608ea1d9ec6751e9c5d927a170c477a5dd0a22015b3 \
+  "https://github.com/latex-lsp/texlab/releases/download/v3.3.0/texlab-x86_64-linux.tar.gz"
