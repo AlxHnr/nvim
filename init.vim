@@ -248,6 +248,7 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_error_symbol = '❌️'
 let g:ycm_warning_symbol = '⚠️ '
 let g:ycm_extra_conf_globlist = [ '!*' ]
+let g:ycm_filetype_blacklist = {}
 let g:ycm_clangd_args = [
   \ '-cross-file-rename', '--header-insertion=never', '--completion-style=detailed'
   \ ]
