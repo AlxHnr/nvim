@@ -10,5 +10,7 @@ git pull
 pip3 install --user neovim --upgrade
 ./update-bindir.sh
 
-./bin/nvim +PlugUpdate +qall
-exec ./bin/nvim +PlugDiff +only
+test -e ./bin/nvim && nvim_cmd="./bin/nvim" || nvim_cmd="nvim"
+
+"$nvim_cmd" +PlugUpdate +qall
+exec "$nvim_cmd" +PlugDiff +only
