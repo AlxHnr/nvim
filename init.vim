@@ -30,6 +30,7 @@ set smartcase
 set smartindent
 set softtabstop=-1
 set spelllang=en,de
+set startofline
 set termguicolors
 set textwidth=100
 let mapleader = ','
