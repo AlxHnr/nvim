@@ -310,7 +310,6 @@ nnoremap <silent> <F11> :Git commit<cr>
 nnoremap <silent> <F12> :Git push<cr>
 autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
-set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
 " vim-fugitive. }}}
 
 " gv.vim. {{{
@@ -426,6 +425,14 @@ if filereadable(expand('~/.config/nvim/custom/init.vim'))
 endif
 
 call plug#end()
+
+if !isdirectory(g:plug_home)
+  let g:plug_window = 'enew!'
+  PlugInstall
+  unlet g:plug_window
+endif
+
+set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
 
 if !exists('g:colors_name')
   colorscheme gruvbox
