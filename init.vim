@@ -250,7 +250,6 @@ let g:ycm_filetype_blacklist = {}
 let g:ycm_clangd_args = [
   \ '-cross-file-rename', '--header-insertion=never', '--completion-style=detailed'
   \ ]
-let g:ycm_language_server = [{ 'name': 'texlab', 'cmdline': ['texlab'], 'filetypes': ['tex']}]
 
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
 autocmd initvim FileType tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
