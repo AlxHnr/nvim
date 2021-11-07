@@ -269,10 +269,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
-let g:fzf_command_prefix = 'FZF'
-
-nnoremap <c-p> :FZFFiles<cr>
-nnoremap <c-f> :FZFHistory<cr>
+nnoremap <c-p> :Files<cr>
+nnoremap <c-f> :History<cr>
 " fzf. }}}
 
 " ultisnips. {{{
