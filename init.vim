@@ -3,7 +3,6 @@ augroup initvim | autocmd! | augroup END
 
 " Reload this file every time it gets saved.
 autocmd initvim BufWritePost ~/.config/nvim/init.vim source %
-autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
 
 " Prevent this file from being refolded after reload.
 if expand('%:t') != 'init.vim'
@@ -30,7 +29,6 @@ set shiftwidth=2
 set smartcase
 set smartindent
 set softtabstop=-1
-set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
 set spelllang=en,de
 set termguicolors
 set textwidth=100
@@ -420,9 +418,16 @@ Plug 'AlxHnr/project-chdir.vim'
 Plug 'AlxHnr/vim-spell-files'
 " vim-spell-files. }}}
 
+" Setup and load ./custom/ directory. {{{
+call mkdir(expand('~/.config/nvim/custom/spell'), 'p')
+call mkdir(expand('~/.config/nvim/custom/UltiSnips'), 'p')
+set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
+
 if filereadable(expand('~/.config/nvim/custom/init.vim'))
   execute 'source ' . expand('~/.config/nvim/custom/init.vim')
 endif
+autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
+" Setup and load ./custom/ directory. }}}
 
 call plug#end()
 
