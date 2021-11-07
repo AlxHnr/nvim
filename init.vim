@@ -432,8 +432,10 @@ if !isdirectory(g:plug_home)
   unlet g:plug_window
 endif
 
+" Must be set after installing and loading all plugins.
 set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
 
+" colorscheme related settings. {{{
 if !exists('g:colors_name')
   colorscheme gruvbox
 endif
@@ -448,3 +450,4 @@ function! s:toggleColorscheme()
   endif
 endfunction
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
+" colorscheme related settings. }}}
