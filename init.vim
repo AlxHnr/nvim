@@ -171,9 +171,9 @@ endfunction
 nnoremap <silent> <leader>du :call <sid>discardUndoHistory()<cr>
 " Command to discard undo history. }}}
 
-" Preserve insert mode in terminals. {{{
-function! s:restoreInsertMode()
-  if exists('b:restore_insert_mode')
+" Preserve terminal mode when switching windows. {{{
+function! s:restoreTerminalMode()
+  if exists('b:restore_terminal_mode')
     startinsert
   endif
 endfunction
@@ -181,9 +181,12 @@ endfunction
 function! s:setupTerminal()
   setlocal nonumber
 
-  autocmd BufWinEnter,WinEnter <buffer> call s:restoreInsertMode()
-  nnoremap <buffer><silent> i :let b:restore_insert_mode=1<cr>i
-  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_insert_mode<cr>
+  autocmd BufWinEnter,WinEnter <buffer> call s:restoreTerminalMode()
+  tnoremap <buffer><silent> <c-\><c-n> <c-\><c-n>:unlet b:restore_terminal_mode<cr>
+
+  for l:key in [ 'A', 'a', 'I', 'i' ]
+    execute 'nnoremap <buffer><silent> ' . l:key . ' :let b:restore_terminal_mode=1<cr>' . l:key
+  endfor
 
   let l:events = [
     \ 'LeftMouse', 'LeftDrag', 'LeftRelease', 'MiddleMouse', 'MiddleDrag',
@@ -195,16 +198,16 @@ function! s:setupTerminal()
     for l:modifier in [ "", "A-", "C-", "S-" ]
       let l:mapping = '<' . l:modifier . l:event . '>'
       execute 'tnoremap <buffer><silent>' l:mapping
-        \ '<c-\><c-n>:unlet b:restore_insert_mode<cr>' . l:mapping
+        \ '<c-\><c-n>:unlet b:restore_terminal_mode<cr>' . l:mapping
     endfor
   endfor
 
-  let b:restore_insert_mode = 1
+  let b:restore_terminal_mode = 1
   normal $A
 endfunction
 
 autocmd initvim TermOpen * call s:setupTerminal()
-" Preserve insert mode in terminals. }}}
+" Preserve terminal mode when switching windows. }}}
 
 " netrw. {{{
 let g:netrw_banner = 0
