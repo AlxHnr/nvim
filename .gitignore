@@ -1,4 +1,4 @@
-bin/
-custom/
-plugged/
-.netrwhist
+/.netrwhist
+/bin/
+/custom/
+/plugged/
