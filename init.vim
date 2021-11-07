@@ -34,10 +34,6 @@ set termguicolors
 set textwidth=100
 let mapleader = ','
 
-if index(split($PATH, ':'), expand('~/.config/nvim/bin')) < 0
-  let $PATH .= ':' . expand('~/.config/nvim/bin')
-endif
-
 " Force auto wrapping long lines while typing.
 autocmd initvim BufEnter * setlocal formatoptions+=t
 
