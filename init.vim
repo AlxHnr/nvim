@@ -388,6 +388,9 @@ let g:vimtex_quickfix_mode = 0
 Plug 'gruvbox-community/gruvbox'
 
 let g:gruvbox_invert_selection = 0
+if !exists('$BAT_THEME')
+  let $BAT_THEME = 'gruvbox'
+endif
 " gruvbox. }}}
 
 " build.vim. {{{
@@ -433,8 +436,10 @@ endif
 function! s:toggleColorscheme()
   if &background == 'dark'
     set background=light
+    let $BAT_THEME = 'gruvbox-light'
   else
     set background=dark
+    let $BAT_THEME = 'gruvbox'
   endif
 endfunction
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
