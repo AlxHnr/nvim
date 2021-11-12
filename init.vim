@@ -382,9 +382,21 @@ let g:vimtex_quickfix_mode = 0
 Plug 'gruvbox-community/gruvbox'
 
 let g:gruvbox_invert_selection = 0
+
 if !exists('$BAT_THEME')
   let $BAT_THEME = 'gruvbox'
 endif
+
+function! s:toggleColorscheme()
+  if &background == 'dark'
+    set background=light
+    let $BAT_THEME = 'gruvbox-light'
+  else
+    set background=dark
+    let $BAT_THEME = 'gruvbox'
+  endif
+endfunction
+nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
 " gruvbox. }}}
 
 " build.vim. {{{
@@ -430,28 +442,14 @@ autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvi
 
 call plug#end()
 
+" Install plugins on first start.
 if !isdirectory(g:plug_home)
   let g:plug_window = 'enew!'
   PlugInstall
   unlet g:plug_window
 endif
 
-" Must be set after installing and loading all plugins.
-set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
-
-" colorscheme related settings. {{{
 if !exists('g:colors_name')
   colorscheme gruvbox
 endif
-
-function! s:toggleColorscheme()
-  if &background == 'dark'
-    set background=light
-    let $BAT_THEME = 'gruvbox-light'
-  else
-    set background=dark
-    let $BAT_THEME = 'gruvbox'
-  endif
-endfunction
-nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
-" colorscheme related settings. }}}
+set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
