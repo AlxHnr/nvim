@@ -384,7 +384,7 @@ Plug 'gruvbox-community/gruvbox'
 let g:gruvbox_invert_selection = 0
 
 if !exists('$BAT_THEME')
-  let $BAT_THEME = 'gruvbox'
+  let $BAT_THEME = 'gruvbox-dark'
 endif
 
 function! s:toggleColorscheme()
@@ -393,7 +393,7 @@ function! s:toggleColorscheme()
     let $BAT_THEME = 'gruvbox-light'
   else
     set background=dark
-    let $BAT_THEME = 'gruvbox'
+    let $BAT_THEME = 'gruvbox-dark'
   endif
 endfunction
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
