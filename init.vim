@@ -231,7 +231,7 @@ endfunction
 command! -nargs=? -complete=file Debug call s:startDebugSession(<q-args>)
 " termdebug. }}}
 
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
 
 " YouCompleteMe. {{{
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
