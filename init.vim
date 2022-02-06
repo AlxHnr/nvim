@@ -452,4 +452,4 @@ endif
 if !exists('g:colors_name')
   colorscheme gruvbox
 endif
-set statusline=%<%f\ %h%m%r%{empty(FugitiveHead())?'':'['.FugitiveHead().']'}%=%-8.(%l,%c%)\ %P
+set statusline=%<%f\ %h%m%r%{empty(FugitiveHead(7))?'':'['.FugitiveHead(7).']'}%=%-8.(%l,%c%)\ %P
