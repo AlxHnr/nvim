@@ -31,6 +31,7 @@ set smartindent
 set softtabstop=-1
 set spelllang=en,de
 set startofline
+set switchbuf=uselast
 set termguicolors
 set textwidth=100
 let mapleader = ','
@@ -45,6 +46,9 @@ autocmd initvim BufWinEnter init.vim normal! zM
 " Prevent text from being (un)folded while typing.
 autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod | setlocal foldmethod=manual
 autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
+
+" Force QuickFix window to the far bottom.
+autocmd initvim FileType qf if &buftype == 'quickfix' | wincmd J | endif
 " General settings. }}}
 
 " Mappings. {{{
