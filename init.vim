@@ -94,7 +94,16 @@ noremap ? ?\v
 noremap # :let @/='\<' . expand('<cword>') . '\>'<cr>N
 noremap <c-n> nzzzO
 nnoremap <silent> <Esc><Esc> :nohlsearch<cr>
-nnoremap <silent> <leader>gg :silent grep! -riIE --exclude-dir=build/ '/' .<cr>:copen<cr>
+
+function! s:runGrepWithCurrentSearchString() " {{{
+  let l:search_string = substitute(@/, '^\\v', '', '')
+  let l:search_string = substitute(l:search_string, '|', '\\|', '')
+  let l:case_sensitive = l:search_string =~ '\C[A-Z]' ? '' : '-i'
+  execute ":silent grep! -rIE " . l:case_sensitive . " --exclude-dir=.git/ --exclude-dir=build/ -- "
+    \ . shellescape(l:search_string) . " ."
+  copen
+endfunction " }}}
+nnoremap <silent> <leader>gg :call <sid>runGrepWithCurrentSearchString()<cr>
 " Mappings. }}}
 
 " Language specific settings. {{{
