@@ -442,6 +442,8 @@ Plug 'AlxHnr/vim-spell-files'
 call mkdir(expand('~/.config/nvim/custom/spell'), 'p')
 call mkdir(expand('~/.config/nvim/custom/UltiSnips'), 'p')
 set spellfile=~/.config/nvim/custom/spell/custom.utf-8.add
+let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit =
+  \ expand('~') . '/.config/nvim/custom/UltiSnips'
 
 if filereadable(expand('~/.config/nvim/custom/init.vim'))
   execute 'source ' . expand('~/.config/nvim/custom/init.vim')
