@@ -128,10 +128,6 @@ autocmd initvim FileType help setlocal textwidth=78
 " Html.
 autocmd initvim FileType html setlocal textwidth=0
 
-" i3 config.
-autocmd initvim BufNewFile,BufRead ~/.config/i3/config setlocal textwidth=0 filetype=conf
-autocmd initvim BufWritePost ~/.config/i3/config silent !i3-msg reload >/dev/null 2>&1
-
 " Markdown.
 let g:markdown_fenced_languages = [
   \   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
