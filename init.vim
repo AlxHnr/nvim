@@ -446,7 +446,7 @@ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit =
   \ expand('~') . '/.config/nvim/custom/UltiSnips'
 
 if filereadable(expand('~/.config/nvim/custom/init.vim'))
-  execute 'source ' . expand('~/.config/nvim/custom/init.vim')
+  source ~/.config/nvim/custom/init.vim
 endif
 autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
 " Setup and load ./custom/ directory. }}}
