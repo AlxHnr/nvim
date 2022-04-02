@@ -97,7 +97,7 @@ nnoremap <silent> <Esc><Esc> :nohlsearch<cr>
 
 function! RunGrepWithCurrentSearchString(dir_to_search) " {{{
   let l:search_string = substitute(@/, '^\\v', '', '')
-  let l:search_string = substitute(l:search_string, '|', '\\|', '')
+  let l:search_string = substitute(l:search_string, '|', '\\|', 'g')
   let l:case_sensitive = l:search_string =~ '\C[A-Z]' ? '' : '-i'
   execute ":silent grep! -rIE " . l:case_sensitive . " --exclude-dir=.git/ --exclude-dir=build/ -- "
     \ . shellescape(l:search_string) . " " . shellescape(a:dir_to_search)
