@@ -1,0 +1,57 @@
+[submodule "pack/third-party/start/YouCompleteMe"]
+	path = pack/third-party/start/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe.git
+[submodule "pack/third-party/start/ale"]
+	path = pack/third-party/start/ale
+	url = https://github.com/dense-analysis/ale.git
+[submodule "pack/third-party/start/build.vim"]
+	path = pack/third-party/start/build.vim
+	url = https://github.com/AlxHnr/build.vim.git
+[submodule "pack/third-party/start/fzf"]
+	path = pack/third-party/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "pack/third-party/start/fzf.vim"]
+	path = pack/third-party/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "pack/third-party/start/gruvbox"]
+	path = pack/third-party/start/gruvbox
+	url = https://github.com/gruvbox-community/gruvbox.git
+[submodule "pack/third-party/start/gv.vim"]
+	path = pack/third-party/start/gv.vim
+	url = https://github.com/junegunn/gv.vim.git
+[submodule "pack/third-party/start/project-chdir.vim"]
+	path = pack/third-party/start/project-chdir.vim
+	url = https://github.com/AlxHnr/project-chdir.vim.git
+[submodule "pack/third-party/start/ultisnips"]
+	path = pack/third-party/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "pack/third-party/start/ultisnips-snippets"]
+	path = pack/third-party/start/ultisnips-snippets
+	url = https://github.com/AlxHnr/ultisnips-snippets.git
+[submodule "pack/third-party/start/vim-autoformat"]
+	path = pack/third-party/start/vim-autoformat
+	url = https://github.com/Chiel92/vim-autoformat.git
+[submodule "pack/third-party/start/vim-better-whitespace"]
+	path = pack/third-party/start/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace.git
+[submodule "pack/third-party/start/vim-commentary"]
+	path = pack/third-party/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "pack/third-party/start/vim-easy-align"]
+	path = pack/third-party/start/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align.git
+[submodule "pack/third-party/start/vim-eunuch"]
+	path = pack/third-party/start/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch.git
+[submodule "pack/third-party/start/vim-fugitive"]
+	path = pack/third-party/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "pack/third-party/start/vim-spell-files"]
+	path = pack/third-party/start/vim-spell-files
+	url = https://github.com/AlxHnr/vim-spell-files.git
+[submodule "pack/third-party/start/vim-table-mode"]
+	path = pack/third-party/start/vim-table-mode
+	url = https://github.com/dhruvasagar/vim-table-mode.git
+[submodule "pack/third-party/start/vimtex"]
+	path = pack/third-party/start/vimtex
+	url = https://github.com/lervag/vimtex.git

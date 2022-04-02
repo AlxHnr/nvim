@@ -240,11 +240,7 @@ endfunction
 command! -nargs=? -complete=file Debug call s:startDebugSession(<q-args>)
 " termdebug. }}}
 
-call plug#begin()
-
 " YouCompleteMe. {{{
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
-
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 let g:ycm_complete_in_comments = 1
@@ -271,17 +267,12 @@ autocmd initvim User YcmQuickFixOpened q | botright copen
 " YouCompleteMe. }}}
 
 " fzf. {{{
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-
 let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
 nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :History<cr>
 " fzf. }}}
 
 " ultisnips. {{{
-Plug 'SirVer/ultisnips'
-
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
@@ -294,8 +285,6 @@ autocmd initvim BufWinEnter *.snippets normal! zM
 " ultisnips. }}}
 
 " ultisnips-snippets. {{{
-Plug 'AlxHnr/ultisnips-snippets'
-
 function! s:UpdateIncludeGuards()
   python3 from snippet_module_c import get_current_header_string
   let l:header_string = py3eval('get_current_header_string()')
@@ -308,33 +297,20 @@ command! UpdateIncludeGuards call s:UpdateIncludeGuards()
 " ultisnips-snippets. }}}
 
 " vim-fugitive. {{{
-Plug 'tpope/vim-fugitive'
-
 nnoremap <a-s> :Gwrite<cr><Esc>
 nnoremap <silent> <F10> :Git<cr>
 nnoremap <silent> <F11> :Git commit<cr>
 nnoremap <silent> <F12> :Git push<cr>
 autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
+set statusline=%<%f\ %h%m%r%{empty(FugitiveHead(7))?'':'['.FugitiveHead(7).']'}%=%-8.(%l,%c%)\ %P
 " vim-fugitive. }}}
 
 " gv.vim. {{{
-Plug 'junegunn/gv.vim'
-
 nnoremap <F9> :GV --all<cr>
 " gv.vim. }}}
 
-" vim-commentary. {{{
-Plug 'tpope/vim-commentary'
-" vim-commentary. }}}
-
-" vim-eunuch. {{{
-Plug 'tpope/vim-eunuch'
-" vim-eunuch. }}}
-
 " vim-autoformat. {{{
-Plug 'Chiel92/vim-autoformat'
-
 function! CustomFormatExpression()
   execute v:lnum . ',' . (v:lnum + v:count - 1) . 'Autoformat'
 endfunction
@@ -344,8 +320,6 @@ autocmd initvim FileType c,cpp noremap <buffer> = gq
 " vim-autoformat. }}}
 
 " vim-table-mode. {{{
-Plug 'dhruvasagar/vim-table-mode'
-
 let g:table_mode_corner = '|'
 let g:table_mode_motion_up_map    = ''
 let g:table_mode_motion_down_map  = ''
@@ -356,24 +330,17 @@ autocmd initvim FileType markdown,text silent TableModeEnable
 " vim-table-mode. }}}
 
 " vim-better-whitespace. {{{
-Plug 'ntpeters/vim-better-whitespace'
-
-let g:better_whitespace_filetypes_blacklist =
-  \ [ 'qf', 'diff', 'git', 'vim-plug' ]
+let g:better_whitespace_filetypes_blacklist = [ 'qf', 'diff', 'git' ]
 autocmd initvim FileType fugitive DisableWhitespace
 
 nnoremap <silent> <leader>tw :ToggleWhitespace<cr>
 " vim-better-whitespace. }}}
 
 " vim-easy-align. {{{
-Plug 'junegunn/vim-easy-align'
-
 vmap <cr> <Plug>(EasyAlign)*
 " vim-easy-align. }}}
 
 " ale. {{{
-Plug 'dense-analysis/ale'
-
 let g:ale_linters_explicit = 1
 let g:ale_linters = { 'sh': [ 'shellcheck' ] }
 let g:ale_sign_error = '❌️'
@@ -382,15 +349,15 @@ let g:ale_sign_info = '❕️'
 " ale. }}}
 
 " vimtex. {{{
-Plug 'lervag/vimtex'
-
 let g:vimtex_quickfix_mode = 0
 " vimtex. }}}
 
 " gruvbox. {{{
-Plug 'gruvbox-community/gruvbox'
-
 let g:gruvbox_invert_selection = 0
+
+if !exists('g:colors_name')
+  colorscheme gruvbox
+endif
 
 if !exists('$BAT_THEME')
   let $BAT_THEME = 'gruvbox-dark'
@@ -409,8 +376,6 @@ nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
 " gruvbox. }}}
 
 " build.vim. {{{
-Plug 'AlxHnr/build.vim'
-
 nnoremap <silent> <F1> :wall<cr>:Build clean<cr>
 nnoremap <silent> <F2> :wall<cr>:Build<cr>
 nnoremap <silent> <F3> :wall<cr>:Build test<cr>
@@ -430,14 +395,6 @@ command! -nargs=? CMakeInitClang execute 'Build init -DCMAKE_BUILD_TYPE=Debug'
   \ <q-args>
 " build.vim. }}}
 
-" project-chdir.vim. {{{
-Plug 'AlxHnr/project-chdir.vim'
-" project-chdir.vim. }}}
-
-" vim-spell-files. {{{
-Plug 'AlxHnr/vim-spell-files'
-" vim-spell-files. }}}
-
 " Setup and load ./custom/ directory. {{{
 call mkdir(expand('~/.config/nvim/custom/spell'), 'p')
 call mkdir(expand('~/.config/nvim/custom/UltiSnips'), 'p')
@@ -450,17 +407,3 @@ if filereadable(expand('~/.config/nvim/custom/init.vim'))
 endif
 autocmd initvim BufWritePost ~/.config/nvim/custom/init.vim source ~/.config/nvim/init.vim
 " Setup and load ./custom/ directory. }}}
-
-call plug#end()
-
-" Install plugins on first start.
-if !isdirectory(g:plug_home)
-  let g:plug_window = 'enew!'
-  PlugInstall
-  unlet g:plug_window
-endif
-
-if !exists('g:colors_name')
-  colorscheme gruvbox
-endif
-set statusline=%<%f\ %h%m%r%{empty(FugitiveHead(7))?'':'['.FugitiveHead(7).']'}%=%-8.(%l,%c%)\ %P

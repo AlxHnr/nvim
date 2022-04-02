@@ -15,9 +15,11 @@ This repository contains my personal [Neovim](https://neovim.io/) configuration.
 
 # Installation
 
-Clone this repository to `~/.config/nvim/` and start `nvim`. This will install all plugins.
+```sh
+git clone --recurse-submodules https://github.com/AlxHnr/nvim ~/.config/nvim
+~/.config/nvim/pack/third-party/start/YouCompleteMe/install.py --clangd-completer
+```
 
 # License
 
-This repository contains a copy of [vim-plug](https://github.com/junegunn/vim-plug), which is MIT
-licensed. Everything else is CC0 licensed.
+All the code in this repository, excluding `./pack/third-party/`, is CC0 licensed.
