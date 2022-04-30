@@ -7,7 +7,7 @@ This repository contains my personal [Neovim](https://neovim.io/) configuration.
 
 # Dependencies
 
-* [Neovim](https://neovim.io/) 0.5.1 (or higher) with its python3 provider
+* [Neovim](https://neovim.io/) 0.7.0 (or higher) with its python3 provider
 * Terminal with true 24-bit color support, e.g. GNOME Terminal or iTerm2
 * CMake and libpython headers (3.6 or higher) for building
   [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe)
