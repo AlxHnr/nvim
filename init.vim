@@ -272,6 +272,7 @@ autocmd initvim User YcmQuickFixOpened q | botright copen
 let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
 nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :History<cr>
+nnoremap <c-h> :Helptags<cr>
 " fzf. }}}
 
 " ultisnips. {{{
