@@ -248,11 +248,35 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'buffer' },
+    { name = 'nvim_lsp' },
     { name = 'path' },
   }),
 })
 EOF
 " nvim-cmp. }}}
+
+" lsp. {{{
+lua <<EOF
+local capabilities =
+  require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local opts = { noremap=true, silent=true }
+local on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr',
+    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+end
+require('lspconfig').clangd.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+for type, icon in pairs({ Error = "❌", Warn = "⚠️ ", Hint = "❕", Info = "ℹ️ " }) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+EOF
+" lsp. }}}
 
 " fzf. {{{
 let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'

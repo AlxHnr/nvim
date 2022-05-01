@@ -61,3 +61,9 @@
 [submodule "pack/third-party/start/cmp-path"]
 	path = pack/third-party/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path.git
+[submodule "pack/third-party/start/cmp-nvim-lsp"]
+	path = pack/third-party/start/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "pack/third-party/start/nvim-lspconfig"]
+	path = pack/third-party/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
