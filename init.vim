@@ -247,11 +247,11 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.select_next_item(),
   }),
   sources = cmp.config.sources({
-    { name = 'buffer' },
-    { name = 'emoji', option = { insert = true } },
     { name = 'nvim_lsp' },
+    { name = 'buffer' },
     { name = 'path' },
     { name = 'ultisnips' },
+    { name = 'emoji', option = { insert = true } },
   }),
 })
 EOF
