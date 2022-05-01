@@ -1,6 +1,3 @@
-[submodule "pack/third-party/start/YouCompleteMe"]
-	path = pack/third-party/start/YouCompleteMe
-	url = https://github.com/ycm-core/YouCompleteMe.git
 [submodule "pack/third-party/start/ale"]
 	path = pack/third-party/start/ale
 	url = https://github.com/dense-analysis/ale.git

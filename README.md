@@ -9,15 +9,12 @@ This repository contains my personal [Neovim](https://neovim.io/) configuration.
 
 * [Neovim](https://neovim.io/) 0.7.0 (or higher) with its python3 provider
 * Terminal with true 24-bit color support, e.g. GNOME Terminal or iTerm2
-* CMake and libpython headers (3.6 or higher) for building
-  [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe)
 * [fzf](https://github.com/junegunn/fzf)
 
 # Installation
 
 ```sh
 git clone --recurse-submodules https://github.com/AlxHnr/nvim ~/.config/nvim
-~/.config/nvim/pack/third-party/start/YouCompleteMe/install.py --clangd-completer
 ```
 
 # License

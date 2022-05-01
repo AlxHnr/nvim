@@ -242,31 +242,6 @@ endfunction
 command! -nargs=? -complete=file Debug call s:startDebugSession(<q-args>)
 " termdebug. }}}
 
-" YouCompleteMe. {{{
-let g:ycm_key_list_select_completion = []
-let g:ycm_key_list_previous_completion = []
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_always_populate_location_list = 1
-let g:ycm_error_symbol = '❌️'
-let g:ycm_warning_symbol = '⚠️ '
-let g:ycm_extra_conf_globlist = [ '!*' ]
-let g:ycm_filetype_blacklist = {}
-let g:ycm_clangd_args = [
-  \ '-cross-file-rename', '--header-insertion=never', '--completion-style=detailed'
-  \ ]
-
-nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<cr>
-autocmd initvim FileType tex nnoremap <buffer><silent> K :YcmCompleter GetHover<cr>
-autocmd initvim FileType c,cpp,python,typescript
-  \ nnoremap <buffer><silent> K :YcmCompleter GetDoc<cr>
-autocmd initvim FileType c,cpp,tex,python,typescript
-  \ nnoremap <buffer><silent> gd :YcmCompleter GoToDefinition<cr>
-autocmd initvim WinEnter * if &previewwindow | setlocal syntax=cpp wrap | endif
-autocmd initvim User YcmQuickFixOpened q | botright copen
-" YouCompleteMe. }}}
 
 " fzf. {{{
 let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
