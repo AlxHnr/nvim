@@ -73,3 +73,6 @@
 [submodule "pack/third-party/start/nvim-lspconfig"]
 	path = pack/third-party/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "pack/third-party/start/cmp-nvim-lsp-signature-help"]
+	path = pack/third-party/start/cmp-nvim-lsp-signature-help
+	url = https://github.com/hrsh7th/cmp-nvim-lsp-signature-help.git
