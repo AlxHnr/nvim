@@ -248,8 +248,10 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'buffer' },
+    { name = 'emoji', option = { insert = true } },
     { name = 'nvim_lsp' },
     { name = 'path' },
+    { name = 'ultisnips' },
   }),
 })
 EOF

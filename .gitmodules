@@ -61,6 +61,12 @@
 [submodule "pack/third-party/start/cmp-path"]
 	path = pack/third-party/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path.git
+[submodule "pack/third-party/start/cmp-nvim-ultisnips"]
+	path = pack/third-party/start/cmp-nvim-ultisnips
+	url = https://github.com/quangnguyen30192/cmp-nvim-ultisnips.git
+[submodule "pack/third-party/start/cmp-emoji"]
+	path = pack/third-party/start/cmp-emoji
+	url = https://github.com/hrsh7th/cmp-emoji.git
 [submodule "pack/third-party/start/cmp-nvim-lsp"]
 	path = pack/third-party/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
