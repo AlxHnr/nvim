@@ -69,9 +69,6 @@ nnoremap <silent> <leader>ce :let @/='\<' . expand('<cword>') . '\>'<cr>ciw
 cnoremap <c-k> <Up>
 cnoremap <c-j> <Down>
 
-" Use enter to select completion suggestions.
-inoremap <expr><cr> pumvisible() ? '<c-n>' : '<cr>'
-
 " Window navigation.
 nnoremap <a-h> <c-w><c-h>
 nnoremap <a-j> <c-w><c-j>
@@ -242,6 +239,20 @@ endfunction
 command! -nargs=? -complete=file Debug call s:startDebugSession(<q-args>)
 " termdebug. }}}
 
+" nvim-cmp. {{{
+lua <<EOF
+local cmp = require('cmp')
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<CR>'] = cmp.mapping.select_next_item(),
+  }),
+  sources = cmp.config.sources({
+    { name = 'buffer' },
+    { name = 'path' },
+  }),
+})
+EOF
+" nvim-cmp. }}}
 
 " fzf. {{{
 let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
