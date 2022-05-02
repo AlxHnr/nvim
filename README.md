@@ -3,7 +3,7 @@ This repository contains my personal [Neovim](https://neovim.io/) configuration.
 ![screenshot](https://user-images.githubusercontent.com/8235638/113520650-d53a5380-9594-11eb-941f-6e8eb4206531.png)
 
 * Font: DejaVu Sans Mono
-* Colorscheme: [gruvbox-community](https://github.com/gruvbox-community/gruvbox)
+* Colorscheme: [nightfox](https://github.com/EdenEast/nightfox.nvim)
 
 # Dependencies
 

@@ -286,6 +286,22 @@ let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -prin
 nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :History<cr>
 nnoremap <c-h> :Helptags<cr>
+
+let g:fzf_colors = {
+  \ 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment']
+  \ }
 " fzf. }}}
 
 " ultisnips. {{{
@@ -368,28 +384,26 @@ let g:ale_sign_info = '❕️'
 let g:vimtex_quickfix_mode = 0
 " vimtex. }}}
 
-" gruvbox. {{{
-let g:gruvbox_invert_selection = 0
-
+" nightfox. {{{
 if !exists('g:colors_name')
-  colorscheme gruvbox
+  colorscheme nightfox
 endif
 
 if !exists('$BAT_THEME')
-  let $BAT_THEME = 'gruvbox-dark'
+  let $BAT_THEME = 'base16'
 endif
 
 function! s:toggleColorscheme()
-  if &background == 'dark'
-    set background=light
-    let $BAT_THEME = 'gruvbox-light'
+  if g:colors_name == 'nightfox'
+    colorscheme dayfox
+    let $BAT_THEME = 'ansi'
   else
-    set background=dark
-    let $BAT_THEME = 'gruvbox-dark'
+    colorscheme nightfox
+    let $BAT_THEME = 'base16'
   endif
 endfunction
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>
-" gruvbox. }}}
+" nightfox. }}}
 
 " build.vim. {{{
 nnoremap <silent> <F1> :wall<cr>:Build clean<cr>
