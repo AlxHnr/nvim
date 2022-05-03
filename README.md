@@ -9,7 +9,6 @@ This repository contains my personal [Neovim](https://neovim.io/) configuration.
 
 * [Neovim](https://neovim.io/) 0.7.0 (or higher) with its python3 provider
 * Terminal with true 24-bit color support, e.g. GNOME Terminal or iTerm2
-* [fzf](https://github.com/junegunn/fzf)
 
 # Installation
 

@@ -290,28 +290,25 @@ end
 EOF
 " lsp. }}}
 
-" fzf. {{{
-let $FZF_DEFAULT_COMMAND = 'find . -name .git -a -type d -prune -o -type f -print 2>/dev/null'
-nnoremap <c-p> :Files<cr>
-nnoremap <c-f> :History<cr>
-nnoremap <c-h> :Helptags<cr>
+" telescope.nvim. {{{
+nnoremap <c-p> :lua require("telescope.builtin").find_files({hidden=true})<cr>
+nnoremap <c-f> :Telescope oldfiles<cr>
+nnoremap <c-h> :Telescope help_tags<cr>
 
-let g:fzf_colors = {
-  \ 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment']
-  \ }
-" fzf. }}}
+lua <<EOF
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<c-j>"] = "move_selection_next",
+        ["<c-k>"] = "move_selection_previous",
+        ["<esc>"] = "close",
+      }
+    }
+  }
+}
+EOF
+" telescope.nvim. }}}
 
 " ultisnips. {{{
 let g:UltiSnipsEditSplit = 'horizontal'
@@ -398,17 +395,11 @@ if !exists('g:colors_name')
   colorscheme nightfox
 endif
 
-if !exists('$BAT_THEME')
-  let $BAT_THEME = 'base16'
-endif
-
 function! s:toggleColorscheme()
   if g:colors_name == 'nightfox'
     colorscheme dayfox
-    let $BAT_THEME = 'ansi'
   else
     colorscheme nightfox
-    let $BAT_THEME = 'base16'
   endif
 endfunction
 nnoremap <silent> <leader>cs :call <sid>toggleColorscheme()<cr>

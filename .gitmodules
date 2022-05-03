@@ -4,12 +4,6 @@
 [submodule "pack/third-party/start/build.vim"]
 	path = pack/third-party/start/build.vim
 	url = https://github.com/AlxHnr/build.vim.git
-[submodule "pack/third-party/start/fzf"]
-	path = pack/third-party/start/fzf
-	url = https://github.com/junegunn/fzf.git
-[submodule "pack/third-party/start/fzf.vim"]
-	path = pack/third-party/start/fzf.vim
-	url = https://github.com/junegunn/fzf.vim.git
 [submodule "pack/third-party/start/gv.vim"]
 	path = pack/third-party/start/gv.vim
 	url = https://github.com/junegunn/gv.vim.git
@@ -76,3 +70,9 @@
 [submodule "pack/third-party/start/nightfox.nvim"]
 	path = pack/third-party/start/nightfox.nvim
 	url = https://github.com/EdenEast/nightfox.nvim.git
+[submodule "pack/third-party/start/plenary.nvim"]
+	path = pack/third-party/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "pack/third-party/start/telescope.nvim"]
+	path = pack/third-party/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim.git
