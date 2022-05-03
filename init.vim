@@ -377,13 +377,16 @@ nnoremap <silent> <leader>tw :ToggleWhitespace<cr>
 vmap <cr> <Plug>(EasyAlign)*
 " vim-easy-align. }}}
 
-" ale. {{{
-let g:ale_linters_explicit = 1
-let g:ale_linters = { 'sh': [ 'shellcheck' ] }
-let g:ale_sign_error = '❌️'
-let g:ale_sign_warning = '⚠️ '
-let g:ale_sign_info = '❕️'
-" ale. }}}
+" null-ls.nvim. {{{
+lua <<EOF
+local null_ls = require('null-ls');
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.shellcheck,
+  }
+})
+EOF
+" null-ls.nvim. }}}
 
 " vimtex. {{{
 let g:vimtex_quickfix_mode = 0
