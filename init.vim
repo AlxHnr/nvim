@@ -121,6 +121,8 @@ let sh_fold_enabled = 1
 let g:c_syntax_for_h = 1
 set cinoptions=(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1
 autocmd initvim BufNewFile,BufRead *.[ch],*.[ch]pp setlocal spell
+autocmd initvim FileType c,cpp setlocal textwidth=0 formatexpr=v:lua.vim.lsp.formatexpr()
+autocmd initvim FileType c,cpp noremap <buffer> = gq
 
 " Config.
 autocmd initvim FileType config setlocal textwidth=0
@@ -346,15 +348,6 @@ autocmd initvim FileType fugitiveblame setlocal nospell
 " gv.vim. {{{
 nnoremap <F9> :GV --all<cr>
 " gv.vim. }}}
-
-" vim-autoformat. {{{
-function! CustomFormatExpression()
-  execute v:lnum . ',' . (v:lnum + v:count - 1) . 'Autoformat'
-endfunction
-
-autocmd initvim FileType c,cpp setlocal textwidth=0 formatexpr=CustomFormatExpression()
-autocmd initvim FileType c,cpp noremap <buffer> = gq
-" vim-autoformat. }}}
 
 " vim-table-mode. {{{
 let g:table_mode_corner = '|'

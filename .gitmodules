@@ -13,9 +13,6 @@
 [submodule "pack/third-party/start/ultisnips-snippets"]
 	path = pack/third-party/start/ultisnips-snippets
 	url = https://github.com/AlxHnr/ultisnips-snippets.git
-[submodule "pack/third-party/start/vim-autoformat"]
-	path = pack/third-party/start/vim-autoformat
-	url = https://github.com/Chiel92/vim-autoformat.git
 [submodule "pack/third-party/start/vim-better-whitespace"]
 	path = pack/third-party/start/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
