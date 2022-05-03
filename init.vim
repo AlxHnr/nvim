@@ -45,7 +45,11 @@ autocmd initvim BufWinEnter init.vim normal! zM
 
 " Prevent text from being (un)folded while typing.
 autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod | setlocal foldmethod=manual
-autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
+autocmd initvim InsertLeave *
+  \ if exists('w:last_foldmethod')
+  \ | let &l:foldmethod=w:last_foldmethod
+  \ | unlet w:last_foldmethod
+  \ | endif
 
 " Force QuickFix window to the far bottom.
 autocmd initvim FileType qf
