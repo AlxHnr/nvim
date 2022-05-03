@@ -48,7 +48,8 @@ autocmd initvim InsertEnter * let w:last_foldmethod=&foldmethod | setlocal foldm
 autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
 
 " Force QuickFix window to the far bottom.
-autocmd initvim FileType qf if &buftype == 'quickfix' | wincmd J | endif
+autocmd initvim FileType qf
+  \ if &buftype == 'quickfix' && !getwininfo(win_getid())[0]['loclist'] | wincmd J | endif
 
 helptags ALL
 " General settings. }}}
