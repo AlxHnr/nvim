@@ -278,8 +278,9 @@ require('lspconfig').clangd.setup{
   on_attach = on_attach,
 }
 
-for type, icon in pairs({ Error = "❌", Warn = "⚠️ ", Hint = "❕", Info = "ℹ️ " }) do
-  local hl = "DiagnosticSign" .. type
+diagnostic_symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' }
+for type, icon in pairs(diagnostic_symbols) do
+  local hl = 'DiagnosticSign' .. type:gsub('^%l', string.upper)
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 EOF
