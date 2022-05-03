@@ -51,6 +51,9 @@ autocmd initvim InsertLeave * let &l:foldmethod=w:last_foldmethod
 autocmd initvim FileType qf
   \ if &buftype == 'quickfix' && !getwininfo(win_getid())[0]['loclist'] | wincmd J | endif
 
+" Keep location list populated with diagnostics.
+autocmd initvim diagnosticChanged * lua vim.diagnostic.setloclist({open = false})
+
 helptags ALL
 " General settings. }}}
 
