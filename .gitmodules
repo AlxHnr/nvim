@@ -76,3 +76,6 @@
 [submodule "pack/third-party/start/telescope.nvim"]
 	path = pack/third-party/start/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim.git
+[submodule "pack/third-party/start/lualine.nvim"]
+	path = pack/third-party/start/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim.git

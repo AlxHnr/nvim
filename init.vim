@@ -341,7 +341,6 @@ nnoremap <silent> <F11> :Git commit<cr>
 nnoremap <silent> <F12> :Git push<cr>
 autocmd initvim FileType fugitive setlocal wrap
 autocmd initvim FileType fugitiveblame setlocal nospell
-set statusline=%<%f\ %h%m%r%{empty(FugitiveHead(7))?'':'['.FugitiveHead(7).']'}%=%-8.(%l,%c%)\ %P
 " vim-fugitive. }}}
 
 " gv.vim. {{{
@@ -424,6 +423,25 @@ command! -nargs=? CMakeInitClang execute 'Build init -DCMAKE_BUILD_TYPE=Debug'
   \ '-DCMAKE_CXX_FLAGS="' . s:build_clang_flags . ' -stdlib=libstdc++"'
   \ <q-args>
 " build.vim. }}}
+
+" lualine.nvim. {{{
+lua <<EOF
+local settings = {
+  lualine_a = {{ 'mode', fmt = function(_) return '' end }},
+  lualine_b = {{ 'branch', icon = '' }},
+  lualine_c = {{ 'filename', path = 1, symbols = { modified = ' ', readonly = ' ' }}},
+  lualine_x = {{ 'diagnostics', symbols = diagnostic_symbols }},
+  lualine_y = {{ 'progress' }},
+  lualine_z = {{ 'location'}},
+}
+require('lualine').setup{
+  options = { section_separators = { left = '◣', right = '◢' }},
+  sections = settings,
+  inactive_sections = settings,
+  extensions = { 'quickfix' },
+}
+EOF
+" lualine.nvim. }}}
 
 " Setup and load ./custom/ directory. {{{
 call mkdir(expand('~/.config/nvim/custom/spell'), 'p')
