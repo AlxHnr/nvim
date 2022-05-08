@@ -1,9 +1,17 @@
-This repository contains my personal [Neovim](https://neovim.io/) configuration.
+# My personal neovim setup
 
-![screenshot](https://user-images.githubusercontent.com/8235638/113520650-d53a5380-9594-11eb-941f-6e8eb4206531.png)
+This repository contains a minimal and self-contained configuration for
+[Neovim](https://neovim.io/). All plugins are bundled as static submodules with no hidden
+post-install magic. The config is reloadable at runtime, which allows tinkering without having to
+restart neovim. Reloading happens automatically each time `init.lua` is saved to disk. Custom
+settings can be added to `./custom/init.lua` and will not be tracked by git.
 
-* Font: DejaVu Sans Mono
+# Screenshot
+
+![screenshot](https://user-images.githubusercontent.com/8235638/167307113-efc7d7a5-ea4d-4c53-a0d9-84c2a6d2d422.png)
+
 * Colorscheme: [nightfox](https://github.com/EdenEast/nightfox.nvim)
+* Font: DejaVu Sans Mono
 
 # Dependencies
 
@@ -11,6 +19,8 @@ This repository contains my personal [Neovim](https://neovim.io/) configuration.
 * Terminal with true 24-bit color support, e.g. GNOME Terminal or iTerm2
 
 # Installation
+
+Clone this repository to `~/.config/nvim`:
 
 ```sh
 git clone --recurse-submodules https://github.com/AlxHnr/nvim ~/.config/nvim
