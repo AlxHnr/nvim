@@ -187,7 +187,7 @@ addFiletypeAutocommand('qf', function() vim.wo.spell = false end)
 
 -- Scheme
 vim.g.is_chicken = 1
-addFiletypeAutocommand('qf', function() vim.wo.foldnestmax = 2 end)
+addFiletypeAutocommand('scheme', function() vim.wo.foldnestmax = 2 end)
 
 -- Tex
 vim.g.tex_flavor = 'latex'
@@ -275,11 +275,11 @@ vim.api.nvim_command('packadd termdebug')
 vim.g.termdebug_wide = 1
 
 local function startDebugSession(opts)
-  vim.keymap.set('n', '<F5>', function() vim.api.nvim_exec('Step') end)
-  vim.keymap.set('n', '<F6>', function() vim.api.nvim_exec('functiOver') end)
-  vim.keymap.set('n', '<F7>', function() vim.api.nvim_exec('functiFinish') end)
-  vim.keymap.set('n', '<F8>', function() vim.api.nvim_exec('Evaluate') end)
-  vim.keymap.set('n', '<F8>', function() vim.api.nvim_exec('Evaluate') end)
+  vim.keymap.set('n', '<F5>', function() vim.api.nvim_command('Step') end)
+  vim.keymap.set('n', '<F6>', function() vim.api.nvim_command('functiOver') end)
+  vim.keymap.set('n', '<F7>', function() vim.api.nvim_command('functiFinish') end)
+  vim.keymap.set('n', '<F8>', function() vim.api.nvim_command('Evaluate') end)
+  vim.keymap.set('n', '<F8>', function() vim.api.nvim_command('Evaluate') end)
   vim.api.nvim_command('TermdebugCommand ' .. opts.args)
 end
 vim.api.nvim_create_user_command('Debug', startDebugSession, { nargs = '+', complete = 'file' })
@@ -294,9 +294,9 @@ nvim_cmp.setup{
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'nvim_lua' },
+    { name = 'ultisnips' },
     { name = 'buffer' },
     { name = 'path' },
-    { name = 'ultisnips' },
     { name = 'emoji', option = { insert = true } },
   },
 }
@@ -330,9 +330,9 @@ require('telescope').setup{
   defaults = {
     mappings = {
       i = {
-        ["<c-j>"] = "move_selection_next",
-        ["<c-k>"] = "move_selection_previous",
-        ["<esc>"] = "close",
+        ['<c-j>'] = "move_selection_next",
+        ['<c-k>'] = "move_selection_previous",
+        ['<esc>'] = "close",
       }
     }
   }
@@ -351,7 +351,7 @@ vim.keymap.set('n', '<leader>u', function() vim.api.nvim_command('UltiSnipsEdit'
 addFiletypeAutocommand('snippets', function()
   vim.bo.expandtab = false
   vim.bo.tabstop = 2
-  vim.bo.textwidth = 2
+  vim.bo.textwidth = 0
 end)
 addAutocommand('BufWritePost', '*.snippets', 'call UltiSnips#RefreshSnippets()')
 addAutocommand('BufWinEnter', '*.snippets', 'normal! zM')
@@ -368,7 +368,7 @@ addFiletypeAutocommand('fugitiveblame', function() vim.wo.spell = false end)
 vim.keymap.set('n', '<F9>', function() vim.api.nvim_command('GV --all') end)
 
 -- vim-table-mode
-vim.g.table_mode_corner = '|'
+vim.g.table_mode_corner           = '|'
 vim.g.table_mode_motion_up_map    = ''
 vim.g.table_mode_motion_down_map  = ''
 vim.g.table_mode_motion_left_map  = ''
