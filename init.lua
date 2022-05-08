@@ -1,13 +1,13 @@
 -- Setup augroup to make this config reloadable at runtime
 local init_lua_augroup = vim.api.nvim_create_augroup('init.lua', {})
 local function addAutocommand(event, pattern, vim_command_or_lua_callback)
-  local args = { pattern = pattern, group = init_lua_augroup }
+  local opts = { pattern = pattern, group = init_lua_augroup }
   if type(vim_command_or_lua_callback) == 'string' then
-    args.command = vim_command_or_lua_callback
+    opts.command = vim_command_or_lua_callback
   else
-    args.callback = vim_command_or_lua_callback
+    opts.callback = vim_command_or_lua_callback
   end
-  vim.api.nvim_create_autocmd(event, args)
+  vim.api.nvim_create_autocmd(event, opts)
 end
 
 -- Reload this config when it's saved to disk
@@ -17,6 +17,11 @@ addAutocommand('BufWritePost', init_lua_path, function() dofile(init_lua_path) e
 -- Some helper functions
 local function addFiletypeAutocommand(filetype_name, vim_command_or_lua_callback)
   addAutocommand('FileType', filetype_name, vim_command_or_lua_callback)
+end
+local function mapToCommand(keys, vim_command)
+  vim.keymap.set('n', keys, function()
+    vim.api.nvim_command(vim_command)
+  end, { silent = true })
 end
 
 -- General settings
@@ -42,6 +47,10 @@ vim.opt.textwidth     = 100
 vim.opt.wrap          = false
 vim.opt.writebackup   = false
 vim.g.mapleader       = ','
+
+addAutocommand({ 'BufNewFile', 'BufRead' }, '*', function()
+  vim.wo.spell = false
+end)
 
 -- Force auto-wrapping long lines while typing
 addAutocommand('BufEnter', '*', function() vim.bo.formatoptions = vim.bo.formatoptions .. 't' end)
@@ -119,7 +128,7 @@ vim.keymap.set('', '#', function()
   vim.api.nvim_input('N')
 end)
 vim.keymap.set('', '<c-n>', 'nzzzO')
-vim.keymap.set('n', '<Esc><Esc>', function() vim.api.nvim_command('nohlsearch') end)
+mapToCommand('<Esc><Esc>', 'nohlsearch')
 
 local function runGrepWithCurrentSearchString(dir_to_search)
   local search_string = string.gsub(vim.fn.getreg('/'), '^\\v', '')
@@ -131,6 +140,13 @@ local function runGrepWithCurrentSearchString(dir_to_search)
   vim.api.nvim_command('copen')
 end
 vim.keymap.set('n', '<leader>gg', function() runGrepWithCurrentSearchString('.') end)
+
+-- Map K to helptag lookup
+addAutocommand({ 'BufNewFile', 'BufRead' }, init_lua_path, function()
+  vim.keymap.set('n', 'K', function()
+    vim.api.nvim_command('help ' .. vim.fn.expand('<cword>'))
+  end, { buffer = 0 })
+end)
 
 -- Language specific settings
 -- Bash and sh
@@ -153,14 +169,12 @@ addFiletypeAutocommand('config', function() vim.bo.textwidth = 0 end)
 
 -- Git
 addFiletypeAutocommand('git', function()
-  vim.wo.spell = false
   vim.wo.wrap = true
 end)
 addFiletypeAutocommand('gitcommit', function()
   vim.wo.spell = true
   vim.bo.textwidth = 72
 end)
-addFiletypeAutocommand('GV', function() vim.wo.spell = false end)
 
 -- Help
 addFiletypeAutocommand('help', function() vim.bo.textwidth = 78 end)
@@ -181,9 +195,6 @@ addFiletypeAutocommand('python', function()
   vim.wo.wrap = true
   vim.bo.textwidth = 0
 end)
-
--- Qf (QuickFix)
-addFiletypeAutocommand('qf', function() vim.wo.spell = false end)
 
 -- Scheme
 vim.g.is_chicken = 1
@@ -223,7 +234,6 @@ end)
 -- Setup terminal and preserve terminal mode when switching windows
 addAutocommand('TermOpen', '*', function()
   vim.wo.number = false
-  vim.wo.spell = false
 
   vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
     buffer = 0,
@@ -268,21 +278,6 @@ end)
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_localrmdir = 'rm -rf'
-
--- Termdebug
-vim.api.nvim_command('packadd termdebug')
-
-vim.g.termdebug_wide = 1
-
-local function startDebugSession(opts)
-  vim.keymap.set('n', '<F5>', function() vim.api.nvim_command('Step') end)
-  vim.keymap.set('n', '<F6>', function() vim.api.nvim_command('functiOver') end)
-  vim.keymap.set('n', '<F7>', function() vim.api.nvim_command('functiFinish') end)
-  vim.keymap.set('n', '<F8>', function() vim.api.nvim_command('Evaluate') end)
-  vim.keymap.set('n', '<F8>', function() vim.api.nvim_command('Evaluate') end)
-  vim.api.nvim_command('TermdebugCommand ' .. opts.args)
-end
-vim.api.nvim_create_user_command('Debug', startDebugSession, { nargs = '+', complete = 'file' })
 
 -- nvim-cmp
 local nvim_cmp = require('cmp')
@@ -346,7 +341,7 @@ vim.g.UltiSnipsEditSplit = 'horizontal'
 vim.g.UltiSnipsExpandTrigger = '<tab>'
 vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
 vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
-vim.keymap.set('n', '<leader>u', function() vim.api.nvim_command('UltiSnipsEdit') end)
+mapToCommand('<leader>u', 'UltiSnipsEdit')
 
 addFiletypeAutocommand('snippets', function()
   vim.bo.expandtab = false
@@ -357,15 +352,14 @@ addAutocommand('BufWritePost', '*.snippets', 'call UltiSnips#RefreshSnippets()')
 addAutocommand('BufWinEnter', '*.snippets', 'normal! zM')
 
 -- vim-fugitive
-vim.keymap.set('n', '<a-s>', function() vim.api.nvim_command('Gwrite') end)
-vim.keymap.set('n', '<F10>', function() vim.api.nvim_command('Git') end)
-vim.keymap.set('n', '<F11>', function() vim.api.nvim_command('Git commit') end)
-vim.keymap.set('n', '<F12>', function() vim.api.nvim_command('Git push') end)
+mapToCommand('<a-s>', 'Gwrite')
+mapToCommand('<F10>', 'Git')
+mapToCommand('<F11>', 'Git commit')
+mapToCommand('<F12>', 'Git push')
 addFiletypeAutocommand('fugitive', function() vim.wo.wrap = true end)
-addFiletypeAutocommand('fugitiveblame', function() vim.wo.spell = false end)
 
 -- gv.vim
-vim.keymap.set('n', '<F9>', function() vim.api.nvim_command('GV --all') end)
+mapToCommand('<F9>', 'GV --all')
 
 -- vim-table-mode
 vim.g.table_mode_corner           = '|'
@@ -378,7 +372,7 @@ addFiletypeAutocommand({ 'markdown', 'text' }, 'silent TableModeEnable')
 -- vim-better-whitespace
 vim.g.better_whitespace_filetypes_blacklist = { 'qf', 'diff', 'git' }
 addFiletypeAutocommand('fugitive', 'DisableWhitespace')
-vim.keymap.set('n', '<leader>tw', function() vim.api.nvim_command('ToggleWhitespace') end)
+mapToCommand('<leader>tw', 'ToggleWhitespace')
 
 -- vim-easy-align
 vim.keymap.set('v', '<cr>', '<Plug>(EasyAlign)*')
