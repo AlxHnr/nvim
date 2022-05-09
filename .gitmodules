@@ -79,3 +79,6 @@
 [submodule "pack/third-party/start/cmp-nvim-lua"]
 	path = pack/third-party/start/cmp-nvim-lua
 	url = https://github.com/hrsh7th/cmp-nvim-lua.git
+[submodule "pack/third-party/start/vim-speeddating"]
+	path = pack/third-party/start/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating.git
