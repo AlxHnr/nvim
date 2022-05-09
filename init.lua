@@ -439,6 +439,10 @@ require('lualine').setup{
   extensions = { 'quickfix' },
 }
 
+-- lightspeed.vim
+vim.g.lightspeed_no_default_keymaps = true
+vim.keymap.set('', '\'', '<Plug>Lightspeed_omni_s', { silent = true })
+
 -- Setup and load ./custom/ directory
 local custom_dir_path = vim.fn.stdpath('config') .. '/custom'
 vim.fn.mkdir(custom_dir_path .. '/spell', 'p')
