@@ -313,7 +313,7 @@ for type, icon in pairs(lsp_diagnostic_symbols) do
 end
 
 -- null-ls.nvim
-local null_ls = require('null-ls');
+local null_ls = require('null-ls')
 null_ls.setup{
   sources = {
     null_ls.builtins.diagnostics.shellcheck,
