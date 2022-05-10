@@ -425,15 +425,15 @@ end, { nargs = '?' })
 
 -- lualine.nvim
 local lualine_section_opts = {
-  lualine_a = {{ 'mode', fmt = function(_) return '' end }},
-  lualine_b = {{ 'branch', icon = '' }},
+  lualine_a = {{ 'mode', fmt = function(_) return '' end }},
+  lualine_b = {{ 'branch' }},
   lualine_c = {{ 'filename', path = 1, symbols = { modified = ' ', readonly = ' ' }}},
   lualine_x = {{ 'diagnostics', symbols = lsp_diagnostic_symbols }},
   lualine_y = {{ 'progress' }},
   lualine_z = {{ 'location'}},
 }
 require('lualine').setup{
-  options = { section_separators = { left = '◣', right = '◢' }},
+  options = { section_separators = { left = ' ', right = ' ' }},
   sections = lualine_section_opts,
   inactive_sections = lualine_section_opts,
   extensions = { 'quickfix' },

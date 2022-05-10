@@ -11,12 +11,13 @@ settings can be added to `./custom/init.lua` and will not be tracked by git.
 ![screenshot](https://user-images.githubusercontent.com/8235638/167307113-efc7d7a5-ea4d-4c53-a0d9-84c2a6d2d422.png)
 
 * Colorscheme: [nightfox](https://github.com/EdenEast/nightfox.nvim)
-* Font: DejaVu Sans Mono
+* Font: DejaVu Sans Mono (patched, see [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts))
 
 # Dependencies
 
 * [Neovim](https://neovim.io/) 0.7.0 (or higher) with its python3 provider
 * Terminal with true 24-bit color support, e.g. GNOME Terminal or iTerm2
+* Any [Nerd Font](https://github.com/ryanoasis/nerd-fonts) of your choice
 
 # Installation
 
