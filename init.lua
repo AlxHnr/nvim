@@ -314,11 +314,9 @@ end
 
 -- null-ls.nvim
 local null_ls = require('null-ls')
-null_ls.setup{
-  sources = {
-    null_ls.builtins.diagnostics.shellcheck,
-  }
-}
+null_ls.setup()
+null_ls.deregister{}
+null_ls.register(null_ls.builtins.diagnostics.shellcheck)
 
 -- telescope.nvim
 require('telescope').setup{
