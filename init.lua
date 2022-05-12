@@ -315,7 +315,9 @@ end
 -- null-ls.nvim
 local null_ls = require('null-ls')
 null_ls.setup()
-null_ls.deregister{}
+-- Make this config reloadable at runtime
+null_ls.disable{}
+null_ls.reset_sources()
 null_ls.register(null_ls.builtins.diagnostics.shellcheck)
 
 -- telescope.nvim
