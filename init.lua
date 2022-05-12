@@ -142,7 +142,7 @@ end
 vim.keymap.set('n', '<leader>gg', function() runGrepWithCurrentSearchString('.') end)
 
 -- Map K to helptag lookup
-addAutocommand({ 'BufNewFile', 'BufRead' }, init_lua_path, function()
+addAutocommand({ 'BufNewFile', 'BufRead' }, vim.fn.stdpath('config') .. '/*.lua', function()
   vim.keymap.set('n', 'K', function()
     vim.api.nvim_command('help ' .. vim.fn.expand('<cword>'))
   end, { buffer = 0 })
