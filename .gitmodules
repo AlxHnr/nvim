@@ -88,3 +88,6 @@
 [submodule "pack/third-party/start/vim-repeat"]
 	path = pack/third-party/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+[submodule "pack/third-party/start/vim-abolish"]
+	path = pack/third-party/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish.git
