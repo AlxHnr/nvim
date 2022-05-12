@@ -48,6 +48,9 @@ vim.opt.wrap          = false
 vim.opt.writebackup   = false
 vim.g.mapleader       = ','
 
+-- TODO: remove this line on next nvim release. See https://github.com/neovim/neovim/issues/18529
+vim.opt.switchbuf = 'uselast'
+
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*', function()
   vim.wo.spell = false
 end)
