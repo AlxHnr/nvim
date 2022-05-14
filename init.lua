@@ -27,6 +27,7 @@ end
 -- General settings
 vim.opt.cursorline    = true
 vim.opt.expandtab     = true
+vim.opt.foldlevel     = 99
 vim.opt.foldmethod    = 'syntax'
 vim.opt.guicursor     = ''
 vim.opt.ignorecase    = true
@@ -58,21 +59,6 @@ addAutocommand('VimEnter', '*', 'helptags ALL')
 
 -- Force auto-wrapping long lines while typing
 addAutocommand('BufEnter', '*', function() vim.bo.formatoptions = vim.bo.formatoptions .. 't' end)
-
--- Prevent text from being (un)folded while typing
-addAutocommand('InsertEnter', '*', function()
-  vim.w.last_foldmethod = vim.wo.foldmethod
-  vim.wo.foldmethod = 'manual'
-end)
-addAutocommand('InsertLeave', '*', function()
-  if vim.w.last_foldmethod ~= nil then
-    vim.wo.foldmethod = vim.w.last_foldmethod
-    vim.w.last_foldmethod = nil
-  end
-end)
-
--- Setup folds when opening files
-addAutocommand('BufWinEnter', '*', 'normal! zR')
 
 -- Force QuickFix window to the far bottom
 addFiletypeAutocommand('qf', function()
@@ -350,7 +336,7 @@ addFiletypeAutocommand('snippets', function()
   vim.bo.textwidth = 0
 end)
 addAutocommand('BufWritePost', '*.snippets', 'call UltiSnips#RefreshSnippets()')
-addAutocommand('BufWinEnter', '*.snippets', 'normal! zM')
+addAutocommand('BufWinEnter', '*.snippets', function() vim.wo.foldlevel = 0 end)
 
 -- vim-fugitive
 mapToCommand('<a-s>', 'Gwrite')
