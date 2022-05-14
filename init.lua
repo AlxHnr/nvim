@@ -54,6 +54,7 @@ vim.opt.switchbuf = 'uselast'
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*', function()
   vim.wo.spell = false
 end)
+addAutocommand('VimEnter', '*', 'helptags ALL')
 
 -- Force auto-wrapping long lines while typing
 addAutocommand('BufEnter', '*', function() vim.bo.formatoptions = vim.bo.formatoptions .. 't' end)
@@ -82,9 +83,6 @@ end)
 
 -- Keep location list populated with diagnostics
 addAutocommand('DiagnosticChanged', '*', function() vim.diagnostic.setloclist{ open = false } end)
-
--- Regenerate helptags
-vim.api.nvim_command('helptags ALL')
 
 -- General mappings
 vim.keymap.set('',  'j',         'gj', { silent = true })
