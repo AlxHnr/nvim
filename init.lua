@@ -1,28 +1,36 @@
 -- Setup augroup to make this config reloadable at runtime
 local init_lua_augroup = vim.api.nvim_create_augroup('init.lua', {})
-local function addAutocommand(event, pattern, vim_command_or_lua_callback)
-  local opts = { pattern = pattern, group = init_lua_augroup }
+
+-- Define some helper functions
+local function makeAutocommandOpts(vim_command_or_lua_callback)
   if type(vim_command_or_lua_callback) == 'string' then
-    opts.command = vim_command_or_lua_callback
+    return { command = vim_command_or_lua_callback }
   else
-    opts.callback = vim_command_or_lua_callback
+    return { callback = vim_command_or_lua_callback }
   end
-  vim.api.nvim_create_autocmd(event, opts)
 end
-
--- Reload this config when it's saved to disk
-local init_lua_path = vim.fn.stdpath('config') .. '/init.lua'
-addAutocommand('BufWritePost', init_lua_path, function() dofile(init_lua_path) end)
-
--- Some helper functions
-local function addFiletypeAutocommand(filetype_name, vim_command_or_lua_callback)
-  addAutocommand('FileType', filetype_name, vim_command_or_lua_callback)
+local function addAutocommand(events, pattern, vim_command_or_lua_callback)
+  local opts = makeAutocommandOpts(vim_command_or_lua_callback)
+  vim.api.nvim_create_autocmd(events, vim.fn.extend(opts, {
+    pattern = pattern,  group = init_lua_augroup
+  }))
+end
+local function addFiletypeAutocommand(filetype, vim_command_or_lua_callback)
+  addAutocommand('FileType', filetype, vim_command_or_lua_callback)
+end
+local function addBufferAutocommand(events, vim_command_or_lua_callback)
+  local opts = makeAutocommandOpts(vim_command_or_lua_callback)
+  vim.api.nvim_create_autocmd(events, vim.fn.extend(opts, { buffer = 0 }))
 end
 local function mapToCommand(keys, vim_command)
   vim.keymap.set('n', keys, function()
     vim.api.nvim_command(vim_command)
   end, { silent = true })
 end
+
+-- Reload this config when it's saved to disk
+local init_lua_path = vim.fn.stdpath('config') .. '/init.lua'
+addAutocommand('BufWritePost', init_lua_path, function() dofile(init_lua_path) end)
 
 -- General settings
 vim.opt.cursorline    = true
@@ -217,13 +225,11 @@ end)
 addAutocommand('TermOpen', '*', function()
   vim.wo.number = false
 
-  vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
-    buffer = 0, callback = function()
-      if vim.b.restoreTerminalMode ~= nil then
-        vim.api.nvim_command('startinsert')
-      end
+  addBufferAutocommand({ 'BufWinEnter', 'WinEnter' }, function()
+    if vim.b.restoreTerminalMode ~= nil then
+      vim.api.nvim_command('startinsert')
     end
-  })
+  end)
   vim.keymap.set('t', '<c-\\><c-n>', function()
     vim.api.nvim_command('stopinsert')
     vim.b.restoreTerminalMode = nil
