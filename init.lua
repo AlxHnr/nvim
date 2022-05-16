@@ -145,11 +145,6 @@ vim.opt.cinoptions = '(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1'
 addAutocommand({ 'BufNewFile', 'BufRead' }, { '*.[ch]', '*.[ch]pp' }, function()
   vim.wo.spell = true
 end)
-addFiletypeAutocommand({ 'c', 'cpp' }, function()
-  vim.bo.textwidth = 0
-  vim.bo.formatexpr = 'v:lua.vim.lsp.formatexpr()'
-  vim.keymap.set('', '=', 'gq', { buffer = 0 })
-end)
 
 -- Config
 addFiletypeAutocommand('config', function() vim.bo.textwidth = 0 end)
@@ -284,11 +279,17 @@ nvim_cmp.setup{
 -- lsp settings
 local capabilities =
   require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function(client, bufnr)
+local on_attach = function()
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = 0 })
   vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, { buffer = 0 })
+
+  -- Formatting-related setting
+  vim.bo.textwidth = 0
+  vim.bo.formatexpr = 'v:lua.vim.lsp.formatexpr()'
+  vim.keymap.set('', '=', 'gq', { buffer = 0 })
 end
+
 require('lspconfig').clangd.setup{ capabilities = capabilities, on_attach = on_attach }
 
 local lsp_diagnostic_symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' }
