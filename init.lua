@@ -223,9 +223,7 @@ addAutocommand('TermOpen', '*', function()
   vim.wo.number = false
 
   vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
-    buffer = 0,
-    group = init_lua_augroup,
-    callback = function()
+    buffer = 0, callback = function()
       if vim.b.restoreTerminalMode ~= nil then
         vim.api.nvim_command('startinsert')
       end
