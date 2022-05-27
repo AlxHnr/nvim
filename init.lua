@@ -176,7 +176,7 @@ addFiletypeAutocommand('html', function() vim.bo.textwidth = 0 end)
 vim.g.markdown_fenced_languages = {
   'c', 'cpp', 'lisp', 'clojure', 'sh', 'bash=sh', 'css',
   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
-  'python', 'ruby', 'html', 'vim', 'desktop', 'diff',
+  'python', 'ruby', 'html', 'vim', 'desktop', 'diff', 'lua',
 }
 addFiletypeAutocommand('markdown', function() vim.wo.spell = true end)
 
