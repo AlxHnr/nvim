@@ -129,7 +129,7 @@ local function runGrepWithCurrentSearchString(dir_to_search)
   local search_string = string.gsub(vim.fn.getreg('/'), '^\\v', '')
   search_string = string.gsub(search_string, '|', '\\|')
   local grep_case_sensitive_flag = string.match(search_string, '%u') and '' or '-i'
-  vim.api.nvim_command('silent! grep! -riE ' .. grep_case_sensitive_flag
+  vim.api.nvim_command('silent! grep! -rIE ' .. grep_case_sensitive_flag
   .. ' --exclude-dir=.git/ --exclude-dir=build/ -- ' .. vim.fn.shellescape(search_string)
   .. ' ' .. vim.fn.shellescape(dir_to_search))
   vim.api.nvim_command('copen')
