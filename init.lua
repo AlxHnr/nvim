@@ -58,7 +58,7 @@ vim.opt.writebackup   = false
 vim.g.mapleader       = ','
 
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*', function()
-  vim.wo.spell = false
+  vim.opt_local.spell = false
 end)
 addAutocommand('VimEnter', '*', 'helptags ALL')
 
@@ -148,7 +148,7 @@ vim.g.sh_fold_enabled = 1
 vim.g.c_syntax_for_h = 1
 vim.opt.cinoptions = '(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1'
 addAutocommand({ 'BufNewFile', 'BufRead' }, { '*.[ch]', '*.[ch]pp' }, function()
-  vim.wo.spell = true
+  vim.opt_local.spell = true
 end)
 
 -- Config
@@ -159,7 +159,7 @@ addFiletypeAutocommand('git', function()
   vim.wo.wrap = true
 end)
 addFiletypeAutocommand('gitcommit', function()
-  vim.wo.spell = true
+  vim.opt_local.spell = true
   vim.bo.textwidth = 72
 end)
 
@@ -175,7 +175,7 @@ vim.g.markdown_fenced_languages = {
   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
   'python', 'ruby', 'html', 'vim', 'desktop', 'diff', 'lua',
 }
-addFiletypeAutocommand('markdown', function() vim.wo.spell = true end)
+addFiletypeAutocommand('markdown', function() vim.opt_local.spell = true end)
 
 -- Python
 addFiletypeAutocommand('python', function()
@@ -185,13 +185,13 @@ end)
 
 -- Scheme
 vim.g.is_chicken = 1
-addFiletypeAutocommand('scheme', function() vim.wo.foldnestmax = 2 end)
+addFiletypeAutocommand('scheme', function() vim.opt_local.foldnestmax = 2 end)
 
 -- Tex
 vim.g.tex_flavor = 'latex'
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*.lco', function() vim.bo.filetype = 'tex' end)
 addFiletypeAutocommand('tex', function()
-  vim.wo.spell = true
+  vim.opt_local.spell = true
   vim.wo.foldmethod = 'marker'
 end)
 
@@ -220,7 +220,7 @@ end)
 
 -- Setup terminal and preserve terminal mode when switching windows
 addAutocommand('TermOpen', '*', function()
-  vim.wo.number = false
+  vim.opt_local.number = false
 
   addBufferAutocommand({ 'BufWinEnter', 'WinEnter' }, function()
     if vim.b.restoreTerminalMode ~= nil then
