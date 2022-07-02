@@ -156,7 +156,7 @@ addFiletypeAutocommand('config', function() vim.bo.textwidth = 0 end)
 
 -- Git
 addFiletypeAutocommand('git', function()
-  vim.wo.wrap = true
+  vim.opt_local.wrap = true
 end)
 addFiletypeAutocommand('gitcommit', function()
   vim.opt_local.spell = true
@@ -179,7 +179,7 @@ addFiletypeAutocommand('markdown', function() vim.opt_local.spell = true end)
 
 -- Python
 addFiletypeAutocommand('python', function()
-  vim.wo.wrap = true
+  vim.opt_local.wrap = true
   vim.bo.textwidth = 0
 end)
 
@@ -192,7 +192,7 @@ vim.g.tex_flavor = 'latex'
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*.lco', function() vim.bo.filetype = 'tex' end)
 addFiletypeAutocommand('tex', function()
   vim.opt_local.spell = true
-  vim.wo.foldmethod = 'marker'
+  vim.opt_local.foldmethod = 'marker'
 end)
 
 -- Typescript
@@ -200,7 +200,7 @@ addAutocommand({ 'BufNewFile', 'BufRead' }, '*.tsx', function() vim.bo.filetype 
 
 -- Vim
 vim.g.vim_indent_cont = vim.go.shiftwidth
-addFiletypeAutocommand('vim', function() vim.wo.foldmethod = 'marker' end)
+addFiletypeAutocommand('vim', function() vim.opt_local.foldmethod = 'marker' end)
 
 -- Mapping for discarding undo history
 vim.keymap.set('n', '<leader>du', function()
@@ -338,14 +338,14 @@ addFiletypeAutocommand('snippets', function()
   vim.bo.textwidth = 0
 end)
 addAutocommand('BufWritePost', '*.snippets', 'call UltiSnips#RefreshSnippets()')
-addAutocommand('BufWinEnter', '*.snippets', function() vim.wo.foldlevel = 0 end)
+addAutocommand('BufWinEnter', '*.snippets', function() vim.opt_local.foldlevel = 0 end)
 
 -- vim-fugitive
 mapToCommand('<a-s>', 'Gwrite')
 mapToCommand('<F10>', 'Git')
 mapToCommand('<F11>', 'Git commit')
 mapToCommand('<F12>', 'Git push')
-addFiletypeAutocommand('fugitive', function() vim.wo.wrap = true end)
+addFiletypeAutocommand('fugitive', function() vim.opt_local.wrap = true end)
 
 -- gv.vim
 mapToCommand('<F9>', 'GV --all')
