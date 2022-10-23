@@ -15,7 +15,7 @@ settings can be added to `./custom/init.lua` and will not be tracked by git.
 
 # Dependencies
 
-* [Neovim](https://neovim.io/) 0.7.0 (or higher) with its python3 provider
+* [Neovim](https://neovim.io/) 0.8.0 (or higher) with its python3 provider
 * Terminal with true 24-bit color support, e.g. GNOME Terminal or iTerm2
 * Any [Nerd Font](https://github.com/ryanoasis/nerd-fonts) of your choice
 

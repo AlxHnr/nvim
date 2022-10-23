@@ -254,6 +254,7 @@ addAutocommand('TermOpen', '*', function()
     end
   end
   vim.b.restoreTerminalMode = true
+  vim.api.nvim_command('DisableWhitespace')
   vim.api.nvim_command('startinsert!')
 end)
 
@@ -280,8 +281,6 @@ nvim_cmp.setup{
 }
 
 -- lsp settings
-local capabilities =
-  require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function()
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = 0 })
@@ -293,7 +292,10 @@ local on_attach = function()
   vim.keymap.set('', '=', 'gq', { buffer = 0 })
 end
 
-require('lspconfig').clangd.setup{ capabilities = capabilities, on_attach = on_attach }
+require('lspconfig').clangd.setup{
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  on_attach = on_attach,
+}
 
 local lsp_diagnostic_symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' }
 for type, icon in pairs(lsp_diagnostic_symbols) do
