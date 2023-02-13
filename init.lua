@@ -424,7 +424,7 @@ local lualine_section_opts = {
   lualine_z = {{ 'location'}},
 }
 require('lualine').setup{
-  options = { section_separators = { left = ' ', right = ' ' }},
+  options = { section_separators = { left = ' ', right = ' ' }},
   sections = lualine_section_opts,
   inactive_sections = lualine_section_opts,
   extensions = { 'quickfix' },
