@@ -158,7 +158,7 @@ addFiletypeAutocommand('config', function() vim.bo.textwidth = 0 end)
 addFiletypeAutocommand('git', function()
   vim.opt_local.wrap = true
 end)
-addFiletypeAutocommand('gitcommit', function()
+addAutocommand({ 'BufNewFile', 'BufRead' }, 'COMMIT_EDITMSG', function()
   vim.opt_local.spell = true
   vim.bo.textwidth = 72
 end)
@@ -176,7 +176,9 @@ vim.g.markdown_fenced_languages = {
   'python', 'ruby', 'html', 'vim', 'desktop', 'diff', 'lua',
 }
 vim.g.markdown_recommended_style = 0
-addFiletypeAutocommand('markdown', function() vim.opt_local.spell = true end)
+addAutocommand({ 'BufNewFile', 'BufRead' }, '*.md', function()
+  vim.opt_local.spell = true
+end)
 
 -- Python
 addFiletypeAutocommand('python', function()
@@ -191,7 +193,7 @@ addFiletypeAutocommand('scheme', function() vim.opt_local.foldnestmax = 2 end)
 -- Tex
 vim.g.tex_flavor = 'latex'
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*.lco', function() vim.bo.filetype = 'tex' end)
-addFiletypeAutocommand('tex', function()
+addAutocommand({ 'BufNewFile', 'BufRead' }, '*.tex', function()
   vim.opt_local.spell = true
   vim.opt_local.foldmethod = 'marker'
 end)
