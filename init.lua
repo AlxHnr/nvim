@@ -175,6 +175,7 @@ vim.g.markdown_fenced_languages = {
   'javascript', 'js=javascript', 'json=javascript', 'perl', 'php',
   'python', 'ruby', 'html', 'vim', 'desktop', 'diff', 'lua',
 }
+vim.g.markdown_recommended_style = 0
 addFiletypeAutocommand('markdown', function() vim.opt_local.spell = true end)
 
 -- Python
