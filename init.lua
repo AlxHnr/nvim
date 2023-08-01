@@ -373,9 +373,6 @@ mapToCommand('<leader>tw', 'ToggleWhitespace')
 -- vim-easy-align
 vim.keymap.set('v', '<cr>', '<Plug>(EasyAlign)*')
 
--- vimtex
-vim.g.vimtex_quickfix_mode = 0
-
 -- nightfox
 if vim.g.colors_name == nil then
   vim.api.nvim_command('colorscheme nightfox')

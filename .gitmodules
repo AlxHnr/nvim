@@ -34,9 +34,6 @@
 [submodule "pack/third-party/start/vim-table-mode"]
 	path = pack/third-party/start/vim-table-mode
 	url = https://github.com/dhruvasagar/vim-table-mode.git
-[submodule "pack/third-party/start/vimtex"]
-	path = pack/third-party/start/vimtex
-	url = https://github.com/lervag/vimtex.git
 [submodule "pack/third-party/start/nvim-cmp"]
 	path = pack/third-party/start/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git
