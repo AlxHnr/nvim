@@ -435,9 +435,10 @@ require('lualine').setup{
   extensions = { 'quickfix' },
 }
 
--- lightspeed.vim
-vim.g.lightspeed_no_default_keymaps = true
-vim.keymap.set('', '\'', '<Plug>Lightspeed_omni_s', { silent = true })
+-- leap.vim
+vim.keymap.set('', '\'', function()
+  require('leap').leap{ target_windows = { vim.fn.win_getid() } }
+end, { silent = true })
 
 -- Setup and load ./custom/ directory
 local custom_dir_path = vim.fn.stdpath('config') .. '/custom'

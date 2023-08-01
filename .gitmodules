@@ -79,9 +79,9 @@
 [submodule "pack/third-party/start/vim-speeddating"]
 	path = pack/third-party/start/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating.git
-[submodule "pack/third-party/start/lightspeed.nvim"]
-	path = pack/third-party/start/lightspeed.nvim
-	url = https://github.com/ggandor/lightspeed.nvim.git
+[submodule "pack/third-party/start/leap.nvim"]
+	path = pack/third-party/start/leap.nvim
+	url = https://github.com/ggandor/leap.nvim.git
 [submodule "pack/third-party/start/vim-repeat"]
 	path = pack/third-party/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
