@@ -346,6 +346,9 @@ addFiletypeAutocommand('snippets', function()
 end)
 addAutocommand('BufWritePost', '*.snippets', 'call UltiSnips#RefreshSnippets()')
 addAutocommand('BufWinEnter', '*.snippets', function() vim.opt_local.foldlevel = 0 end)
+addAutocommand('VimEnter', '*', function()
+  vim.api.nvim_del_augroup_by_name('UltiSnips_AutoTrigger')
+end)
 
 -- vim-fugitive
 mapToCommand('<a-s>', 'Gwrite')
