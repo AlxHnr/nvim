@@ -316,21 +316,27 @@ null_ls.disable{}
 null_ls.reset_sources()
 null_ls.register(null_ls.builtins.diagnostics.shellcheck)
 
--- telescope.nvim
-require('telescope').setup{
-  defaults = {
-    mappings = {
-      i = {
-        ['<c-j>'] = "move_selection_next",
-        ['<c-k>'] = "move_selection_previous",
-        ['<esc>'] = "close",
-      }
-    }
-  }
+-- fzf
+vim.env.FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git'
+mapToCommand('<c-p>', 'Files')
+mapToCommand('<c-f>', 'History')
+mapToCommand('<c-h>', 'Helptags')
+
+vim.g.fzf_colors = {
+  fg      = { 'fg', 'Normal' },
+  bg      = { 'bg', 'Normal' },
+  hl      = { 'fg', 'Comment' },
+  ['fg+'] = { 'fg', 'CursorLine', 'CursorColumn', 'Normal' },
+  ['bg+'] = { 'bg', 'CursorLine', 'CursorColumn' },
+  ['hl+'] = { 'fg', 'Statement' },
+  info    = { 'fg', 'PreProc' },
+  border  = { 'fg', 'Ignore' },
+  prompt  = { 'fg', 'Conditional' },
+  pointer = { 'fg', 'Exception' },
+  marker  = { 'fg', 'Keyword' },
+  spinner = { 'fg', 'Label' },
+  header  = { 'fg', 'Comment' },
 }
-vim.keymap.set('n', '<c-p>', function() require("telescope.builtin").find_files{ hidden=true } end)
-vim.keymap.set('n', '<c-f>', require("telescope.builtin").oldfiles)
-vim.keymap.set('n', '<c-h>', require("telescope.builtin").help_tags)
 
 -- ultisnips
 vim.g.UltiSnipsEditSplit = 'horizontal'
@@ -379,13 +385,16 @@ vim.keymap.set('v', '<cr>', '<Plug>(EasyAlign)*')
 -- nightfox
 if vim.g.colors_name == nil then
   vim.api.nvim_command('colorscheme nightfox')
+  vim.env.BAT_THEME = 'base16'
 end
 
 vim.keymap.set('n', '<leader>cs', function()
   if vim.g.colors_name == 'nightfox' then
     vim.api.nvim_command('colorscheme dayfox')
+    vim.env.BAT_THEME = 'ansi'
   else
     vim.api.nvim_command('colorscheme nightfox')
+    vim.env.BAT_THEME = 'base16'
   end
 end)
 

@@ -17,6 +17,9 @@ settings can be added to `./custom/init.lua` and will not be tracked by git.
 
 * [Neovim](https://neovim.io/) 0.8.0 (or higher) with its python3 provider
 * Any [Nerd Font](https://github.com/ryanoasis/nerd-fonts) of your choice
+* [fzf](https://github.com/junegunn/fzf)
+* [fd](https://github.com/sharkdp/fd)
+* [bat](https://github.com/sharkdp/bat)
 
 # Installation
 

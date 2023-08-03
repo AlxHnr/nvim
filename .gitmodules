@@ -64,9 +64,6 @@
 [submodule "pack/third-party/start/plenary.nvim"]
 	path = pack/third-party/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
-[submodule "pack/third-party/start/telescope.nvim"]
-	path = pack/third-party/start/telescope.nvim
-	url = https://github.com/nvim-telescope/telescope.nvim.git
 [submodule "pack/third-party/start/lualine.nvim"]
 	path = pack/third-party/start/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim.git
@@ -88,3 +85,9 @@
 [submodule "pack/third-party/start/vim-abolish"]
 	path = pack/third-party/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
+[submodule "pack/third-party/start/fzf"]
+        path = pack/third-party/start/fzf
+        url = https://github.com/junegunn/fzf
+[submodule "pack/third-party/start/fzf.vim"]
+	path = pack/third-party/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
