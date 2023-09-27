@@ -355,6 +355,8 @@ addFiletypeAutocommand('snippets', function()
 end)
 addAutocommand('BufWritePost', '*.snippets', 'call UltiSnips#RefreshSnippets()')
 addAutocommand('BufWinEnter', '*.snippets', function() vim.opt_local.foldlevel = 0 end)
+
+-- Workaround for high latency while typing, see https://github.com/SirVer/ultisnips/issues/1165
 addAutocommand('VimEnter', '*', function()
   vim.api.nvim_del_augroup_by_name('UltiSnips_AutoTrigger')
 end)
