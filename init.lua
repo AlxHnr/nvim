@@ -283,6 +283,9 @@ nvim_cmp.setup{
     { name = 'path' },
     { name = 'emoji', option = { insert = true } },
   },
+  -- Documentation pop-ups cause nvim to hang for a few seconds, see
+  -- https://github.com/hrsh7th/nvim-cmp/issues/1088
+  window = { documentation = nvim_cmp.config.disable },
 }
 
 -- lsp settings
