@@ -8,10 +8,10 @@ settings can be added to `./custom/init.lua` and will not be tracked by git.
 
 # Screenshot
 
-![screenshot](https://user-images.githubusercontent.com/8235638/167307113-efc7d7a5-ea4d-4c53-a0d9-84c2a6d2d422.png)
+![screenshot](https://github.com/AlxHnr/nvim/assets/8235638/d53d9a89-dcdd-4339-b5ff-df1379881068)
 
-* Colorscheme: [nightfox](https://github.com/EdenEast/nightfox.nvim)
-* Font: DejaVu Sans Mono (patched, see [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts))
+* Colorscheme: [kanagawa](https://github.com/rebelot/kanagawa.nvim)
+* Font: Hack (patched, see [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts))
 
 # Dependencies
 

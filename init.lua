@@ -387,19 +387,17 @@ mapToCommand('<leader>tw', 'ToggleWhitespace')
 -- vim-easy-align
 vim.keymap.set('v', '<cr>', '<Plug>(EasyAlign)*')
 
--- nightfox
+-- kanagawa
 if vim.g.colors_name == nil then
-  vim.api.nvim_command('colorscheme nightfox')
-  vim.env.BAT_THEME = 'base16'
+  vim.api.nvim_command('colorscheme kanagawa')
+  vim.env.BAT_THEME = 'ansi'
 end
 
 vim.keymap.set('n', '<leader>cs', function()
-  if vim.g.colors_name == 'nightfox' then
-    vim.api.nvim_command('colorscheme dayfox')
-    vim.env.BAT_THEME = 'ansi'
+  if vim.o.background == 'dark' then
+    vim.o.background = 'light'
   else
-    vim.api.nvim_command('colorscheme nightfox')
-    vim.env.BAT_THEME = 'base16'
+    vim.o.background = 'dark'
   end
 end)
 
