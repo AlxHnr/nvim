@@ -311,13 +311,12 @@ for type, icon in pairs(lsp_diagnostic_symbols) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- null-ls.nvim
-local null_ls = require('null-ls')
-null_ls.setup()
--- Make this config reloadable at runtime
-null_ls.disable{}
-null_ls.reset_sources()
-null_ls.register(null_ls.builtins.diagnostics.shellcheck)
+-- nvim-lint
+local nvim_lint = require('lint')
+nvim_lint.linters_by_ft = { sh = { 'shellcheck' } }
+addAutocommand({ 'BufRead', 'BufWritePost', 'InsertLeave', 'TextChanged' }, '*', function()
+  nvim_lint.try_lint()
+end)
 
 -- fzf
 vim.env.FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git'

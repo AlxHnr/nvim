@@ -64,9 +64,6 @@
 [submodule "pack/third-party/start/lualine.nvim"]
 	path = pack/third-party/start/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim.git
-[submodule "pack/third-party/start/null-ls.nvim"]
-	path = pack/third-party/start/null-ls.nvim
-	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
 [submodule "pack/third-party/start/cmp-nvim-lua"]
 	path = pack/third-party/start/cmp-nvim-lua
 	url = https://github.com/hrsh7th/cmp-nvim-lua.git
@@ -91,3 +88,6 @@
 [submodule "pack/third-party/start/kanagawa.nvim"]
 	path = pack/third-party/start/kanagawa.nvim
 	url = https://github.com/rebelot/kanagawa.nvim.git
+[submodule "pack/third-party/start/nvim-lint"]
+	path = pack/third-party/start/nvim-lint
+	url = https://github.com/mfussenegger/nvim-lint
