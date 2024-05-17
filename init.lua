@@ -37,6 +37,7 @@ vim.opt.cursorline    = true
 vim.opt.expandtab     = true
 vim.opt.foldlevel     = 99
 vim.opt.foldmethod    = 'syntax'
+vim.opt.grepprg       = 'grep -n $* /dev/null'
 vim.opt.guicursor     = ''
 vim.opt.ignorecase    = true
 vim.opt.modeline      = false
