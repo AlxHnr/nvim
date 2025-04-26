@@ -279,7 +279,19 @@ nvim_cmp.setup{
     { name = 'nvim_lua' },
     { name = 'ultisnips' },
     { name = 'buffer',
-      option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end },
+      option = {
+        get_bufnrs = function()
+          local buffers = {}
+          for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+            local buffer_size =
+              vim.api.nvim_buf_get_offset(buffer, vim.api.nvim_buf_line_count(buffer))
+            if vim.api.nvim_buf_is_loaded(buffer) and buffer_size < 1024 * 1024 then
+              table.insert(buffers, buffer)
+            end
+          end
+          return buffers
+        end
+      },
     },
     { name = 'path' },
     { name = 'emoji', option = { insert = true } },
