@@ -16,9 +16,6 @@
 [submodule "pack/third-party/start/vim-better-whitespace"]
 	path = pack/third-party/start/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
-[submodule "pack/third-party/start/vim-commentary"]
-	path = pack/third-party/start/vim-commentary
-	url = https://github.com/tpope/vim-commentary.git
 [submodule "pack/third-party/start/vim-easy-align"]
 	path = pack/third-party/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align.git
