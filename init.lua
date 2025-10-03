@@ -313,10 +313,11 @@ local on_attach = function()
   vim.keymap.set('', '=', 'gq', { buffer = 0 })
 end
 
-require('lspconfig').clangd.setup{
+vim.lsp.config('clangd', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = on_attach,
-}
+})
+vim.lsp.enable('clangd')
 
 local lsp_diagnostic_symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' }
 for type, icon in pairs(lsp_diagnostic_symbols) do
