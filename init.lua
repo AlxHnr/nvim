@@ -10,13 +10,23 @@ local function makeAutocommandOpts(vim_command_or_lua_callback)
   end
 end
 local function addAutocommand(events, pattern, vim_command_or_lua_callback)
-  local opts = makeAutocommandOpts(vim_command_or_lua_callback)
-  vim.api.nvim_create_autocmd(events, vim.fn.extend(opts, {
-    pattern = pattern,  group = init_lua_augroup
-  }))
+  local callback = function()
+    local opts = makeAutocommandOpts(vim_command_or_lua_callback)
+    vim.api.nvim_create_autocmd(events, vim.fn.extend(opts, {
+      pattern = pattern,  group = init_lua_augroup
+    }))
+  end
+  if vim.v.vim_did_enter == 1 then
+    callback()
+  else
+    vim.api.nvim_create_autocmd('VimEnter', { group = init_lua_augroup, callback = callback })
+  end
 end
 local function addFiletypeAutocommand(filetype, vim_command_or_lua_callback)
-  addAutocommand('FileType', filetype, vim_command_or_lua_callback)
+  addAutocommand('FileType', filetype, function()
+    local opts = makeAutocommandOpts(vim_command_or_lua_callback)
+    vim.api.nvim_create_autocmd('BufEnter', vim.fn.extend(opts, { buffer = 0, once = true }))
+  end)
 end
 local function addBufferAutocommand(events, vim_command_or_lua_callback)
   local opts = makeAutocommandOpts(vim_command_or_lua_callback)
@@ -148,9 +158,7 @@ vim.g.sh_fold_enabled = 1
 -- C and C++
 vim.g.c_syntax_for_h = 1
 vim.opt.cinoptions = '(0,E-s,N-s,U0,c0,g0,h0,i0,js,w1'
-addAutocommand({ 'BufNewFile', 'BufRead' }, { '*.[ch]', '*.[ch]pp' }, function()
-  vim.opt_local.spell = true
-end)
+addFiletypeAutocommand({ 'c', 'cpp' }, function() vim.opt_local.spell = true end)
 
 -- Config
 addFiletypeAutocommand('config', function() vim.bo.textwidth = 0 end)
@@ -177,7 +185,7 @@ vim.g.markdown_fenced_languages = {
   'python', 'ruby', 'html', 'vim', 'desktop', 'diff', 'lua',
 }
 vim.g.markdown_recommended_style = 0
-addAutocommand({ 'BufNewFile', 'BufRead' }, '*.md', function()
+addFiletypeAutocommand('markdown', function()
   vim.opt_local.spell = true
 end)
 
@@ -194,7 +202,7 @@ addFiletypeAutocommand('scheme', function() vim.opt_local.foldnestmax = 2 end)
 -- Tex
 vim.g.tex_flavor = 'latex'
 addAutocommand({ 'BufNewFile', 'BufRead' }, '*.lco', function() vim.bo.filetype = 'tex' end)
-addAutocommand({ 'BufNewFile', 'BufRead' }, '*.tex', function()
+addFiletypeAutocommand('tex', function()
   vim.opt_local.spell = true
   vim.opt_local.foldmethod = 'marker'
 end)
