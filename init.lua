@@ -187,6 +187,7 @@ vim.g.markdown_fenced_languages = {
 vim.g.markdown_recommended_style = 0
 addFiletypeAutocommand('markdown', function()
   vim.opt_local.spell = true
+  vim.opt_local.syntax = ''
 end)
 
 -- Python
@@ -205,6 +206,7 @@ addAutocommand({ 'BufNewFile', 'BufRead' }, '*.lco', function() vim.bo.filetype 
 addFiletypeAutocommand('tex', function()
   vim.opt_local.spell = true
   vim.opt_local.foldmethod = 'marker'
+  vim.opt_local.syntax = ''
 end)
 
 -- Typescript
@@ -382,7 +384,10 @@ mapToCommand('<a-s>', 'Gwrite')
 mapToCommand('<F10>', 'Git')
 mapToCommand('<F11>', 'Git commit')
 mapToCommand('<F12>', 'Git push')
-addFiletypeAutocommand('fugitive', function() vim.opt_local.wrap = true end)
+addAutocommand('User', 'FugitiveIndex', function()
+  vim.opt_local.syntax = 'diff'
+  vim.opt_local.wrap = true
+end)
 
 -- gv.vim
 mapToCommand('<F9>', 'GV --all')
