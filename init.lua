@@ -202,15 +202,12 @@ addFiletypeAutocommand('scheme', function() vim.opt_local.foldnestmax = 2 end)
 
 -- Tex
 vim.g.tex_flavor = 'latex'
-addAutocommand({ 'BufNewFile', 'BufRead' }, '*.lco', function() vim.bo.filetype = 'tex' end)
+vim.filetype.add{ extension = { lco = 'tex' }}
 addFiletypeAutocommand('tex', function()
   vim.opt_local.spell = true
   vim.opt_local.foldmethod = 'marker'
   vim.opt_local.syntax = ''
 end)
-
--- Typescript
-addAutocommand({ 'BufNewFile', 'BufRead' }, '*.tsx', function() vim.bo.filetype = 'typescript' end)
 
 -- Vim
 vim.g.vim_indent_cont = vim.go.shiftwidth
