@@ -66,7 +66,7 @@
 	url = https://github.com/tpope/vim-speeddating.git
 [submodule "pack/third-party/start/leap.nvim"]
 	path = pack/third-party/start/leap.nvim
-	url = https://github.com/ggandor/leap.nvim.git
+	url = https://codeberg.org/andyg/leap.nvim
 [submodule "pack/third-party/start/vim-repeat"]
 	path = pack/third-party/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
